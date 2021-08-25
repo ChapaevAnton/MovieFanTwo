@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import
+            alias="Film"
+            type="com.w4ereT1ckRtB1tch.moviefan.data.Film" />
+
+        <variable
+            name="film"
+            type="Film" />
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/film_details_fragment_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".ui.details.FilmDetailsFragment">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/details_film_app_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/details_title_film"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:minHeight="60dp"
+                app:collapsedTitleTextAppearance="@style/CustomCollapsedAppBar"
+                app:contentScrim="?attr/colorPrimary"
+                app:expandedTitleTextAppearance="@style/CustomExpandedAppBar"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:title="@{film.title}"
+                tools:title="@tools:sample/lorem">
+
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/details_poster_film"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="center"
+                    app:layout_collapseMode="parallax"
+                    app:srcGlide="@{film.poster}"
+                    tools:src="@tools:sample/avatars" />
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="parallax" />
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/share_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="130dp"
+            android:visibility="invisible"
+            app:backgroundTint="@color/ivi_red"
+            app:fabSize="mini"
+            app:layout_anchor="@id/include"
+            app:layout_anchorGravity="bottom|end"
+            app:rippleColor="@color/ivi_blue"
+            app:srcCompat="@drawable/ic_round_share_24"
+            app:tint="@color/white" />
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/favorites_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="80dp"
+            android:visibility="invisible"
+            app:backgroundTint="@color/ivi_red"
+            app:fabSize="mini"
+            app:layout_anchor="@id/include"
+            app:layout_anchorGravity="bottom|end"
+            app:rippleColor="@color/ivi_blue"
+            app:srcDrawable='@{film.isFavorites ? @drawable/ic_round_favorite_24 : @drawable/ic_round_favorite_border_24}'
+            app:tint="@color/white" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/details_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            app:backgroundTint="@color/ivi_red"
+            app:layout_anchor="@id/include"
+            app:layout_anchorGravity="bottom|end"
+            app:rippleColor="@color/ivi_blue"
+            app:srcCompat="@drawable/ic_round_add_24"
+            app:tint="@color/white" />
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/nested_film_details"
+            bind:film="@{film}" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

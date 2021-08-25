@@ -94,16 +94,16 @@ class MainActivityTest {
                 click()
             )
         )
-        onView(withId(R.id.details_film_fab)).check(matches(isDisplayed()))
-        onView(withId(R.id.details_favorites_film_fab)).check(matches(not(isDisplayed())))
-        onView(withId(R.id.details_film_fab)).perform(click())
+        onView(withId(R.id.details_fab)).check(matches(isDisplayed()))
+        onView(withId(R.id.favorites_fab)).check(matches(not(isDisplayed())))
+        onView(withId(R.id.details_fab)).perform(click())
 
-        onView(withId(R.id.details_favorites_film_fab)).check(matches(isDisplayed()))
-        onView(withId(R.id.details_favorites_film_fab)).check(matches(isEnabled()))
-        onView(withId(R.id.details_favorites_film_fab)).perform(click())
+        onView(withId(R.id.favorites_fab)).check(matches(isDisplayed()))
+        onView(withId(R.id.favorites_fab)).check(matches(isEnabled()))
+        onView(withId(R.id.favorites_fab)).perform(click())
 
-        onView(withId(R.id.details_film_fab)).perform(click())
-        onView(withId(R.id.details_favorites_film_fab)).check(matches(not(isDisplayed())))
+        onView(withId(R.id.details_fab)).perform(click())
+        onView(withId(R.id.favorites_fab)).check(matches(not(isDisplayed())))
     }
 
     //ввод текста в SearchView

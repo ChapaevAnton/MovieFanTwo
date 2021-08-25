@@ -8,3 +8,5 @@ and date binding during assembly, it was not possible to fix it after 18 hours. 
 is rebuilt on the basis of a new project and all files from branch 32 have been transferred to it.
 
 The project is now being developed in this repository. The old project, up to branch 32, is available at this link https://github.com/ChapaevAnton/MovieFan
+
+p\s managed to fix, the problem was that the name of the packages should not start with a capital letter ... it turned out after the transfer(

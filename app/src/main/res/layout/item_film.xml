@@ -76,7 +76,7 @@
             tools:text="@tools:sample/lorem" />
 
 
-        <com.W4ereT1ckRtB1tch.moviefan.ui.custom.view.RatingCircleView
+        <com.w4ereT1ckRtB1tch.moviefan.ui.custom.view.RatingCircleView
             android:id="@+id/rating_circle_film"
             android:layout_width="50dp"
             android:layout_height="50dp"

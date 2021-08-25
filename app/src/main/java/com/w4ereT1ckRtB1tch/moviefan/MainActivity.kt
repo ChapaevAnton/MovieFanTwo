@@ -7,14 +7,15 @@ import android.view.Gravity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import com.w4ereT1ckRtB1tch.moviefan.data.Film
+import com.w4ereT1ckRtB1tch.moviefan.databinding.ActivityMainBinding
 import com.w4ereT1ckRtB1tch.moviefan.ui.details.FilmDetailsFragment
 import com.w4ereT1ckRtB1tch.moviefan.ui.favorites.FavoritesFragment
 import com.w4ereT1ckRtB1tch.moviefan.ui.home.HomeFragment
 import com.w4ereT1ckRtB1tch.moviefan.ui.selections.SelectionsFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.snackbar.Snackbar
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,23 +27,24 @@ class MainActivity : AppCompatActivity() {
         const val FAVORITES_FRAGMENT_TAG = "favorite_fragment"
     }
 
+    private lateinit var binding:ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+
         //добавление default фрагмента
         val fragmentManager = supportFragmentManager
-        var fragment: Fragment? = fragmentManager.findFragmentById(R.id.main_fragment_container)
+        var fragment: Fragment? = fragmentManager.findFragmentById(R.id.fragment_container)
         if (fragment == null) {
             fragment = HomeFragment()
             fragmentManager.beginTransaction()
-                .add(R.id.main_fragment_container, fragment, HOME_FRAGMENT_TAG)
+                .add(R.id.fragment_container, fragment, HOME_FRAGMENT_TAG)
                 .commit()
         }
         //нижнее меню
-        val menuMainNavigationBottom =
-            findViewById<BottomNavigationView>(R.id.main_menu_navigation_bottom_bar)
         //обработчик выбора пунктов меню Navigation Bottom
-        menuMainNavigationBottom.setOnItemSelectedListener { item ->
+        binding.menuNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.main_menu_home -> {
                     switchFragmentMenu(
@@ -53,7 +55,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
 
-                R.id.main_menu_my_selections -> {
+                R.id.my_selections -> {
                     switchFragmentMenu(
                         checkFragmentExistence(SELECTIONS_FRAGMENT_TAG) ?: SelectionsFragment(),
                         SELECTIONS_FRAGMENT_TAG
@@ -62,7 +64,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
 
-                R.id.main_menu_favorites -> {
+                R.id.favorites -> {
                     switchFragmentMenu(
                         checkFragmentExistence(FAVORITES_FRAGMENT_TAG) ?: FavoritesFragment(),
                         FAVORITES_FRAGMENT_TAG
@@ -71,7 +73,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
 
-                R.id.main_menu_profile -> {
+                R.id.profile -> {
                     showSnackBar(R.string.main_menu_profile)
                     true
                 }
@@ -93,7 +95,7 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.main_fragment_container, filmDetailsFragment)
+            .replace(R.id.fragment_container, filmDetailsFragment)
             .addToBackStack(null)
             .commit()
         Log.d("TAG", "launchFilmDetailsFragment: ${supportFragmentManager.backStackEntryCount}")
@@ -101,14 +103,14 @@ class MainActivity : AppCompatActivity() {
     }
     //функция отображения SnackBar с заданной позицией и цветом
     fun showSnackBar(text: Int) {
-        val viewSnackBar = findViewById<CoordinatorLayout>(R.id.main_frame_snack_bar)
-        Snackbar.make(viewSnackBar, text, Snackbar.LENGTH_LONG).also {
+
+        Snackbar.make(binding.frameSnackBar, text, Snackbar.LENGTH_LONG).also {
             val view = it.view
             val paramsView: CoordinatorLayout.LayoutParams =
                 view.layoutParams as CoordinatorLayout.LayoutParams
             paramsView.gravity = Gravity.BOTTOM
             view.layoutParams = paramsView
-        }.setBackgroundTint(ContextCompat.getColor(viewSnackBar.context, R.color.ivi_blue)).show()
+        }.setBackgroundTint(ContextCompat.getColor(binding.frameSnackBar.context, R.color.ivi_blue)).show()
     }
 
     //диалоговое окно выходы из приложения
@@ -134,7 +136,7 @@ class MainActivity : AppCompatActivity() {
         Log.d("TAG", "switchFragmentMenu: $tag")
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.main_fragment_container, fragment, tag)
+            .replace(R.id.fragment_container, fragment, tag)
             .commit()
     }
 

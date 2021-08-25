@@ -44,17 +44,17 @@ class MainActivityTest {
         onView(withId(R.id.main_menu_home)).perform(click())
         onView(withId(R.id.home_fragment_root)).check(matches(isDisplayed()))
 
-        onView(withId(R.id.main_menu_my_selections)).perform(click())
+        onView(withId(R.id.my_selections)).perform(click())
         onView(withId(R.id.selections_fragment_root)).check(matches(isDisplayed()))
 
-        onView(withId(R.id.main_menu_favorites)).perform(click())
+        onView(withId(R.id.favorites)).perform(click())
         onView(withId(R.id.favorites_fragment_root)).check(matches(isDisplayed()))
     }
 
     @Test
     fun viewSearchAbleToEnterSearchTextAndCheckingTheSearchResult() {
 
-        onView(withId(R.id.main_menu_my_selections)).perform(click())
+        onView(withId(R.id.my_selections)).perform(click())
         onView(withId(R.id.selections_fragment_root)).check(matches(isDisplayed()))
 
         onView(withId(R.id.selections_search_top_bar)).check(matches(isDisplayed()))

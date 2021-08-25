@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_film_mini"
+    android:layout_width="100dp"
+    android:layout_height="150dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:stateListAnimator="@animator/cards_pressed_animator"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="5dp">
+
+    <ImageView
+        android:id="@+id/poster_film_mini"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/poster_film"
+        android:scaleType="centerCrop"
+        tools:src="@tools:sample/avatars" />
+
+</androidx.cardview.widget.CardView>

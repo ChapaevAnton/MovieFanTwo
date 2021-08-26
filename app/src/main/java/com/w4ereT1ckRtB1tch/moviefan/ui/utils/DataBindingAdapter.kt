@@ -1,6 +1,7 @@
 package com.w4ereT1ckRtB1tch.moviefan.ui.utils
 
 import android.graphics.drawable.Drawable
+import android.view.View
 import android.widget.ImageView
 import androidx.annotation.Nullable
 import androidx.databinding.BindingAdapter
@@ -22,4 +23,13 @@ object DataBindingAdapter {
     fun setImage(@Nullable floatingActionButton: FloatingActionButton?, drawable: Drawable) {
         floatingActionButton?.setImageDrawable(drawable)
     }
+
+    @BindingAdapter("visibleState")
+    @JvmStatic
+    fun setVisibleState(@Nullable floatingActionButton: FloatingActionButton?, visible: Int) {
+        floatingActionButton?.let {
+            if (visible == View.VISIBLE) it.show() else it.hide()
+        }
+    }
+
 }

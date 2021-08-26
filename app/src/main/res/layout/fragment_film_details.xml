@@ -7,12 +7,36 @@
     <data>
 
         <import
+            alias="View"
+            type="android.view.View" />
+
+        <import
             alias="Film"
             type="com.w4ereT1ckRtB1tch.moviefan.data.Film" />
+
+        <import
+            alias="OnClickListener"
+            type="android.view.View.OnClickListener" />
 
         <variable
             name="film"
             type="Film" />
+
+        <variable
+            name="onClickedDetails"
+            type="OnClickListener" />
+
+        <variable
+            name="onClickedShare"
+            type="OnClickListener" />
+
+        <variable
+            name="onClickedFavorites"
+            type="OnClickListener" />
+
+        <variable
+            name="isVisible"
+            type="androidx.databinding.ObservableBoolean" />
 
     </data>
 
@@ -66,14 +90,16 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="25dp"
             android:layout_marginBottom="130dp"
-            android:visibility="invisible"
+            android:onClick="@{(v) -> onClickedShare.onClick(v)}"
             app:backgroundTint="@color/ivi_red"
             app:fabSize="mini"
+            android:visibility="invisible"
             app:layout_anchor="@id/include"
             app:layout_anchorGravity="bottom|end"
             app:rippleColor="@color/ivi_blue"
             app:srcCompat="@drawable/ic_round_share_24"
-            app:tint="@color/white" />
+            app:tint="@color/white"
+            app:visibleState="@{isVisible ? View.VISIBLE : View.INVISIBLE}" />
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -82,6 +108,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="25dp"
             android:layout_marginBottom="80dp"
+            android:onClick="@{(v) -> onClickedFavorites.onClick(v)}"
             android:visibility="invisible"
             app:backgroundTint="@color/ivi_red"
             app:fabSize="mini"
@@ -89,7 +116,8 @@
             app:layout_anchorGravity="bottom|end"
             app:rippleColor="@color/ivi_blue"
             app:srcDrawable='@{film.isFavorites ? @drawable/ic_round_favorite_24 : @drawable/ic_round_favorite_border_24}'
-            app:tint="@color/white" />
+            app:tint="@color/white"
+            app:visibleState="@{isVisible ? View.VISIBLE : View.INVISIBLE}" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/details_fab"
@@ -97,6 +125,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
+            android:onClick="@{(v) -> onClickedDetails.onClick(v)}"
             app:backgroundTint="@color/ivi_red"
             app:layout_anchor="@id/include"
             app:layout_anchorGravity="bottom|end"

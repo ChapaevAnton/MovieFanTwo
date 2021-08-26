@@ -8,8 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.ObservableBoolean
 import androidx.fragment.app.Fragment
 import com.w4ereT1ckRtB1tch.moviefan.MainActivity
 import com.w4ereT1ckRtB1tch.moviefan.R
@@ -24,6 +24,7 @@ class FilmDetailsFragment : Fragment() {
     private lateinit var fabRotateAntiClock: Animation
     private var _binding: FragmentFilmDetailsBinding? = null
     private val binding get() = _binding!!
+    private val isVisible = ObservableBoolean(false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,41 +51,11 @@ class FilmDetailsFragment : Fragment() {
         film?.let {
             binding.film = it
         }
-        //кнопка действия fab
-        binding.detailsFab.setOnClickListener {
-            onClickDetailsFub()
-        }
 
-        //добавить в избранное
-        binding.favoritesFab.setOnClickListener {
-            film?.let {
-                if (it.isFavorites) {
-                    it.isFavorites = false
-                    binding.favoritesFab.setImageResource(R.drawable.ic_round_favorite_border_24)
-                } else {
-                    it.isFavorites = true
-                    binding.favoritesFab.setImageResource(R.drawable.ic_round_favorite_24)
-                }
-            }
-            Log.d("TAG", "DataBase: ${DataBase.filmDataBase}")
-        }
-
-        //поделиться информацией о фильме
-        binding.shareFab.setOnClickListener {
-            val intent = Intent().apply {
-                action = Intent.ACTION_SEND
-                putExtra(
-                    Intent.EXTRA_TEXT,
-                    "Обязательно посмотри этот фильм:\n" +
-                            "Название \"${film?.title}\"\n" +
-                            "Описание: ${film?.description}\n" +
-                            "Год выпуска: ${film?.year?.year}\n" +
-                            "Рейтинг: ${film?.rating}"
-                )
-                type = "text/plain"
-            }
-            startActivity(intent)
-        }
+        binding.onClickedDetails = onClickedDetails
+        binding.onClickedFavorites = onClickedFavorites
+        binding.onClickedShare = onClickedShare
+        binding.isVisible = isVisible
     }
 
     override fun onDestroy() {
@@ -92,16 +63,43 @@ class FilmDetailsFragment : Fragment() {
         _binding = null
     }
 
-    private fun onClickDetailsFub() {
-        if (binding.favoritesFab.isVisible && binding.shareFab.isVisible) {
-            binding.favoritesFab.hide()
-            binding.shareFab.hide()
+    private val onClickedDetails = View.OnClickListener {
+        if (isVisible.get()) {
+          isVisible.set(false)
             binding.detailsFab.startAnimation(fabRotateClock)
         } else {
-            binding.favoritesFab.show()
-            binding.shareFab.show()
+          isVisible.set(true)
             binding.detailsFab.startAnimation(fabRotateAntiClock)
         }
+    }
+
+    private val onClickedShare = View.OnClickListener {
+        val intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(
+                Intent.EXTRA_TEXT,
+                "Обязательно посмотри этот фильм:\n" +
+                        "Название \"${film?.title}\"\n" +
+                        "Описание: ${film?.description}\n" +
+                        "Год выпуска: ${film?.year?.year}\n" +
+                        "Рейтинг: ${film?.rating}"
+            )
+            type = "text/plain"
+        }
+        startActivity(intent)
+    }
+
+    private val onClickedFavorites = View.OnClickListener {
+        film?.let {
+            if (it.isFavorites) {
+                it.isFavorites = false
+                binding.favoritesFab.setImageResource(R.drawable.ic_round_favorite_border_24)
+            } else {
+                it.isFavorites = true
+                binding.favoritesFab.setImageResource(R.drawable.ic_round_favorite_24)
+            }
+        }
+        Log.d("TAG", "DataBase: ${DataBase.filmDataBase}")
     }
 
 }

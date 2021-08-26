@@ -10,6 +10,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
 import com.w4ereT1ckRtB1tch.moviefan.MainActivity
 import com.w4ereT1ckRtB1tch.moviefan.R
@@ -19,7 +20,7 @@ import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentFilmDetailsBinding
 
 class FilmDetailsFragment : Fragment() {
 
-    private var film: Film? = null
+    private var film = ObservableField<Film>()
     private lateinit var fabRotateClock: Animation
     private lateinit var fabRotateAntiClock: Animation
     private var _binding: FragmentFilmDetailsBinding? = null
@@ -28,7 +29,7 @@ class FilmDetailsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        film = arguments?.get(MainActivity.ITEM_FILM_DETAILS) as Film
+        film.set(arguments?.get(MainActivity.ITEM_FILM_DETAILS) as Film)
         fabRotateClock =
             AnimationUtils.loadAnimation(requireContext(), R.anim.fab_rotate_clock_animation)
         fabRotateAntiClock =
@@ -48,10 +49,7 @@ class FilmDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        film?.let {
-            binding.film = it
-        }
-
+        binding.film = film
         binding.onClickedDetails = onClickedDetails
         binding.onClickedFavorites = onClickedFavorites
         binding.onClickedShare = onClickedShare
@@ -65,15 +63,15 @@ class FilmDetailsFragment : Fragment() {
 
     private val onClickedDetails = View.OnClickListener {
         if (isVisible.get()) {
-          isVisible.set(false)
             binding.detailsFab.startAnimation(fabRotateClock)
         } else {
-          isVisible.set(true)
             binding.detailsFab.startAnimation(fabRotateAntiClock)
         }
+        isVisible.set(!isVisible.get())
     }
 
     private val onClickedShare = View.OnClickListener {
+        val film: Film? = film.get()
         val intent = Intent().apply {
             action = Intent.ACTION_SEND
             putExtra(
@@ -90,14 +88,8 @@ class FilmDetailsFragment : Fragment() {
     }
 
     private val onClickedFavorites = View.OnClickListener {
-        film?.let {
-            if (it.isFavorites) {
-                it.isFavorites = false
-                binding.favoritesFab.setImageResource(R.drawable.ic_round_favorite_border_24)
-            } else {
-                it.isFavorites = true
-                binding.favoritesFab.setImageResource(R.drawable.ic_round_favorite_24)
-            }
+        film.get()?.let {
+            it.isFavorites(!it.isFavorites())
         }
         Log.d("TAG", "DataBase: ${DataBase.filmDataBase}")
     }

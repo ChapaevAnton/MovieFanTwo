@@ -26,9 +26,9 @@ object DataBindingAdapter {
 
     @BindingAdapter("visibleState")
     @JvmStatic
-    fun setVisibleState(@Nullable floatingActionButton: FloatingActionButton?, visible: Int) {
+    fun setVisibleState(@Nullable floatingActionButton: FloatingActionButton?, visible: Boolean) {
         floatingActionButton?.let {
-            if (visible == View.VISIBLE) it.show() else it.hide()
+            if (visible) it.show() else it.hide()
         }
     }
 

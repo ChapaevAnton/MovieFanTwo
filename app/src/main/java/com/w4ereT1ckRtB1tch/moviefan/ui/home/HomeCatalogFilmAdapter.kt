@@ -49,7 +49,7 @@ class HomeCatalogFilmAdapter(private val onItemClickListener: OnItemFilmClickLis
                 Glide.with(itemView).load(it.poster).centerCrop().into(poster)
                 ratingCircle.setProgress(it.rating.times(10).toInt())
                 year.text = it.year.year.toString()
-                favorites.setImageResource(if (it.isFavorites) R.drawable.ic_round_favorite_24 else R.drawable.ic_round_favorite_border_24)
+                favorites.setImageResource(if (it.isFavorites()) R.drawable.ic_round_favorite_24 else R.drawable.ic_round_favorite_border_24)
             }
 
             itemView.setOnClickListener {

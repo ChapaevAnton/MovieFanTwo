@@ -5,38 +5,37 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
 import com.w4ereT1ckRtB1tch.moviefan.MainActivity
+import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.data.DataBase
+import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentHomeBinding
 import com.w4ereT1ckRtB1tch.moviefan.ui.utils.AnimationHelper
 import com.w4ereT1ckRtB1tch.moviefan.ui.utils.SpacingItemDecoration
-import com.google.android.material.appbar.MaterialToolbar
-import com.w4ereT1ckRtB1tch.moviefan.R
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homeCatalogFilmAdapter: HomeCatalogFilmAdapter
-    private lateinit var listRecommendAdapter: ListRecommendAdapter
-    private lateinit var homeRecyclerListRecommend: RecyclerView
-    private lateinit var homeRecyclerCatalogFilm: RecyclerView
+    private lateinit var filmAdapter: HomeCatalogFilmAdapter
+    private lateinit var listdapter: ListRecommendAdapter
     private lateinit var itemDecorator: SpacingItemDecoration
     private lateinit var itemDecoratorMini: SpacingItemDecoration
+    private lateinit var binding: FragmentHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //список рекомендации
-        listRecommendAdapter = ListRecommendAdapter()
-        listRecommendAdapter.addItems(DataBase.filmDataBase.take(6))
+        listdapter = ListRecommendAdapter()
+        listdapter.addItems(DataBase.filmDataBase.take(6))
         //каталог фильмов
         //создаем адаптер клик на элементе
-        homeCatalogFilmAdapter =
+        filmAdapter =
             HomeCatalogFilmAdapter { film ->
                 //слушатель открываем фрагмент и передаем данные
                 (requireActivity() as MainActivity).launchFilmDetailsFragment(film)
             }
         //загружаем БД
-        homeCatalogFilmAdapter.addItems(DataBase.filmDataBase)
+        filmAdapter.addItems(DataBase.filmDataBase)
         //декоратор
         itemDecorator = SpacingItemDecoration(10)
         itemDecoratorMini = SpacingItemDecoration(5)
@@ -47,7 +46,8 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,23 +56,20 @@ class HomeFragment : Fragment() {
         //анимация открытия фрагмента
         AnimationHelper.performFragmentCircularRevealAnimation(view, requireActivity(), 1)
         //верхнее меню
-        val mainMenuTopBar = view.findViewById<MaterialToolbar>(R.id.home_menu_top_bar)
         //список рекомендации
-        homeRecyclerListRecommend = view.findViewById(R.id.home_recycler_list_recommend)
-        homeRecyclerListRecommend.apply {
-            adapter = listRecommendAdapter
+        binding.recommendListFilm.apply {
+            adapter = listdapter
             addItemDecoration(itemDecoratorMini)
         }
         //список фильмов основной
-        homeRecyclerCatalogFilm = view.findViewById(R.id.home_recycler_catalog_film)
         //иницилизирем список
-        homeRecyclerCatalogFilm.apply {
+        binding.catalogFilm.apply {
             //устанавливаем адаптер
-            adapter = homeCatalogFilmAdapter
+            adapter = filmAdapter
             addItemDecoration(itemDecorator)
         }
         //обработчик выбора пунктов меню Top Bar
-        mainMenuTopBar.setOnMenuItemClickListener { menuItem ->
+        binding.menuTopBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.main_menu_setting -> {
                     (requireActivity() as MainActivity).showSnackBar(R.string.main_menu_settings)
@@ -81,13 +78,12 @@ class HomeFragment : Fragment() {
                 else -> false
             }
         }
-
     }
 
     override fun onResume() {
         super.onResume()
         Log.d("TAG", "onResume: HomeFragment")
-        homeCatalogFilmAdapter.updateDataItems(DataBase.filmDataBase)
+        filmAdapter.updateDataItems(DataBase.filmDataBase)
     }
 
 }

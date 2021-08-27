@@ -29,8 +29,8 @@ class MainActivityTest {
 
     @Test
     fun homeRecyclerCatalogFilmShouldBeAttached() {
-        onView(withId(R.id.home_recycler_catalog_film)).check(matches(isDisplayed()))
-        onView(withId(R.id.home_recycler_catalog_film)).perform(
+        onView(withId(R.id.catalog_film)).check(matches(isDisplayed()))
+        onView(withId(R.id.catalog_film)).perform(
             RecyclerViewActions.actionOnItemAtPosition<HomeCatalogFilmAdapter.ItemFilmHolder>(
                 0,
                 click()
@@ -71,8 +71,8 @@ class MainActivityTest {
 
     @Test
     fun shouldOpenDetailsFragmentAndSwipeUpDownView() {
-        onView(withId(R.id.home_recycler_catalog_film)).check(matches(isDisplayed()))
-        onView(withId(R.id.home_recycler_catalog_film)).perform(
+        onView(withId(R.id.catalog_film)).check(matches(isDisplayed()))
+        onView(withId(R.id.catalog_film)).perform(
             RecyclerViewActions.actionOnItemAtPosition<HomeCatalogFilmAdapter.ItemFilmHolder>(
                 0,
                 click()
@@ -87,8 +87,8 @@ class MainActivityTest {
 
     @Test
     fun addFilmToFavoritesButtonClickable() {
-        onView(withId(R.id.home_recycler_catalog_film)).check(matches(isDisplayed()))
-        onView(withId(R.id.home_recycler_catalog_film)).perform(
+        onView(withId(R.id.catalog_film)).check(matches(isDisplayed()))
+        onView(withId(R.id.catalog_film)).perform(
             RecyclerViewActions.actionOnItemAtPosition<HomeCatalogFilmAdapter.ItemFilmHolder>(
                 0,
                 click()

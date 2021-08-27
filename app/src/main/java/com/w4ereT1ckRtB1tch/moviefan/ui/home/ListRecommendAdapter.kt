@@ -1,49 +1,50 @@
 package com.w4ereT1ckRtB1tch.moviefan.ui.home
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.w4ereT1ckRtB1tch.moviefan.data.Film
-import com.bumptech.glide.Glide
 import com.w4ereT1ckRtB1tch.moviefan.R
+import com.w4ereT1ckRtB1tch.moviefan.databinding.ItemFilmMiniBinding
 
 class ListRecommendAdapter : RecyclerView.Adapter<ListRecommendAdapter.ListRecommendHolder>() {
 
-    private var itemsFilm = listOf<Film>()
+    private var items = listOf<Film>()
 
     fun addItems(itemsFilm: List<Film>) {
-        this.itemsFilm = itemsFilm
+        this.items = itemsFilm
     }
 
     fun updateItems(itemsFilm: List<Film>) {
-        this.itemsFilm = itemsFilm
+        this.items = itemsFilm
         notifyDataSetChanged()
     }
 
-    inner class ListRecommendHolder(itemFilmMini: View) : RecyclerView.ViewHolder(itemFilmMini) {
+    inner class ListRecommendHolder(private val binding: ItemFilmMiniBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        private val poster: ImageView = itemFilmMini.findViewById(R.id.poster_film_mini)
-
-        fun onBindItemFilm(film: Film?) {
-            film?.let {
-                Glide.with(itemView).load(it.poster).centerCrop().into(poster)
-            }
+        fun onBind(film: Film?) {
+            binding.film = film
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListRecommendHolder {
-        val view: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_film_mini, parent, false)
-        return ListRecommendHolder(view)
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = DataBindingUtil.inflate<ItemFilmMiniBinding>(
+            inflater,
+            R.layout.item_film_mini,
+            parent,
+            false
+        )
+        return ListRecommendHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ListRecommendHolder, position: Int) {
-        holder.onBindItemFilm(itemsFilm[position])
+        holder.onBind(items[position])
     }
 
     override fun getItemCount(): Int {
-        return itemsFilm.size
+        return items.size
     }
 }

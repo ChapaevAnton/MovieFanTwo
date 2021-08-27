@@ -1,4 +1,4 @@
-package com.w4ereT1ckRtB1tch.moviefan.ui.favorites
+package com.w4ereT1ckRtB1tch.moviefan.ui.listeners
 
 import com.w4ereT1ckRtB1tch.moviefan.data.Film
 

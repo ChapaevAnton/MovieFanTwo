@@ -8,6 +8,7 @@ import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.data.Film
 import com.w4ereT1ckRtB1tch.moviefan.databinding.ItemFilmBinding
 import com.w4ereT1ckRtB1tch.moviefan.ui.favorites.FavoritesCatalogFilmAdapter.ItemFilmHolder
+import com.w4ereT1ckRtB1tch.moviefan.ui.listeners.OnItemClickListener
 
 class FavoritesCatalogFilmAdapter(private val onItemClickListener: OnItemClickListener) :
     RecyclerView.Adapter<ItemFilmHolder>() {

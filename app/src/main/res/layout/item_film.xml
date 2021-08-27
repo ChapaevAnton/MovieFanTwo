@@ -11,7 +11,7 @@
 
         <import
             alias="OnItemClickListener"
-            type="com.w4ereT1ckRtB1tch.moviefan.ui.favorites.OnItemClickListener" />
+            type="com.w4ereT1ckRtB1tch.moviefan.ui.listeners.OnItemClickListener" />
 
         <variable
             name="film"

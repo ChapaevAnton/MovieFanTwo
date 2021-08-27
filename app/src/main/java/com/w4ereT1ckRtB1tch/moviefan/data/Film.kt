@@ -19,11 +19,11 @@ data class Film(
     @IgnoredOnParcel
     val isFavoriteObservable = ObservableBoolean(isFavorites)
 
-    fun isFavorites(value: Boolean) {
+    fun setFavorites(value: Boolean) {
         isFavorites = value
         isFavoriteObservable.set(value)
     }
 
-    fun isFavorites() = isFavorites
+    fun getFavorites() = isFavorites
 
 }

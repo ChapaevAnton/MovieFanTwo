@@ -5,30 +5,28 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
 import com.w4ereT1ckRtB1tch.moviefan.MainActivity
+import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.data.DataBase
+import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentSelectionsBinding
 import com.w4ereT1ckRtB1tch.moviefan.ui.utils.AnimationHelper
 import com.w4ereT1ckRtB1tch.moviefan.ui.utils.SpacingItemDecoration
-import com.w4ereT1ckRtB1tch.moviefan.R
 
 class SelectionsFragment : Fragment() {
 
-    private lateinit var selectionCatalogFilmAdapter: SelectionCatalogFilmAdapter
-    private lateinit var selectionRecyclerCatalogFilm: RecyclerView
+    private lateinit var filmAdapter: SelectionCatalogFilmAdapter
     private lateinit var itemDecorator: SpacingItemDecoration
+    private lateinit var binding: FragmentSelectionsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        selectionCatalogFilmAdapter = SelectionCatalogFilmAdapter { film ->
+        filmAdapter = SelectionCatalogFilmAdapter { film ->
             (requireActivity() as MainActivity).launchFilmDetailsFragment(film)
         }
-        selectionCatalogFilmAdapter.addItems(DataBase.filmDataBase)
-
+        filmAdapter.addItems(DataBase.filmDataBase)
         itemDecorator = SpacingItemDecoration(10)
-
     }
 
     override fun onCreateView(
@@ -36,35 +34,31 @@ class SelectionsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_selections, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_selections, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //анимация открытия фрагмента
         AnimationHelper.performFragmentCircularRevealAnimation(view, requireActivity(), 2)
-
-        selectionRecyclerCatalogFilm = view.findViewById(R.id.selections_recycler_catalog_film)
-        val selectionsSearch = view.findViewById<SearchView>(R.id.selections_search_top_bar)
-
-        selectionRecyclerCatalogFilm.apply {
-            adapter = selectionCatalogFilmAdapter
+        binding.selectionsCatalogFilm.apply {
+            adapter = filmAdapter
             addItemDecoration(itemDecorator)
         }
+        binding.searchTopBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
-        selectionsSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-
                 newText?.let {
                     if (it.isEmpty()) {
-                        selectionCatalogFilmAdapter.updateItems(DataBase.filmDataBase)
+                        filmAdapter.updateItems(DataBase.filmDataBase)
                         return true
                     }
-                    selectionCatalogFilmAdapter.updateItems(DataBase.filmDataBase.filter { film ->
+                    filmAdapter.updateItems(DataBase.filmDataBase.filter { film ->
                         film.title.lowercase().contains(it.lowercase())
                     })
                 }
@@ -75,7 +69,7 @@ class SelectionsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        selectionCatalogFilmAdapter.updateItems(DataBase.filmDataBase)
+        filmAdapter.updateItems(DataBase.filmDataBase)
     }
 
 }

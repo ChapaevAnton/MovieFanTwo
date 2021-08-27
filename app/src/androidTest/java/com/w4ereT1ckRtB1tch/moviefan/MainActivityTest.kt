@@ -57,11 +57,11 @@ class MainActivityTest {
         onView(withId(R.id.my_selections)).perform(click())
         onView(withId(R.id.selections_fragment_root)).check(matches(isDisplayed()))
 
-        onView(withId(R.id.selections_search_top_bar)).check(matches(isDisplayed()))
-        onView(withId(R.id.selections_search_top_bar)).perform(typeViewSearchText(DataBase.filmDataBase[2].title))
+        onView(withId(R.id.search_top_bar)).check(matches(isDisplayed()))
+        onView(withId(R.id.search_top_bar)).perform(typeViewSearchText(DataBase.filmDataBase[2].title))
 
-        onView(withId(R.id.selections_recycler_catalog_film)).check(matches(isDisplayed()))
-        onView(withId(R.id.selections_recycler_catalog_film)).perform(
+        onView(withId(R.id.selections_catalog_film)).check(matches(isDisplayed()))
+        onView(withId(R.id.selections_catalog_film)).perform(
             RecyclerViewActions.actionOnItemAtPosition<HomeCatalogFilmAdapter.ItemFilmHolder>(
                 0,
                 click()

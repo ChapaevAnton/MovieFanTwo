@@ -1,113 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/item_film"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:clickable="true"
-    android:focusable="true"
-    android:stateListAnimator="@animator/cards_pressed_animator"
-    app:cardBackgroundColor="@color/ivi_blue"
-    app:cardCornerRadius="5dp"
-    app:cardElevation="5dp">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+        <import
+            alias="Film"
+            type="com.w4ereT1ckRtB1tch.moviefan.data.Film" />
+
+        <import
+            alias="OnItemClickListener"
+            type="com.w4ereT1ckRtB1tch.moviefan.ui.favorites.OnItemClickListener" />
+
+        <variable
+            name="film"
+            type="Film" />
+
+        <variable
+            name="onItemClicked"
+            type="OnItemClickListener" />
+
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/item_film"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:clickable="true"
+        android:focusable="true"
+        android:onClick="@{() -> onItemClicked.onClick(film)}"
+        android:stateListAnimator="@animator/cards_pressed_animator"
+        app:cardBackgroundColor="@color/ivi_blue"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="5dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/poster_card"
+                android:layout_width="100dp"
+                android:layout_height="150dp"
+                android:layout_marginEnd="10dp"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
+                app:layout_constraintEnd_toEndOf="@id/guideline_film_1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/poster_card"
-            android:layout_width="100dp"
-            android:layout_height="150dp"
-            android:layout_marginEnd="10dp"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="5dp"
-            app:layout_constraintEnd_toEndOf="@id/guideline_film_1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+                <ImageView
+                    android:id="@+id/poster_film"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/poster_film"
+                    android:scaleType="centerCrop"
+                    app:srcGlide="@{film.poster}"
+                    tools:src="@tools:sample/avatars" />
+            </androidx.cardview.widget.CardView>
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_film_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="110dp" />
+
+            <TextView
+                android:id="@+id/title_film"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="@{film.title}"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@id/guideline_film_1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                tools:text="@tools:sample/lorem" />
+
+            <TextView
+                android:id="@+id/year_film"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/guideline_film_1"
+                app:layout_constraintTop_toBottomOf="@id/title_film"
+                app:layout_constraintVertical_bias="0.0"
+                app:year="@{film.year}"
+                tools:text="@tools:sample/lorem" />
+
+            <com.w4ereT1ckRtB1tch.moviefan.ui.custom.view.RatingCircleView
+                android:id="@+id/rating_circle_film"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:background_color="@color/ivi_blue_light"
+                app:background_shadow_color="@color/ivi_blue_dark"
+                app:digit_shadow_color="@color/ivi_blue_dark"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@id/guideline_film_1"
+                app:layout_constraintTop_toBottomOf="@+id/year_film"
+                app:layout_constraintVertical_bias="1.0"
+                app:rating="@{film.rating}"
+                app:stroke_round="4dp" />
 
             <ImageView
-                android:id="@+id/poster_film"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/poster_film"
-                android:scaleType="centerCrop"
-                tools:src="@tools:sample/avatars" />
-        </androidx.cardview.widget.CardView>
+                android:id="@+id/favorites_film"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@id/guideline_film_1"
+                app:layout_constraintTop_toBottomOf="@id/year_film"
+                app:layout_constraintVertical_bias="1.0"
+                app:srcDrawable="@{film.getFavorites() ? @drawable/ic_round_favorite_24 : @drawable/ic_round_favorite_border_24}"
+                app:tint="@color/white" />
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_film_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="110dp" />
-
-        <TextView
-            android:id="@+id/title_film"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@id/guideline_film_1"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            tools:text="@tools:sample/lorem" />
-
-        <TextView
-            android:id="@+id/year_film"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/guideline_film_1"
-            app:layout_constraintTop_toBottomOf="@id/title_film"
-            app:layout_constraintVertical_bias="0.0"
-            tools:text="@tools:sample/lorem" />
-
-
-        <com.w4ereT1ckRtB1tch.moviefan.ui.custom.view.RatingCircleView
-            android:id="@+id/rating_circle_film"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:background_color="@color/ivi_blue_light"
-            app:background_shadow_color="@color/ivi_blue_dark"
-            app:digit_shadow_color="@color/ivi_blue_dark"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@id/guideline_film_1"
-            app:layout_constraintTop_toBottomOf="@+id/year_film"
-            app:layout_constraintVertical_bias="1.0"
-            app:progress="50"
-            app:stroke_round="4dp"/>
-
-        <ImageView
-            android:id="@+id/favorites_film"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:src="@drawable/ic_round_favorite_border_24"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@id/guideline_film_1"
-            app:layout_constraintTop_toBottomOf="@id/year_film"
-            app:layout_constraintVertical_bias="1.0"
-            app:tint="@color/white" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+</layout>

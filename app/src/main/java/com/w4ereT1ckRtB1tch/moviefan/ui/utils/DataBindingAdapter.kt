@@ -1,12 +1,14 @@
 package com.w4ereT1ckRtB1tch.moviefan.ui.utils
 
 import android.graphics.drawable.Drawable
-import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.Nullable
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.w4ereT1ckRtB1tch.moviefan.ui.custom.view.RatingCircleView
+import java.time.LocalDate
 
 object DataBindingAdapter {
 
@@ -24,12 +26,30 @@ object DataBindingAdapter {
         floatingActionButton?.setImageDrawable(drawable)
     }
 
+    @BindingAdapter("srcDrawable")
+    @JvmStatic
+    fun setImage(@Nullable imageView: ImageView?, drawable: Drawable) {
+        imageView?.setImageDrawable(drawable)
+    }
+
     @BindingAdapter("visibleState")
     @JvmStatic
     fun setVisibleState(@Nullable floatingActionButton: FloatingActionButton?, visible: Boolean) {
         floatingActionButton?.let {
             if (visible) it.show() else it.hide()
         }
+    }
+
+    @BindingAdapter("year")
+    @JvmStatic
+    fun setYear(@Nullable textView: TextView?, localDate: LocalDate) {
+        textView?.text = localDate.year.toString()
+    }
+
+    @BindingAdapter("rating")
+    @JvmStatic
+    fun setRating(@Nullable ratingCircleView: RatingCircleView?, rating: Float) {
+        ratingCircleView?.setProgress(rating.times(10).toInt())
     }
 
 }

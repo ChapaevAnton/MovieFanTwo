@@ -17,13 +17,15 @@ data class Film(
 ) : Parcelable {
 
     @IgnoredOnParcel
-    val isFavoriteObservable = ObservableBoolean(isFavorites)
+    val observableIsFavorites = ObservableBoolean(isFavorites)
 
-    fun setFavorites(value: Boolean) {
-        isFavorites = value
-        isFavoriteObservable.set(value)
-    }
-
-    fun getFavorites() = isFavorites
-
+    @IgnoredOnParcel
+    var favorites: Boolean
+        get() {
+            return isFavorites
+        }
+        set(value) {
+            isFavorites = value
+            observableIsFavorites.set(value)
+        }
 }

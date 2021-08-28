@@ -89,7 +89,7 @@ class FilmDetailsFragment : Fragment() {
 
     private val onClickedFavorites = View.OnClickListener {
         film.get()?.let {
-            it.setFavorites(!it.getFavorites())
+            it.favorites = !it.favorites
         }
         Log.d("TAG", "DataBase: ${DataBase.filmDataBase}")
     }

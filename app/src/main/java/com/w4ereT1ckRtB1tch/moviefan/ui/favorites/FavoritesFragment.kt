@@ -26,7 +26,7 @@ class FavoritesFragment : Fragment() {
             (requireActivity() as MainActivity).launchFilmDetailsFragment(film)
         }
         //добавление элементов
-        filmAdapter.addItems(DataBase.filmDataBase.filter { it.getFavorites() })
+        filmAdapter.addItems(DataBase.filmDataBase.filter { it.favorites })
         //декоратор
         itemDecorator = SpacingItemDecoration(10)
         Log.d("TAG", "onCreate: FavoritesFragment")
@@ -58,7 +58,7 @@ class FavoritesFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         Log.d("TAG", "onResume: FavoritesFragment")
-        filmAdapter.updateDataItems(DataBase.filmDataBase.filter { it.getFavorites() })
+        filmAdapter.updateDataItems(DataBase.filmDataBase.filter { it.favorites })
     }
 
 }

@@ -126,7 +126,7 @@
                 app:layout_constraintStart_toStartOf="@id/guideline_film_1"
                 app:layout_constraintTop_toBottomOf="@id/year_film"
                 app:layout_constraintVertical_bias="1.0"
-                app:srcDrawable="@{film.getFavorites() ? @drawable/ic_round_favorite_24 : @drawable/ic_round_favorite_border_24}"
+                app:srcDrawable="@{film.favorites ? @drawable/ic_round_favorite_24 : @drawable/ic_round_favorite_border_24}"
                 app:tint="@color/white" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

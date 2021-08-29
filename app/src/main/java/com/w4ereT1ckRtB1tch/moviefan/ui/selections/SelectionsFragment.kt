@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.w4ereT1ckRtB1tch.moviefan.MainActivity
 import com.w4ereT1ckRtB1tch.moviefan.R
@@ -14,11 +13,12 @@ import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentSelectionsBinding
 import com.w4ereT1ckRtB1tch.moviefan.ui.utils.AnimationHelper
 import com.w4ereT1ckRtB1tch.moviefan.ui.utils.SpacingItemDecoration
 
-class SelectionsFragment : Fragment() {
+class SelectionsFragment : Fragment(R.layout.fragment_selections) {
 
     private lateinit var filmAdapter: SelectionCatalogFilmAdapter
     private lateinit var itemDecorator: SpacingItemDecoration
-    private lateinit var binding: FragmentSelectionsBinding
+    private var _binding: FragmentSelectionsBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +34,7 @@ class SelectionsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_selections, container, false)
+        _binding = FragmentSelectionsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -72,4 +72,8 @@ class SelectionsFragment : Fragment() {
         filmAdapter.updateItems(DataBase.filmDataBase)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

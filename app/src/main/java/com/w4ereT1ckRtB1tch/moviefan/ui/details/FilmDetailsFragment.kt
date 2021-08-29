@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
@@ -18,7 +17,7 @@ import com.w4ereT1ckRtB1tch.moviefan.data.DataBase
 import com.w4ereT1ckRtB1tch.moviefan.data.Film
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentFilmDetailsBinding
 
-class FilmDetailsFragment : Fragment() {
+class FilmDetailsFragment : Fragment(R.layout.fragment_film_details) {
 
     private var film = ObservableField<Film>()
     private lateinit var fabRotateClock: Animation
@@ -41,8 +40,7 @@ class FilmDetailsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_film_details, container, false)
+        _binding = FragmentFilmDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -56,8 +54,8 @@ class FilmDetailsFragment : Fragment() {
         binding.isVisible = isVisible
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 

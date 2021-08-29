@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.w4ereT1ckRtB1tch.moviefan.MainActivity
 import com.w4ereT1ckRtB1tch.moviefan.R
@@ -14,13 +13,14 @@ import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentHomeBinding
 import com.w4ereT1ckRtB1tch.moviefan.ui.utils.AnimationHelper
 import com.w4ereT1ckRtB1tch.moviefan.ui.utils.SpacingItemDecoration
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private lateinit var filmAdapter: HomeCatalogFilmAdapter
     private lateinit var listdapter: ListRecommendAdapter
     private lateinit var itemDecorator: SpacingItemDecoration
     private lateinit var itemDecoratorMini: SpacingItemDecoration
-    private lateinit var binding: FragmentHomeBinding
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +46,7 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -84,6 +84,11 @@ class HomeFragment : Fragment() {
         super.onResume()
         Log.d("TAG", "onResume: HomeFragment")
         filmAdapter.updateDataItems(DataBase.filmDataBase)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

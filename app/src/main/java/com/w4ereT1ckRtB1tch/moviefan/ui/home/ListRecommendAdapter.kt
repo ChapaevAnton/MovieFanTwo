@@ -2,19 +2,17 @@ package com.w4ereT1ckRtB1tch.moviefan.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.w4ereT1ckRtB1tch.moviefan.data.Film
-import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.ItemFilmMiniBinding
 
 class ListRecommendAdapter : RecyclerView.Adapter<ListRecommendAdapter.ListRecommendHolder>() {
 
-    private var items = listOf<Film>()
-
-    fun addItems(itemsFilm: List<Film>) {
-        this.items = itemsFilm
-    }
+    var items: List<Film> = emptyList()
+        set(newValue) {
+            field = newValue
+            notifyDataSetChanged()
+        }
 
     fun updateItems(itemsFilm: List<Film>) {
         this.items = itemsFilm
@@ -31,12 +29,7 @@ class ListRecommendAdapter : RecyclerView.Adapter<ListRecommendAdapter.ListRecom
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListRecommendHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = DataBindingUtil.inflate<ItemFilmMiniBinding>(
-            inflater,
-            R.layout.item_film_mini,
-            parent,
-            false
-        )
+        val binding = ItemFilmMiniBinding.inflate(inflater, parent, false)
         return ListRecommendHolder(binding)
     }
 

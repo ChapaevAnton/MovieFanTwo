@@ -26,7 +26,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onCreate(savedInstanceState)
         //список рекомендации
         listdapter = ListRecommendAdapter()
-        listdapter.addItems(DataBase.filmDataBase.take(6))
+        listdapter.items = DataBase.filmDataBase.take(6)
         //каталог фильмов
         //создаем адаптер клик на элементе
         filmAdapter =

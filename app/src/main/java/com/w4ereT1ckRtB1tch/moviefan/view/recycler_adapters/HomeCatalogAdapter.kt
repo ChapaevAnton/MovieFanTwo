@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.w4ereT1ckRtB1tch.moviefan.R
-import com.w4ereT1ckRtB1tch.moviefan.domain.Film
 import com.w4ereT1ckRtB1tch.moviefan.databinding.ItemFilmBinding
+import com.w4ereT1ckRtB1tch.moviefan.domain.Film
 import com.w4ereT1ckRtB1tch.moviefan.view.recycler_adapters.HomeCatalogAdapter.ItemFilmHolder
 
 class HomeCatalogAdapter(private val onItemClickListener: OnItemClickListener) :
@@ -14,6 +14,7 @@ class HomeCatalogAdapter(private val onItemClickListener: OnItemClickListener) :
 
     var items: List<Film> = emptyList()
         set(newValue) {
+            if (field == newValue) return
             field = newValue
             notifyDataSetChanged()
         }

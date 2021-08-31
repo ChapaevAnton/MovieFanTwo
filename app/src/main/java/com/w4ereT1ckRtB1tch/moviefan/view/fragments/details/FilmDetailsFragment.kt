@@ -13,7 +13,7 @@ import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
 import com.w4ereT1ckRtB1tch.moviefan.MainActivity
 import com.w4ereT1ckRtB1tch.moviefan.R
-import com.w4ereT1ckRtB1tch.moviefan.data.DataBase
+import com.w4ereT1ckRtB1tch.moviefan.domain.DataBase
 import com.w4ereT1ckRtB1tch.moviefan.domain.Film
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentFilmDetailsBinding
 
@@ -89,7 +89,7 @@ class FilmDetailsFragment : Fragment(R.layout.fragment_film_details) {
         film.get()?.let {
             it.favorites = !it.favorites
         }
-        Log.d("TAG", "DataBase: ${DataBase.filmDataBase}")
+        //Log.d("TAG", "DataBase: ${DataBase.filmDataBase}")
     }
 
 }

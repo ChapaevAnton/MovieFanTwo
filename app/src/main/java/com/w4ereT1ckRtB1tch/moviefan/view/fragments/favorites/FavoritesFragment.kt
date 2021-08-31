@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.w4ereT1ckRtB1tch.moviefan.MainActivity
 import com.w4ereT1ckRtB1tch.moviefan.R
-import com.w4ereT1ckRtB1tch.moviefan.data.DataBase
+import com.w4ereT1ckRtB1tch.moviefan.domain.DataBase
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentFavoritesBinding
 import com.w4ereT1ckRtB1tch.moviefan.utils.AnimationHelper
 import com.w4ereT1ckRtB1tch.moviefan.utils.SpacingItemDecoration
@@ -27,7 +27,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
             (requireActivity() as MainActivity).launchFilmDetailsFragment(film)
         }
         //добавление элементов
-        adapter.items = DataBase.filmDataBase.filter { it.favorites }
+        //adapter.items = DataBase.filmDataBase.filter { it.favorites }
         //декоратор
         decorator = SpacingItemDecoration(10)
         Log.d("TAG", "onCreate: FavoritesFragment")
@@ -57,7 +57,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
     override fun onResume() {
         super.onResume()
         Log.d("TAG", "onResume: FavoritesFragment")
-        adapter.items = DataBase.filmDataBase.filter { it.favorites }
+        //adapter.items = DataBase.filmDataBase.filter { it.favorites }
     }
 
     override fun onDestroyView() {

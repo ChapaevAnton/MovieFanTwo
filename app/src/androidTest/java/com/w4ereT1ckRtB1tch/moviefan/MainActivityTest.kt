@@ -11,7 +11,7 @@ import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.w4ereT1ckRtB1tch.moviefan.data.DataBase
+import com.w4ereT1ckRtB1tch.moviefan.domain.DataBase
 import com.w4ereT1ckRtB1tch.moviefan.view.recycler_adapters.HomeCatalogAdapter
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf

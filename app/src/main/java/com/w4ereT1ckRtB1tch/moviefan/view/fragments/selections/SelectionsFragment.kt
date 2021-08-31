@@ -8,7 +8,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import com.w4ereT1ckRtB1tch.moviefan.MainActivity
 import com.w4ereT1ckRtB1tch.moviefan.R
-import com.w4ereT1ckRtB1tch.moviefan.data.DataBase
+import com.w4ereT1ckRtB1tch.moviefan.domain.DataBase
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentSelectionsBinding
 import com.w4ereT1ckRtB1tch.moviefan.utils.AnimationHelper
 import com.w4ereT1ckRtB1tch.moviefan.utils.SpacingItemDecoration
@@ -26,7 +26,7 @@ class SelectionsFragment : Fragment(R.layout.fragment_selections) {
         adapter = SelectionCatalogAdapter { film ->
             (requireActivity() as MainActivity).launchFilmDetailsFragment(film)
         }
-        adapter.items = DataBase.filmDataBase
+        //adapter.items = DataBase.filmDataBase
         decorator = SpacingItemDecoration(10)
     }
 
@@ -54,12 +54,12 @@ class SelectionsFragment : Fragment(R.layout.fragment_selections) {
             override fun onQueryTextChange(newText: String?): Boolean {
                 newText?.let {
                     if (it.isEmpty()) {
-                        adapter.items = DataBase.filmDataBase
+                        //adapter.items = DataBase.filmDataBase
                         return true
                     }
-                    adapter.items = DataBase.filmDataBase.filter { film ->
-                        film.title.lowercase().contains(it.lowercase())
-                    }
+                    // adapter.items = DataBase.filmDataBase.filter { film ->
+                    //     film.title.lowercase().contains(it.lowercase())
+                    //  }
                 }
                 return true
             }
@@ -68,7 +68,7 @@ class SelectionsFragment : Fragment(R.layout.fragment_selections) {
 
     override fun onResume() {
         super.onResume()
-        adapter.items = DataBase.filmDataBase
+        //adapter.items = DataBase.filmDataBase
     }
 
     override fun onDestroyView() {

@@ -11,7 +11,7 @@ class App : Application() {
         private set
     }
 
-    lateinit var repository: Repository
+    private lateinit var repository: Repository
     lateinit var dataBase: DataBase
 
     override fun onCreate() {

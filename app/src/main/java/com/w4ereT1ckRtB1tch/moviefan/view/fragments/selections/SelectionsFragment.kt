@@ -4,11 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.w4ereT1ckRtB1tch.moviefan.MainActivity
 import com.w4ereT1ckRtB1tch.moviefan.R
-import com.w4ereT1ckRtB1tch.moviefan.domain.DataBase
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentSelectionsBinding
 import com.w4ereT1ckRtB1tch.moviefan.utils.AnimationHelper
 import com.w4ereT1ckRtB1tch.moviefan.utils.SpacingItemDecoration
@@ -20,13 +19,15 @@ class SelectionsFragment : Fragment(R.layout.fragment_selections) {
     private lateinit var decorator: SpacingItemDecoration
     private var _binding: FragmentSelectionsBinding? = null
     private val binding get() = _binding!!
+    private val viewModel by lazy {
+        ViewModelProvider.NewInstanceFactory().create(SelectionFragmentViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         adapter = SelectionCatalogAdapter { film ->
             (requireActivity() as MainActivity).launchFilmDetailsFragment(film)
         }
-        //adapter.items = DataBase.filmDataBase
         decorator = SpacingItemDecoration(10)
     }
 
@@ -45,34 +46,14 @@ class SelectionsFragment : Fragment(R.layout.fragment_selections) {
         AnimationHelper.performFragmentCircularRevealAnimation(view, requireActivity(), 2)
         binding.selectionsCatalogFilm.adapter = adapter
         binding.selectionsCatalogFilm.addItemDecoration(decorator)
-        binding.searchTopBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                newText?.let {
-                    if (it.isEmpty()) {
-                        //adapter.items = DataBase.filmDataBase
-                        return true
-                    }
-                    // adapter.items = DataBase.filmDataBase.filter { film ->
-                    //     film.title.lowercase().contains(it.lowercase())
-                    //  }
-                }
-                return true
-            }
-        })
-    }
-
-    override fun onResume() {
-        super.onResume()
-        //adapter.items = DataBase.filmDataBase
+        viewModel.getFilms.observe(viewLifecycleOwner) { films -> adapter.items = films }
+        binding.searchTopBar.setOnQueryTextListener(viewModel.onQueryTextListener())
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
+
 }

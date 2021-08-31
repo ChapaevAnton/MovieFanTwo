@@ -32,7 +32,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onCreate(savedInstanceState)
         //список рекомендации
         recommendAdapter = ListRecommendAdapter()
-        //recommendAdapter.items = DataBase.filmDataBase.take(6)
         decoratorMini = SpacingItemDecoration(5)
         //каталог фильмов
         adapter =
@@ -40,7 +39,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 //слушатель открываем фрагмент и передаем данные
                 (requireActivity() as MainActivity).launchFilmDetailsFragment(film)
             }
-        //adapter.items = DataBase.filmDataBase
         decorator = SpacingItemDecoration(10)
 
     }
@@ -71,7 +69,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             adapter.items = films
         }
 
-
         //обработчик выбора пунктов меню Top Bar
         binding.menuTopBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
@@ -82,12 +79,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 else -> false
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d("TAG", "onResume: HomeFragment")
-        //adapter.items = App.instance.dataBase.getDataBase()
     }
 
     override fun onDestroyView() {

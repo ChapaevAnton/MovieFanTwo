@@ -8,7 +8,7 @@
 
         <import
             alias="Film"
-            type="com.w4ereT1ckRtB1tch.moviefan.data.Film" />
+            type="com.w4ereT1ckRtB1tch.moviefan.domain.Film" />
 
         <import
             alias="OnClickListener"
@@ -45,7 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context=".ui.details.FilmDetailsFragment">
+        tools:context=".view.fragments.details.FilmDetailsFragment">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/details_film_app_bar_layout"

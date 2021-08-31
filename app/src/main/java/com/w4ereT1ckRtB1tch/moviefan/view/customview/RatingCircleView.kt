@@ -1,4 +1,4 @@
-package com.w4ereT1ckRtB1tch.moviefan.ui.custom.view
+package com.w4ereT1ckRtB1tch.moviefan.view.customview
 
 import android.content.Context
 import android.graphics.*

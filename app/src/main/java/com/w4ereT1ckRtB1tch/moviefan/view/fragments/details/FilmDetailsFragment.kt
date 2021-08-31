@@ -1,4 +1,4 @@
-package com.w4ereT1ckRtB1tch.moviefan.ui.details
+package com.w4ereT1ckRtB1tch.moviefan.view.fragments.details
 
 import android.content.Intent
 import android.os.Bundle
@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment
 import com.w4ereT1ckRtB1tch.moviefan.MainActivity
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.data.DataBase
-import com.w4ereT1ckRtB1tch.moviefan.data.Film
+import com.w4ereT1ckRtB1tch.moviefan.domain.Film
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentFilmDetailsBinding
 
 class FilmDetailsFragment : Fragment(R.layout.fragment_film_details) {

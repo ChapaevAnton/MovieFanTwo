@@ -1,4 +1,4 @@
-package com.w4ereT1ckRtB1tch.moviefan.data
+package com.w4ereT1ckRtB1tch.moviefan.domain
 
 import android.os.Parcelable
 import androidx.databinding.ObservableBoolean

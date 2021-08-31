@@ -1,28 +1,22 @@
-package com.w4ereT1ckRtB1tch.moviefan.ui.favorites
+package com.w4ereT1ckRtB1tch.moviefan.view.recycler_adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.w4ereT1ckRtB1tch.moviefan.R
-import com.w4ereT1ckRtB1tch.moviefan.data.Film
+import com.w4ereT1ckRtB1tch.moviefan.domain.Film
 import com.w4ereT1ckRtB1tch.moviefan.databinding.ItemFilmBinding
-import com.w4ereT1ckRtB1tch.moviefan.ui.favorites.FavoritesCatalogFilmAdapter.ItemFilmHolder
-import com.w4ereT1ckRtB1tch.moviefan.ui.listeners.OnItemClickListener
+import com.w4ereT1ckRtB1tch.moviefan.view.recycler_adapters.HomeCatalogAdapter.ItemFilmHolder
 
-class FavoritesCatalogFilmAdapter(private val onItemClickListener: OnItemClickListener) :
+class HomeCatalogAdapter(private val onItemClickListener: OnItemClickListener) :
     RecyclerView.Adapter<ItemFilmHolder>() {
 
-    private var items = listOf<Film>()
-
-    fun addItems(itemsFilm: List<Film>) {
-        this.items = itemsFilm
-    }
-
-    fun updateDataItems(itemsFilm: List<Film>) {
-        this.items = itemsFilm
-        notifyDataSetChanged()
-    }
+    var items: List<Film> = emptyList()
+        set(newValue) {
+            field = newValue
+            notifyDataSetChanged()
+        }
 
     inner class ItemFilmHolder(private val binding: ItemFilmBinding) :
         RecyclerView.ViewHolder(binding.root) {

@@ -1,9 +1,9 @@
-package com.w4ereT1ckRtB1tch.moviefan.ui.home
+package com.w4ereT1ckRtB1tch.moviefan.view.recycler_adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.w4ereT1ckRtB1tch.moviefan.data.Film
+import com.w4ereT1ckRtB1tch.moviefan.domain.Film
 import com.w4ereT1ckRtB1tch.moviefan.databinding.ItemFilmMiniBinding
 
 class ListRecommendAdapter : RecyclerView.Adapter<ListRecommendAdapter.ListRecommendHolder>() {
@@ -13,11 +13,6 @@ class ListRecommendAdapter : RecyclerView.Adapter<ListRecommendAdapter.ListRecom
             field = newValue
             notifyDataSetChanged()
         }
-
-    fun updateItems(itemsFilm: List<Film>) {
-        this.items = itemsFilm
-        notifyDataSetChanged()
-    }
 
     inner class ListRecommendHolder(private val binding: ItemFilmMiniBinding) :
         RecyclerView.ViewHolder(binding.root) {

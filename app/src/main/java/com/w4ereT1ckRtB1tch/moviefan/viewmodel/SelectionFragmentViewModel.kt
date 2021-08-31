@@ -1,4 +1,4 @@
-package com.w4ereT1ckRtB1tch.moviefan.view.fragments.selections
+package com.w4ereT1ckRtB1tch.moviefan.viewmodel
 
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.LiveData
@@ -17,17 +17,6 @@ class SelectionFragmentViewModel : ViewModel() {
 
     init {
         val values = dataBase.getDataBase()
-        films.postValue(values)
-    }
-
-    private fun setFilter() {
-        val values = dataBase.getDataBase()
-        films.postValue(values)
-    }
-
-    private fun setFilter(filter: String) {
-        val values = dataBase.getDataBase()
-            .filter { film -> film.title.lowercase().contains(filter.lowercase()) }
         films.postValue(values)
     }
 
@@ -53,6 +42,17 @@ class SelectionFragmentViewModel : ViewModel() {
             }
         }
         return onQueryTextListener
+    }
+
+    private fun setFilter() {
+        val values = dataBase.getDataBase()
+        films.postValue(values)
+    }
+
+    private fun setFilter(filter: String) {
+        val values = dataBase.getDataBase()
+            .filter { film -> film.title.lowercase().contains(filter.lowercase()) }
+        films.postValue(values)
     }
 
 }

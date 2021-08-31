@@ -12,6 +12,7 @@ import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentSelectionsBinding
 import com.w4ereT1ckRtB1tch.moviefan.utils.AnimationHelper
 import com.w4ereT1ckRtB1tch.moviefan.utils.SpacingItemDecoration
 import com.w4ereT1ckRtB1tch.moviefan.view.recycler_adapters.SelectionCatalogAdapter
+import com.w4ereT1ckRtB1tch.moviefan.viewmodel.SelectionFragmentViewModel
 
 class SelectionsFragment : Fragment(R.layout.fragment_selections) {
 

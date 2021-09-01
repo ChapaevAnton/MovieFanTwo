@@ -33,7 +33,7 @@ class SelectionFragmentViewModel : ViewModel() {
                     newText?.let {
                         if (it.isEmpty()) {
                             setFilter()
-                            return true
+                            return false
                         }
                         setFilter(it)
                     }

@@ -10,18 +10,6 @@
             alias="Film"
             type="com.w4ereT1ckRtB1tch.moviefan.domain.Film" />
 
-        <import
-            alias="OnClickListener"
-            type="android.view.View.OnClickListener" />
-
-        <!--        <import-->
-        <!--            alias="ObservableField"-->
-        <!--            type="androidx.databinding.ObservableField" />-->
-
-        <!--        <variable-->
-        <!--            name="film"-->
-        <!--            type="ObservableField&lt;Film&gt;" />-->
-
         <variable
             name="film"
             type="Film" />
@@ -33,18 +21,6 @@
         <variable
             name="viewModel"
             type="ViewModel" />
-
-        <variable
-            name="onClickedDetails"
-            type="OnClickListener" />
-
-        <variable
-            name="onClickedShare"
-            type="OnClickListener" />
-
-        <variable
-            name="onClickedFavorites"
-            type="OnClickListener" />
 
         <variable
             name="isVisibleButton"

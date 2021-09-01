@@ -11,6 +11,7 @@ import com.w4ereT1ckRtB1tch.moviefan.utils.Event
 class FilmDetailsFragmentViewModel : ViewModel() {
 
     private val film: MutableLiveData<Film> = MutableLiveData()
+    private val details: MutableLiveData<Event> = MutableLiveData()
 
     fun getFilm(): LiveData<Film> = film
 
@@ -18,7 +19,6 @@ class FilmDetailsFragmentViewModel : ViewModel() {
         film.postValue(value)
     }
 
-    private val details: MutableLiveData<Event> = MutableLiveData()
     fun getDetails(): LiveData<Event> = details
 
     fun onClickedDetails() {
@@ -32,21 +32,3 @@ class FilmDetailsFragmentViewModel : ViewModel() {
         Log.d("TAG", "DataBase: ${App.instance.dataBase.getDataBase()}")
     }
 }
-
-
-//    private val onClickedFavorites = View.OnClickListener {
-//        film.get()?.let {
-//            it.favorites = !it.favorites
-//        }
-//        //Log.d("TAG", "DataBase: ${DataBase.filmDataBase}")
-//    }
-
-//private val onClickedDetails = View.OnClickListener {
-//        if (isVisible.get()) {
-//            binding.detailsFab.startAnimation(fabRotateClock)
-//        } else {
-//            binding.detailsFab.startAnimation(fabRotateAntiClock)
-//        }
-//        isVisible.set(!isVisible.get())
-//    }
-

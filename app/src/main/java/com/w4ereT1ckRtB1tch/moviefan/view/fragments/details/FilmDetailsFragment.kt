@@ -12,21 +12,20 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.w4ereT1ckRtB1tch.moviefan.MainActivity
 import com.w4ereT1ckRtB1tch.moviefan.R
-import com.w4ereT1ckRtB1tch.moviefan.domain.Film
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentFilmDetailsBinding
+import com.w4ereT1ckRtB1tch.moviefan.domain.Film
 import com.w4ereT1ckRtB1tch.moviefan.viewmodel.FilmDetailsFragmentViewModel
 
 class FilmDetailsFragment : Fragment(R.layout.fragment_film_details) {
 
-    //private var film = ObservableField<Film>()
     private lateinit var fabRotateClock: Animation
     private lateinit var fabRotateAntiClock: Animation
+    private var isVisibleButton = ObservableBoolean(false)
     private var _binding: FragmentFilmDetailsBinding? = null
     private val binding get() = _binding!!
     private val viewModel by lazy {
         ViewModelProvider.NewInstanceFactory().create(FilmDetailsFragmentViewModel::class.java)
     }
-    private var isVisibleButton = ObservableBoolean(false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +34,6 @@ class FilmDetailsFragment : Fragment(R.layout.fragment_film_details) {
             AnimationUtils.loadAnimation(requireContext(), R.anim.fab_rotate_clock_animation)
         fabRotateAntiClock =
             AnimationUtils.loadAnimation(requireContext(), R.anim.fab_rotate_anti_clock_animation)
-
     }
 
     override fun onCreateView(
@@ -52,11 +50,6 @@ class FilmDetailsFragment : Fragment(R.layout.fragment_film_details) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-//        binding.onClickedDetails = onClickedDetails
-//        binding.onClickedFavorites = onClickedFavorites
-//        binding.onClickedShare = onClickedShare
-
         viewModel.getFilm().observe(viewLifecycleOwner) { film ->
             Log.d("TAG", "getFilm(): $film")
             binding.film = film
@@ -72,7 +65,6 @@ class FilmDetailsFragment : Fragment(R.layout.fragment_film_details) {
                 isVisibleButton.set(!isVisibleButton.get())
             }
         }
-
     }
 
     override fun onDestroyView() {
@@ -80,8 +72,8 @@ class FilmDetailsFragment : Fragment(R.layout.fragment_film_details) {
         _binding = null
     }
 
-//
-//
+
+// TODO: 01.09.2021 Перенести во ViewModel
 //    private val onClickedShare = View.OnClickListener {
 //        val film: Film? = film.get()
 //        val intent = Intent().apply {
@@ -99,6 +91,5 @@ class FilmDetailsFragment : Fragment(R.layout.fragment_film_details) {
 //        startActivity(intent)
 //    }
 //
-
 
 }

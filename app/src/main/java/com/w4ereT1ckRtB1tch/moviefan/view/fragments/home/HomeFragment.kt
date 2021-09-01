@@ -59,13 +59,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         binding.recommendListFilm.adapter = recommendAdapter
         binding.recommendListFilm.addItemDecoration(decoratorMini)
-        viewModel.getRecommendFilms.observe(viewLifecycleOwner) { films ->
+        viewModel.getRecommendFilms().observe(viewLifecycleOwner) { films ->
             recommendAdapter.items = films
         }
 
         binding.catalogFilm.adapter = adapter
         binding.catalogFilm.addItemDecoration(decorator)
-        viewModel.getFilms.observe(viewLifecycleOwner) { films ->
+        viewModel.getFilms().observe(viewLifecycleOwner) { films ->
             adapter.items = films
         }
 

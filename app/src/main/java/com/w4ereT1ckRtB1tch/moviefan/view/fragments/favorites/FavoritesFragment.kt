@@ -46,7 +46,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
     override fun onResume() {
         super.onResume()
-        viewModel.updateFavoritesFilms()
+        viewModel.setFavoritesFilms()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,7 +56,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
         AnimationHelper.performFragmentCircularRevealAnimation(view, requireActivity(), 3)
         binding.favoritesCatalogFilm.adapter = adapter
         binding.favoritesCatalogFilm.addItemDecoration(decorator)
-        viewModel.getFavoritesFilms.observe(viewLifecycleOwner) { films ->
+        viewModel.getFavoritesFilms().observe(viewLifecycleOwner) { films ->
             binding.isEmptyList = films.isEmpty()
             adapter.items = films
         }

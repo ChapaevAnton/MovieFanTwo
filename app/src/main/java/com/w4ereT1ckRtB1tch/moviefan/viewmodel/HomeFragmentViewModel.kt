@@ -12,10 +12,10 @@ class HomeFragmentViewModel : ViewModel() {
     private var dataBase: DataBase = App.instance.dataBase
 
     private val films: MutableLiveData<List<Film>> = MutableLiveData()
-    val getFilms: LiveData<List<Film>> get() = films
+    fun getFilms(): LiveData<List<Film>> = films
 
     private val recommendFilms: MutableLiveData<List<Film>> = MutableLiveData()
-    val getRecommendFilms: LiveData<List<Film>> get() = recommendFilms
+    fun getRecommendFilms(): LiveData<List<Film>> = recommendFilms
 
     init {
         val values = dataBase.getDataBase()

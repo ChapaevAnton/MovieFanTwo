@@ -11,11 +11,13 @@ import android.view.animation.AnimationUtils
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.w4ereT1ckRtB1tch.moviefan.MainActivity
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.domain.DataBase
 import com.w4ereT1ckRtB1tch.moviefan.domain.Film
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentFilmDetailsBinding
+import com.w4ereT1ckRtB1tch.moviefan.viewmodel.FilmDetailsFragmentViewModel
 
 class FilmDetailsFragment : Fragment(R.layout.fragment_film_details) {
 
@@ -24,6 +26,9 @@ class FilmDetailsFragment : Fragment(R.layout.fragment_film_details) {
     private lateinit var fabRotateAntiClock: Animation
     private var _binding: FragmentFilmDetailsBinding? = null
     private val binding get() = _binding!!
+    private val viewModel by lazy {
+        ViewModelProvider.NewInstanceFactory().create(FilmDetailsFragmentViewModel::class.java)
+    }
     private val isVisible = ObservableBoolean(false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +38,7 @@ class FilmDetailsFragment : Fragment(R.layout.fragment_film_details) {
             AnimationUtils.loadAnimation(requireContext(), R.anim.fab_rotate_clock_animation)
         fabRotateAntiClock =
             AnimationUtils.loadAnimation(requireContext(), R.anim.fab_rotate_anti_clock_animation)
+
     }
 
     override fun onCreateView(

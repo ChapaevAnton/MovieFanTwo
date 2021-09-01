@@ -12,7 +12,9 @@ class SelectionFragmentViewModel : ViewModel() {
     private var dataBase = App.instance.dataBase
 
     private val films: MutableLiveData<List<Film>> = MutableLiveData()
-    val getFilms: LiveData<List<Film>> get() = films
+
+    fun getFilms(): LiveData<List<Film>> = films
+
     private var onQueryTextListener: SearchView.OnQueryTextListener? = null
 
     init {

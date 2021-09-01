@@ -47,7 +47,7 @@ class SelectionsFragment : Fragment(R.layout.fragment_selections) {
         AnimationHelper.performFragmentCircularRevealAnimation(view, requireActivity(), 2)
         binding.selectionsCatalogFilm.adapter = adapter
         binding.selectionsCatalogFilm.addItemDecoration(decorator)
-        viewModel.getFilms.observe(viewLifecycleOwner) { films -> adapter.items = films }
+        viewModel.getFilms().observe(viewLifecycleOwner) { films -> adapter.items = films }
         binding.searchTopBar.setOnQueryTextListener(viewModel.onQueryTextListener())
     }
 

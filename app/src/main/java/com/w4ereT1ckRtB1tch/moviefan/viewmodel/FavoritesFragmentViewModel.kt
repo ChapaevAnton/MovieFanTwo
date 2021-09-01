@@ -11,14 +11,15 @@ class FavoritesFragmentViewModel : ViewModel() {
     private val dataBase = App.instance.dataBase
 
     private val films: MutableLiveData<List<Film>> = MutableLiveData()
-    val getFavoritesFilms: LiveData<List<Film>> get() = films
+
+    fun getFavoritesFilms(): LiveData<List<Film>> = films
 
     init {
         val value = dataBase.getDataBase().filter { it.favorites }
         films.postValue(value)
     }
 
-    fun updateFavoritesFilms() {
+    fun setFavoritesFilms() {
         val value = dataBase.getDataBase().filter { it.favorites }
         films.postValue(value)
     }

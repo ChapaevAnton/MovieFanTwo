@@ -15,12 +15,12 @@ class FavoritesFragmentViewModel : ViewModel() {
     fun getFavoritesFilms(): LiveData<List<Film>> = films
 
     init {
-        val value = dataBase.getDataBase().filter { it.favorites }
+        val value = dataBase.getDataBase().filter { it.isFavorites }
         films.postValue(value)
     }
 
     fun setFavoritesFilms() {
-        val value = dataBase.getDataBase().filter { it.favorites }
+        val value = dataBase.getDataBase().filter { it.isFavorites}
         films.postValue(value)
     }
 }

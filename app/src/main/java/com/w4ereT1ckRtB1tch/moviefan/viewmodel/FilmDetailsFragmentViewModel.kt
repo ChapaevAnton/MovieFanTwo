@@ -27,7 +27,7 @@ class FilmDetailsFragmentViewModel : ViewModel() {
 
     fun onClickedFavorites() {
         val value = film.value
-        value?.let { it.favorites = !it.favorites }
+        value?.let { it.isFavorites = !it.isFavorites }
         film.postValue(value)
         Log.d("TAG", "DataBase: ${App.instance.dataBase.getDataBase()}")
     }

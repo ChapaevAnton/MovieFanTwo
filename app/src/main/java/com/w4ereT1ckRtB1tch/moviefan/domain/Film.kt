@@ -13,19 +13,19 @@ data class Film(
     val description: String,
     val rating: Float,
     val year: LocalDate,
-    private var isFavorites: Boolean = false
+    var isFavorites: Boolean = false
 ) : Parcelable {
 
-    @IgnoredOnParcel
-    val observableIsFavorites = ObservableBoolean(isFavorites)
-
-    @IgnoredOnParcel
-    var favorites: Boolean
-        get() {
-            return isFavorites
-        }
-        set(value) {
-            isFavorites = value
-            observableIsFavorites.set(value)
-        }
+//    @IgnoredOnParcel
+//    val observableIsFavorites = ObservableBoolean(isFavorites)
+//
+//    @IgnoredOnParcel
+//    var favorites: Boolean
+//        get() {
+//            return isFavorites
+//        }
+//        set(value) {
+//            isFavorites = value
+//            observableIsFavorites.set(value)
+//        }
 }

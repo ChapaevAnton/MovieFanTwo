@@ -10,10 +10,6 @@
             alias="Film"
             type="com.w4ereT1ckRtB1tch.moviefan.domain.Film" />
 
-        <variable
-            name="film"
-            type="Film" />
-
         <import
             alias="ViewModel"
             type="com.w4ereT1ckRtB1tch.moviefan.viewmodel.FilmDetailsFragmentViewModel" />
@@ -23,8 +19,12 @@
             type="ViewModel" />
 
         <variable
-            name="isVisibleButton"
-            type="androidx.databinding.ObservableBoolean" />
+            name="film"
+            type="Film" />
+
+        <variable
+            name="isVisible"
+            type="Boolean" />
 
     </data>
 
@@ -77,7 +77,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="25dp"
             android:layout_marginBottom="130dp"
-            android:onClick="@{() -> viewModel.onClickedFavorites()}"
+            android:onClick="@{() -> viewModel.onClickedShare()}"
             android:visibility="invisible"
             app:backgroundTint="@color/ivi_red"
             app:fabSize="mini"
@@ -86,7 +86,7 @@
             app:rippleColor="@color/ivi_blue"
             app:srcCompat="@drawable/ic_round_share_24"
             app:tint="@color/white"
-            app:visibleState="@{isVisibleButton}" />
+            app:visibleState="@{isVisible}" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/favorites_fab"
@@ -103,7 +103,7 @@
             app:rippleColor="@color/ivi_blue"
             app:srcDrawable="@{film.favorites ? @drawable/ic_round_favorite_24 : @drawable/ic_round_favorite_border_24}"
             app:tint="@color/white"
-            app:visibleState="@{isVisibleButton}" />
+            app:visibleState="@{isVisible}" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/details_fab"

@@ -6,12 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.w4ereT1ckRtB1tch.moviefan.App
 import com.w4ereT1ckRtB1tch.moviefan.domain.Film
-import com.w4ereT1ckRtB1tch.moviefan.utils.Event
 
 class FilmDetailsFragmentViewModel : ViewModel() {
 
     private val film: MutableLiveData<Film> = MutableLiveData()
-    private val details: MutableLiveData<Event> = MutableLiveData()
+    private val isVisible: MutableLiveData<Boolean> = MutableLiveData()
 
     fun getFilm(): LiveData<Film> = film
 
@@ -19,10 +18,14 @@ class FilmDetailsFragmentViewModel : ViewModel() {
         film.postValue(value)
     }
 
-    fun getDetails(): LiveData<Event> = details
+    fun isVisible(): LiveData<Boolean> = isVisible
 
     fun onClickedDetails() {
-        details.postValue(Event())
+        if (isVisible.value == null) isVisible.value = false
+        var value = isVisible.value!!
+        value = !value
+        Log.d("TAG", "onClickedDetails: ok -> $value")
+        isVisible.postValue(value)
     }
 
     fun onClickedFavorites() {
@@ -30,5 +33,9 @@ class FilmDetailsFragmentViewModel : ViewModel() {
         value?.let { it.isFavorites = !it.isFavorites }
         film.postValue(value)
         Log.d("TAG", "DataBase: ${App.instance.dataBase.getDataBase()}")
+    }
+
+    fun onClickedShare() {
+        Log.d("TAG", "onClickedShare: ok")
     }
 }

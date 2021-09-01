@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import androidx.databinding.ObservableBoolean
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.w4ereT1ckRtB1tch.moviefan.MainActivity
@@ -20,7 +19,6 @@ class FilmDetailsFragment : Fragment(R.layout.fragment_film_details) {
 
     private lateinit var fabRotateClock: Animation
     private lateinit var fabRotateAntiClock: Animation
-    private var isVisibleButton = ObservableBoolean(false)
     private var _binding: FragmentFilmDetailsBinding? = null
     private val binding get() = _binding!!
     private val viewModel by lazy {
@@ -43,7 +41,6 @@ class FilmDetailsFragment : Fragment(R.layout.fragment_film_details) {
     ): View? {
         _binding = FragmentFilmDetailsBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
-        binding.isVisibleButton = isVisibleButton
         return binding.root
     }
 
@@ -55,14 +52,13 @@ class FilmDetailsFragment : Fragment(R.layout.fragment_film_details) {
             binding.film = film
         }
 
-        viewModel.getDetails().observe(viewLifecycleOwner) { event ->
-            if (event.isHandled) {
-                if (isVisibleButton.get()) {
-                    binding.detailsFab.startAnimation(fabRotateClock)
-                } else {
-                    binding.detailsFab.startAnimation(fabRotateAntiClock)
-                }
-                isVisibleButton.set(!isVisibleButton.get())
+        viewModel.isVisible().observe(viewLifecycleOwner) { visible ->
+            binding.apply {
+                if (visible)
+                    detailsFab.startAnimation(fabRotateAntiClock)
+                else
+                    detailsFab.startAnimation(fabRotateClock)
+                isVisible = visible
             }
         }
     }

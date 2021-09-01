@@ -14,13 +14,25 @@
             alias="OnClickListener"
             type="android.view.View.OnClickListener" />
 
-        <import
-            alias="ObservableField"
-            type="androidx.databinding.ObservableField" />
+        <!--        <import-->
+        <!--            alias="ObservableField"-->
+        <!--            type="androidx.databinding.ObservableField" />-->
+
+        <!--        <variable-->
+        <!--            name="film"-->
+        <!--            type="ObservableField&lt;Film&gt;" />-->
 
         <variable
             name="film"
-            type="ObservableField&lt;Film&gt;" />
+            type="Film" />
+
+        <import
+            alias="ViewModel"
+            type="com.w4ereT1ckRtB1tch.moviefan.viewmodel.FilmDetailsFragmentViewModel" />
+
+        <variable
+            name="viewModel"
+            type="ViewModel" />
 
         <variable
             name="onClickedDetails"
@@ -35,7 +47,7 @@
             type="OnClickListener" />
 
         <variable
-            name="isVisible"
+            name="isVisibleButton"
             type="androidx.databinding.ObservableBoolean" />
 
     </data>
@@ -89,7 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="25dp"
             android:layout_marginBottom="130dp"
-            android:onClick="@{(v) -> onClickedShare.onClick(v)}"
+            android:onClick="@{() -> viewModel.onClickedFavorites()}"
             android:visibility="invisible"
             app:backgroundTint="@color/ivi_red"
             app:fabSize="mini"
@@ -98,7 +110,7 @@
             app:rippleColor="@color/ivi_blue"
             app:srcCompat="@drawable/ic_round_share_24"
             app:tint="@color/white"
-            app:visibleState="@{isVisible}" />
+            app:visibleState="@{isVisibleButton}" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/favorites_fab"
@@ -106,16 +118,16 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="25dp"
             android:layout_marginBottom="80dp"
-            android:onClick="@{(v) -> onClickedFavorites.onClick(v)}"
+            android:onClick="@{() -> viewModel.onClickedFavorites()}"
             android:visibility="invisible"
             app:backgroundTint="@color/ivi_red"
             app:fabSize="mini"
             app:layout_anchor="@id/include"
             app:layout_anchorGravity="bottom|end"
             app:rippleColor="@color/ivi_blue"
-            app:srcDrawable="@{film.observableIsFavorites ? @drawable/ic_round_favorite_24 : @drawable/ic_round_favorite_border_24}"
+            app:srcDrawable="@{film.favorites ? @drawable/ic_round_favorite_24 : @drawable/ic_round_favorite_border_24}"
             app:tint="@color/white"
-            app:visibleState="@{isVisible}" />
+            app:visibleState="@{isVisibleButton}" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/details_fab"
@@ -123,7 +135,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
-            android:onClick="@{(v) -> onClickedDetails.onClick(v)}"
+            android:onClick="@{() -> viewModel.onClickedDetails()}"
             app:backgroundTint="@color/ivi_red"
             app:layout_anchor="@id/include"
             app:layout_anchorGravity="bottom|end"

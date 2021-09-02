@@ -8,30 +8,27 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.TextView
-import androidx.appcompat.widget.AppCompatImageView
-import androidx.core.view.isVisible
+import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableField
 import androidx.fragment.app.Fragment
 import com.w4ereT1ckRtB1tch.moviefan.MainActivity
+import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.data.DataBase
 import com.w4ereT1ckRtB1tch.moviefan.data.Film
-import com.bumptech.glide.Glide
-import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.w4ereT1ckRtB1tch.moviefan.R
+import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentFilmDetailsBinding
 
-class FilmDetailsFragment : Fragment() {
+class FilmDetailsFragment : Fragment(R.layout.fragment_film_details) {
 
-    private var film: Film? = null
+    private var film = ObservableField<Film>()
     private lateinit var fabRotateClock: Animation
     private lateinit var fabRotateAntiClock: Animation
-    private lateinit var detailsFavoriteFab: FloatingActionButton
-    private lateinit var detailsShareFab: FloatingActionButton
-    private lateinit var detailsFab: FloatingActionButton
+    private var _binding: FragmentFilmDetailsBinding? = null
+    private val binding get() = _binding!!
+    private val isVisible = ObservableBoolean(false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        film = arguments?.get(MainActivity.ITEM_FILM_DETAILS) as Film
+        film.set(arguments?.get(MainActivity.ITEM_FILM_DETAILS) as Film)
         fabRotateClock =
             AnimationUtils.loadAnimation(requireContext(), R.anim.fab_rotate_clock_animation)
         fabRotateAntiClock =
@@ -43,74 +40,56 @@ class FilmDetailsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_item_film_details, container, false)
+        _binding = FragmentFilmDetailsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val detailsTitle: CollapsingToolbarLayout = view.findViewById(R.id.details_title_film)
-        val detailsPoster: AppCompatImageView = view.findViewById(R.id.details_poster_film)
-        val detailsDescription: TextView = view.findViewById(R.id.details_description_film)
-        //fab
-        detailsFavoriteFab = view.findViewById(R.id.details_favorites_film_fab)
-        detailsShareFab = view.findViewById(R.id.details_share_film_fab)
-        detailsFab = view.findViewById(R.id.details_film_fab)
-
-        film?.let {
-            detailsTitle.title = it.title
-            Glide.with(view).load(it.poster).centerCrop().into(detailsPoster)
-            detailsDescription.text = it.description
-            detailsFavoriteFab.setImageResource(if (it.isFavorites) R.drawable.ic_round_favorite_24 else R.drawable.ic_round_favorite_border_24)
-        }
-
-        //кнопка действия fab
-        detailsFab.setOnClickListener {
-            onClickDetailsFub()
-        }
-
-        //добавить в избранное
-        detailsFavoriteFab.setOnClickListener {
-            film?.let {
-                if (it.isFavorites) {
-                    it.isFavorites = false
-                    detailsFavoriteFab.setImageResource(R.drawable.ic_round_favorite_border_24)
-                } else {
-                    it.isFavorites = true
-                    detailsFavoriteFab.setImageResource(R.drawable.ic_round_favorite_24)
-                }
-            }
-            Log.d("TAG", "DataBase: ${DataBase.filmDataBase}")
-        }
-
-        //поделиться информацией о фильме
-        detailsShareFab.setOnClickListener {
-            val intent = Intent().apply {
-                action = Intent.ACTION_SEND
-                putExtra(
-                    Intent.EXTRA_TEXT,
-                    "Обязательно посмотри этот фильм:\n" +
-                            "Название \"${film?.title}\"\n" +
-                            "Описание: ${film?.description}\n" +
-                            "Год выпуска: ${film?.year?.year}\n" +
-                            "Рейтинг: ${film?.rating}"
-                )
-                type = "text/plain"
-            }
-            startActivity(intent)
-        }
+        binding.film = film
+        binding.onClickedDetails = onClickedDetails
+        binding.onClickedFavorites = onClickedFavorites
+        binding.onClickedShare = onClickedShare
+        binding.isVisible = isVisible
     }
 
-    private fun onClickDetailsFub() {
-        if (detailsFavoriteFab.isVisible && detailsShareFab.isVisible) {
-            detailsFavoriteFab.hide()
-            detailsShareFab.hide()
-            detailsFab.startAnimation(fabRotateClock)
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private val onClickedDetails = View.OnClickListener {
+        if (isVisible.get()) {
+            binding.detailsFab.startAnimation(fabRotateClock)
         } else {
-            detailsFavoriteFab.show()
-            detailsShareFab.show()
-            detailsFab.startAnimation(fabRotateAntiClock)
+            binding.detailsFab.startAnimation(fabRotateAntiClock)
         }
+        isVisible.set(!isVisible.get())
+    }
+
+    private val onClickedShare = View.OnClickListener {
+        val film: Film? = film.get()
+        val intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(
+                Intent.EXTRA_TEXT,
+                "Обязательно посмотри этот фильм:\n" +
+                        "Название \"${film?.title}\"\n" +
+                        "Описание: ${film?.description}\n" +
+                        "Год выпуска: ${film?.year?.year}\n" +
+                        "Рейтинг: ${film?.rating}"
+            )
+            type = "text/plain"
+        }
+        startActivity(intent)
+    }
+
+    private val onClickedFavorites = View.OnClickListener {
+        film.get()?.let {
+            it.favorites = !it.favorites
+        }
+        Log.d("TAG", "DataBase: ${DataBase.filmDataBase}")
     }
 
 }

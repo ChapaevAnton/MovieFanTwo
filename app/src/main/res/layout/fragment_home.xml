@@ -1,66 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/home_fragment_root"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/ivi_blue_dark"
-    android:visibility="invisible"
-    tools:context=".ui.home.HomeFragment"
-    tools:visibility="visible">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Regular top app bar tools-->
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/home_topBar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/home_recycler_list_recommend"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="spread_inside">
+    <data>
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/home_menu_top_bar"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:menu="@menu/setting_menu_main_top_bar"
-            app:navigationIcon="@drawable/ic_round_menu_24"
-            app:title="@string/app_name" />
-    </com.google.android.material.appbar.AppBarLayout>
-    <!-- Regular top app bar tools-->
+    </data>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/home_fragment_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/ivi_blue_dark"
+        android:visibility="invisible"
+        tools:context=".ui.home.HomeFragment"
+        tools:visibility="visible">
 
-    <!-- RecyclerView layout list film recommend-->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/home_recycler_list_recommend"
-        android:layout_width="0dp"
-        android:layout_height="160dp"
-        android:background="@color/ivi_blue"
-        android:layoutAnimation="@anim/cards_spawn_layout_animation"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/home_recycler_catalog_film"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/home_topBar"
-        app:layout_constraintVertical_bias="0.0"
-        tools:listitem="@layout/item_film_mini" />
+        <!-- Regular top app bar tools-->
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/home_topBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/recommend_list_film"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="spread_inside">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/menu_top_bar"
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:menu="@menu/setting_menu_main_top_bar"
+                app:navigationIcon="@drawable/ic_round_menu_24"
+                app:title="@string/app_name" />
+        </com.google.android.material.appbar.AppBarLayout>
+        <!-- Regular top app bar tools-->
 
 
-    <!-- RecyclerView layout catalog film-->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/home_recycler_catalog_film"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layoutAnimation="@anim/cards_spawn_layout_animation"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/home_recycler_list_recommend"
-        tools:listitem="@layout/item_film" />
+        <!-- RecyclerView layout list film recommend-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recommend_list_film"
+            android:layout_width="0dp"
+            android:layout_height="160dp"
+            android:background="@color/ivi_blue"
+            android:layoutAnimation="@anim/cards_spawn_layout_animation"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/catalog_film"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/home_topBar"
+            app:layout_constraintVertical_bias="0.0"
+            tools:listitem="@layout/item_film_mini" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- RecyclerView layout catalog film-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/catalog_film"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layoutAnimation="@anim/cards_spawn_layout_animation"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recommend_list_film"
+            tools:listitem="@layout/item_film" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,6 +1,8 @@
 package com.w4ereT1ckRtB1tch.moviefan.data
 
 import android.os.Parcelable
+import androidx.databinding.ObservableBoolean
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
 
@@ -11,5 +13,19 @@ data class Film(
     val description: String,
     val rating: Float,
     val year: LocalDate,
-    var isFavorites: Boolean = false
-) : Parcelable
+    private var isFavorites: Boolean = false
+) : Parcelable {
+
+    @IgnoredOnParcel
+    val observableIsFavorites = ObservableBoolean(isFavorites)
+
+    @IgnoredOnParcel
+    var favorites: Boolean
+        get() {
+            return isFavorites
+        }
+        set(value) {
+            isFavorites = value
+            observableIsFavorites.set(value)
+        }
+}

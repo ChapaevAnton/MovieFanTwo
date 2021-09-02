@@ -6,26 +6,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
 import com.w4ereT1ckRtB1tch.moviefan.MainActivity
+import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.data.DataBase
+import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentFavoritesBinding
 import com.w4ereT1ckRtB1tch.moviefan.ui.utils.AnimationHelper
 import com.w4ereT1ckRtB1tch.moviefan.ui.utils.SpacingItemDecoration
-import com.w4ereT1ckRtB1tch.moviefan.R
 
-class FavoritesFragment : Fragment() {
+class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
-    private lateinit var favoritesRecyclerCatalogFilm: RecyclerView
-    private lateinit var favoritesCatalogFilmAdapter: FavoritesCatalogFilmAdapter
+    private lateinit var filmAdapter: FavoritesCatalogFilmAdapter
     private lateinit var itemDecorator: SpacingItemDecoration
+    private var _binding: FragmentFavoritesBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        favoritesCatalogFilmAdapter = FavoritesCatalogFilmAdapter { film ->
+        filmAdapter = FavoritesCatalogFilmAdapter { film ->
             (requireActivity() as MainActivity).launchFilmDetailsFragment(film)
         }
         //добавление элементов
-        favoritesCatalogFilmAdapter.addItems(DataBase.filmDataBase.filter { it.isFavorites })
+        filmAdapter.addItems(DataBase.filmDataBase.filter { it.favorites })
         //декоратор
         itemDecorator = SpacingItemDecoration(10)
         Log.d("TAG", "onCreate: FavoritesFragment")
@@ -37,7 +38,8 @@ class FavoritesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         Log.d("TAG", "onCreateView: FavoritesFragment")
-        return inflater.inflate(R.layout.fragment_favorites, container, false)
+        _binding = FragmentFavoritesBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,13 +47,10 @@ class FavoritesFragment : Fragment() {
         Log.d("TAG", "onViewCreated: FavoritesFragment")
         //анимация открытия фрагмента
         AnimationHelper.performFragmentCircularRevealAnimation(view, requireActivity(), 3)
-
-        favoritesRecyclerCatalogFilm = view.findViewById(R.id.favorites_recycler_catalog_film)
-
         //иницилизирем список
-        favoritesRecyclerCatalogFilm.apply {
+        binding.favoritesCatalogFilm.apply {
             //устанавливаем адаптер
-            adapter = favoritesCatalogFilmAdapter
+            adapter = filmAdapter
             addItemDecoration(itemDecorator)
         }
     }
@@ -59,7 +58,12 @@ class FavoritesFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         Log.d("TAG", "onResume: FavoritesFragment")
-        favoritesCatalogFilmAdapter.updateDataItems(DataBase.filmDataBase.filter { it.isFavorites })
+        filmAdapter.updateDataItems(DataBase.filmDataBase.filter { it.favorites })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

@@ -18,8 +18,8 @@ class SelectionFragmentViewModel : ViewModel() {
     private var onQueryTextListener: SearchView.OnQueryTextListener? = null
 
     init {
-        val values = dataBase.getDataBase()
-        films.postValue(values)
+        val filmsValue = dataBase.getDataBase()
+        films.postValue(filmsValue)
     }
 
     fun onQueryTextListener(): SearchView.OnQueryTextListener? {
@@ -47,14 +47,14 @@ class SelectionFragmentViewModel : ViewModel() {
     }
 
     private fun setFilter() {
-        val values = dataBase.getDataBase()
-        films.postValue(values)
+        val filmsValue = dataBase.getDataBase()
+        films.postValue(filmsValue)
     }
 
     private fun setFilter(filter: String) {
-        val values = dataBase.getDataBase()
+        val filmsValue = dataBase.getDataBase()
             .filter { film -> film.title.lowercase().contains(filter.lowercase()) }
-        films.postValue(values)
+        films.postValue(filmsValue)
     }
 
 }

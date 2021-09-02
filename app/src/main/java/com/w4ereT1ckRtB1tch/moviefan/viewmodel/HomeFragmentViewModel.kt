@@ -18,8 +18,8 @@ class HomeFragmentViewModel : ViewModel() {
     fun getRecommendFilms(): LiveData<List<Film>> = recommendFilms
 
     init {
-        val values = dataBase.getDataBase()
-        films.postValue(values)
+        val filmsValue = dataBase.getDataBase()
+        films.postValue(filmsValue)
         val recommendValues = dataBase.getDataBase().take(6)
         this.recommendFilms.postValue(recommendValues)
     }

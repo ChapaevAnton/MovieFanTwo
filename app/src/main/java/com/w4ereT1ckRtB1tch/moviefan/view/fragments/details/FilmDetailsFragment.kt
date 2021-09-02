@@ -22,7 +22,8 @@ class FilmDetailsFragment : Fragment(R.layout.fragment_film_details) {
     private var _binding: FragmentFilmDetailsBinding? = null
     private val binding get() = _binding!!
     private val viewModel by lazy {
-        ViewModelProvider.NewInstanceFactory().create(FilmDetailsFragmentViewModel::class.java)
+        ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
+            .create(FilmDetailsFragmentViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,25 +68,5 @@ class FilmDetailsFragment : Fragment(R.layout.fragment_film_details) {
         super.onDestroyView()
         _binding = null
     }
-
-
-// TODO: 01.09.2021 Перенести во ViewModel
-//    private val onClickedShare = View.OnClickListener {
-//        val film: Film? = film.get()
-//        val intent = Intent().apply {
-//            action = Intent.ACTION_SEND
-//            putExtra(
-//                Intent.EXTRA_TEXT,
-//                "Обязательно посмотри этот фильм:\n" +
-//                        "Название \"${film?.title}\"\n" +
-//                        "Описание: ${film?.description}\n" +
-//                        "Год выпуска: ${film?.year?.year}\n" +
-//                        "Рейтинг: ${film?.rating}"
-//            )
-//            type = "text/plain"
-//        }
-//        startActivity(intent)
-//    }
-//
 
 }

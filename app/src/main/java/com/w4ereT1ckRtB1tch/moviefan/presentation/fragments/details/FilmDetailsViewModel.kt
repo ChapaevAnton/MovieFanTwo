@@ -1,4 +1,4 @@
-package com.w4ereT1ckRtB1tch.moviefan.viewmodel
+package com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.details
 
 import android.app.Application
 import android.content.Intent
@@ -9,7 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import com.w4ereT1ckRtB1tch.moviefan.App
 import com.w4ereT1ckRtB1tch.moviefan.domain.Film
 
-class FilmDetailsFragmentViewModel(application: Application) : AndroidViewModel(application) {
+class FilmDetailsViewModel(application: Application) : AndroidViewModel(application) {
 
     private val film: MutableLiveData<Film> = MutableLiveData()
     private val isVisible: MutableLiveData<Boolean> = MutableLiveData()

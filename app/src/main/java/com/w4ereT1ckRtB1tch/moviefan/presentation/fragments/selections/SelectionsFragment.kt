@@ -1,4 +1,4 @@
-package com.w4ereT1ckRtB1tch.moviefan.view.fragments.selections
+package com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.selections
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,27 +6,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.w4ereT1ckRtB1tch.moviefan.MainActivity
+import com.w4ereT1ckRtB1tch.moviefan.presentation.MainActivity
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentSelectionsBinding
 import com.w4ereT1ckRtB1tch.moviefan.utils.AnimationHelper
 import com.w4ereT1ckRtB1tch.moviefan.utils.SpacingItemDecoration
-import com.w4ereT1ckRtB1tch.moviefan.view.recycler_adapters.SelectionCatalogAdapter
-import com.w4ereT1ckRtB1tch.moviefan.viewmodel.SelectionFragmentViewModel
+import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.SelectionAdapter
 
 class SelectionsFragment : Fragment(R.layout.fragment_selections) {
 
-    private lateinit var adapter: SelectionCatalogAdapter
+    private lateinit var adapter: SelectionAdapter
     private lateinit var decorator: SpacingItemDecoration
     private var _binding: FragmentSelectionsBinding? = null
     private val binding get() = _binding!!
     private val viewModel by lazy {
-        ViewModelProvider.NewInstanceFactory().create(SelectionFragmentViewModel::class.java)
+        ViewModelProvider.NewInstanceFactory().create(SelectionViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = SelectionCatalogAdapter { film ->
+        adapter = SelectionAdapter { film ->
             (requireActivity() as MainActivity).launchFilmDetailsFragment(film)
         }
         decorator = SpacingItemDecoration(10)

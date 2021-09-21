@@ -1,4 +1,4 @@
-package com.w4ereT1ckRtB1tch.moviefan
+package com.w4ereT1ckRtB1tch.moviefan.presentation
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -10,12 +10,13 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
+import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.domain.Film
 import com.w4ereT1ckRtB1tch.moviefan.databinding.ActivityMainBinding
-import com.w4ereT1ckRtB1tch.moviefan.view.fragments.details.FilmDetailsFragment
-import com.w4ereT1ckRtB1tch.moviefan.view.fragments.favorites.FavoritesFragment
-import com.w4ereT1ckRtB1tch.moviefan.view.fragments.home.HomeFragment
-import com.w4ereT1ckRtB1tch.moviefan.view.fragments.selections.SelectionsFragment
+import com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.details.FilmDetailsFragment
+import com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.favorites.FavoritesFragment
+import com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.home.HomeFragment
+import com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.selections.SelectionsFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         //добавление default фрагмента
         val fragmentManager = supportFragmentManager

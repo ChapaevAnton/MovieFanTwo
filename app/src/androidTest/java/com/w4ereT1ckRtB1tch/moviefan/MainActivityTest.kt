@@ -12,7 +12,8 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.w4ereT1ckRtB1tch.moviefan.domain.DataBase
-import com.w4ereT1ckRtB1tch.moviefan.view.recycler_adapters.HomeCatalogAdapter
+import com.w4ereT1ckRtB1tch.moviefan.presentation.MainActivity
+import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.HomeAdapter
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.Matchers.not
@@ -31,7 +32,7 @@ class MainActivityTest {
     fun homeRecyclerCatalogFilmShouldBeAttached() {
         onView(withId(R.id.catalog_film)).check(matches(isDisplayed()))
         onView(withId(R.id.catalog_film)).perform(
-            RecyclerViewActions.actionOnItemAtPosition<HomeCatalogAdapter.ItemFilmHolder>(
+            RecyclerViewActions.actionOnItemAtPosition<HomeAdapter.ItemFilmHolder>(
                 0,
                 click()
             )
@@ -62,7 +63,7 @@ class MainActivityTest {
 
         onView(withId(R.id.selections_catalog_film)).check(matches(isDisplayed()))
         onView(withId(R.id.selections_catalog_film)).perform(
-            RecyclerViewActions.actionOnItemAtPosition<HomeCatalogAdapter.ItemFilmHolder>(
+            RecyclerViewActions.actionOnItemAtPosition<HomeAdapter.ItemFilmHolder>(
                 0,
                 click()
             )
@@ -73,7 +74,7 @@ class MainActivityTest {
     fun shouldOpenDetailsFragmentAndSwipeUpDownView() {
         onView(withId(R.id.catalog_film)).check(matches(isDisplayed()))
         onView(withId(R.id.catalog_film)).perform(
-            RecyclerViewActions.actionOnItemAtPosition<HomeCatalogAdapter.ItemFilmHolder>(
+            RecyclerViewActions.actionOnItemAtPosition<HomeAdapter.ItemFilmHolder>(
                 0,
                 click()
             )
@@ -89,7 +90,7 @@ class MainActivityTest {
     fun addFilmToFavoritesButtonClickable() {
         onView(withId(R.id.catalog_film)).check(matches(isDisplayed()))
         onView(withId(R.id.catalog_film)).perform(
-            RecyclerViewActions.actionOnItemAtPosition<HomeCatalogAdapter.ItemFilmHolder>(
+            RecyclerViewActions.actionOnItemAtPosition<HomeAdapter.ItemFilmHolder>(
                 0,
                 click()
             )

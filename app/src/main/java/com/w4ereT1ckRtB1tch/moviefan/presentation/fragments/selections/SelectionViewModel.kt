@@ -1,4 +1,4 @@
-package com.w4ereT1ckRtB1tch.moviefan.viewmodel
+package com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.selections
 
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.LiveData
@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.w4ereT1ckRtB1tch.moviefan.App
 import com.w4ereT1ckRtB1tch.moviefan.domain.Film
 
-class SelectionFragmentViewModel : ViewModel() {
+class SelectionViewModel : ViewModel() {
 
     private var dataBase = App.instance.dataBase
 

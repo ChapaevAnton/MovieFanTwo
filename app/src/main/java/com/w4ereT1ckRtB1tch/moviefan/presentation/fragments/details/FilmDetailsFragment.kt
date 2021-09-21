@@ -1,4 +1,4 @@
-package com.w4ereT1ckRtB1tch.moviefan.view.fragments.details
+package com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.details
 
 import android.os.Bundle
 import android.util.Log
@@ -9,11 +9,10 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.w4ereT1ckRtB1tch.moviefan.MainActivity
+import com.w4ereT1ckRtB1tch.moviefan.presentation.MainActivity
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentFilmDetailsBinding
 import com.w4ereT1ckRtB1tch.moviefan.domain.Film
-import com.w4ereT1ckRtB1tch.moviefan.viewmodel.FilmDetailsFragmentViewModel
 
 class FilmDetailsFragment : Fragment(R.layout.fragment_film_details) {
 
@@ -23,7 +22,7 @@ class FilmDetailsFragment : Fragment(R.layout.fragment_film_details) {
     private val binding get() = _binding!!
     private val viewModel by lazy {
         ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
-            .create(FilmDetailsFragmentViewModel::class.java)
+            .create(FilmDetailsViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

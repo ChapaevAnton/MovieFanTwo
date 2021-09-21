@@ -7,7 +7,7 @@ import androidx.annotation.Nullable
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.w4ereT1ckRtB1tch.moviefan.view.customview.RatingCircleView
+import com.w4ereT1ckRtB1tch.moviefan.presentation.customview.RatingCircleView
 import java.time.LocalDate
 
 object DataBindingAdapter {

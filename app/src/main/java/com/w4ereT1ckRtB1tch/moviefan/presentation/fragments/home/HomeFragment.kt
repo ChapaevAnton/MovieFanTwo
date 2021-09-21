@@ -1,4 +1,4 @@
-package com.w4ereT1ckRtB1tch.moviefan.view.fragments.home
+package com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.home
 
 import android.os.Bundle
 import android.util.Log
@@ -7,35 +7,34 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.w4ereT1ckRtB1tch.moviefan.MainActivity
+import com.w4ereT1ckRtB1tch.moviefan.presentation.MainActivity
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentHomeBinding
 import com.w4ereT1ckRtB1tch.moviefan.utils.AnimationHelper
 import com.w4ereT1ckRtB1tch.moviefan.utils.SpacingItemDecoration
-import com.w4ereT1ckRtB1tch.moviefan.view.recycler_adapters.HomeCatalogAdapter
-import com.w4ereT1ckRtB1tch.moviefan.view.recycler_adapters.ListRecommendAdapter
-import com.w4ereT1ckRtB1tch.moviefan.viewmodel.HomeFragmentViewModel
+import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.HomeAdapter
+import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.RecommendAdapter
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
-    private lateinit var adapter: HomeCatalogAdapter
-    private lateinit var recommendAdapter: ListRecommendAdapter
+    private lateinit var adapter: HomeAdapter
+    private lateinit var recommendAdapter: RecommendAdapter
     private lateinit var decorator: SpacingItemDecoration
     private lateinit var decoratorMini: SpacingItemDecoration
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val viewModel by lazy {
-        ViewModelProvider.NewInstanceFactory().create(HomeFragmentViewModel::class.java)
+        ViewModelProvider.NewInstanceFactory().create(HomeViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //список рекомендации
-        recommendAdapter = ListRecommendAdapter()
+        recommendAdapter = RecommendAdapter()
         decoratorMini = SpacingItemDecoration(5)
         //каталог фильмов
         adapter =
-            HomeCatalogAdapter { film ->
+            HomeAdapter { film ->
                 //слушатель открываем фрагмент и передаем данные
                 (requireActivity() as MainActivity).launchFilmDetailsFragment(film)
             }

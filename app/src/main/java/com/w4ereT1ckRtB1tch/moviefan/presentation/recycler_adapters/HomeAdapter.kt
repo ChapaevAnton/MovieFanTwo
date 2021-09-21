@@ -1,4 +1,4 @@
-package com.w4ereT1ckRtB1tch.moviefan.view.recycler_adapters
+package com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.ItemFilmBinding
 import com.w4ereT1ckRtB1tch.moviefan.domain.Film
-import com.w4ereT1ckRtB1tch.moviefan.view.recycler_adapters.HomeCatalogAdapter.ItemFilmHolder
+import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.HomeAdapter.ItemFilmHolder
 
-class HomeCatalogAdapter(private val onItemClickListener: OnItemClickListener) :
+class HomeAdapter(private val onItemClickListener: OnItemClickListener) :
     RecyclerView.Adapter<ItemFilmHolder>() {
 
     var items: List<Film> = emptyList()

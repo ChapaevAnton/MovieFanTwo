@@ -11,15 +11,15 @@
 
         <import
             alias="OnItemClickListener"
-            type="com.w4ereT1ckRtB1tch.moviefan.view.recycler_adapters.OnItemClickListener" />
+            type="com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.OnItemClickListener" />
 
         <variable
             name="film"
-            type="com.w4ereT1ckRtB1tch.moviefan.domain.Film" />
+            type="Film" />
 
         <variable
             name="onItemClicked"
-            type="com.w4ereT1ckRtB1tch.moviefan.view.recycler_adapters.OnItemClickListener" />
+            type="OnItemClickListener" />
 
     </data>
 
@@ -99,7 +99,7 @@
                 app:year="@{film.year}"
                 tools:text="@tools:sample/lorem" />
 
-            <com.w4ereT1ckRtB1tch.moviefan.view.customview.RatingCircleView
+            <com.w4ereT1ckRtB1tch.moviefan.presentation.customview.RatingCircleView
                 android:id="@+id/rating_circle_film"
                 android:layout_width="50dp"
                 android:layout_height="50dp"

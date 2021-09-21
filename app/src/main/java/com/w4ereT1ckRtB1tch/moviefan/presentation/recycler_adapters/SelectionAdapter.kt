@@ -1,4 +1,4 @@
-package com.w4ereT1ckRtB1tch.moviefan.view.recycler_adapters
+package com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,10 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.domain.Film
 import com.w4ereT1ckRtB1tch.moviefan.databinding.ItemFilmBinding
-import com.w4ereT1ckRtB1tch.moviefan.view.recycler_adapters.FavoritesCatalogAdapter.ItemFilmHolder
 
-class FavoritesCatalogAdapter(private val onItemClickListener: OnItemClickListener) :
-    RecyclerView.Adapter<ItemFilmHolder>() {
+class SelectionAdapter(private val onItemClickListener: OnItemClickListener) :
+    RecyclerView.Adapter<SelectionAdapter.ItemFilmHolder>() {
 
     var items: List<Film> = emptyList()
         set(newValue) {
@@ -41,5 +40,4 @@ class FavoritesCatalogAdapter(private val onItemClickListener: OnItemClickListen
     override fun getItemCount(): Int {
         return items.size
     }
-
 }

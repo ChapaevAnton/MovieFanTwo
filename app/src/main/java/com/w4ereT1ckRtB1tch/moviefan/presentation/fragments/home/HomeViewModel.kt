@@ -1,4 +1,4 @@
-package com.w4ereT1ckRtB1tch.moviefan.viewmodel
+package com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,7 +7,7 @@ import com.w4ereT1ckRtB1tch.moviefan.App
 import com.w4ereT1ckRtB1tch.moviefan.domain.DataBase
 import com.w4ereT1ckRtB1tch.moviefan.domain.Film
 
-class HomeFragmentViewModel : ViewModel() {
+class HomeViewModel : ViewModel() {
 
     private var dataBase: DataBase = App.instance.dataBase
 

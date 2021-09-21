@@ -1,4 +1,4 @@
-package com.w4ereT1ckRtB1tch.moviefan.view.fragments.favorites
+package com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.favorites
 
 import android.os.Bundle
 import android.util.Log
@@ -7,27 +7,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.w4ereT1ckRtB1tch.moviefan.MainActivity
+import com.w4ereT1ckRtB1tch.moviefan.presentation.MainActivity
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentFavoritesBinding
 import com.w4ereT1ckRtB1tch.moviefan.utils.AnimationHelper
 import com.w4ereT1ckRtB1tch.moviefan.utils.SpacingItemDecoration
-import com.w4ereT1ckRtB1tch.moviefan.view.recycler_adapters.FavoritesCatalogAdapter
-import com.w4ereT1ckRtB1tch.moviefan.viewmodel.FavoritesFragmentViewModel
+import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.FavoritesAdapter
 
 class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
-    private lateinit var adapter: FavoritesCatalogAdapter
+    private lateinit var adapter: FavoritesAdapter
     private lateinit var decorator: SpacingItemDecoration
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
     private val viewModel by lazy {
-        ViewModelProvider.NewInstanceFactory().create(FavoritesFragmentViewModel::class.java)
+        ViewModelProvider.NewInstanceFactory().create(FavoritesViewModel::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = FavoritesCatalogAdapter { film ->
+        adapter = FavoritesAdapter { film ->
             (requireActivity() as MainActivity).launchFilmDetailsFragment(film)
         }
         decorator = SpacingItemDecoration(10)

@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:background="@color/ivi_blue_dark"
         android:visibility="invisible"
-        tools:context=".view.fragments.selections.SelectionsFragment"
+        tools:context=".presentation.fragments.selections.SelectionsFragment"
         tools:visibility="visible">
 
         <com.google.android.material.appbar.AppBarLayout

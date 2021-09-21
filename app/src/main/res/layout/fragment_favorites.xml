@@ -21,7 +21,7 @@
         android:layout_height="match_parent"
         android:background="@color/ivi_blue_dark"
         android:visibility="invisible"
-        tools:context=".view.fragments.favorites.FavoritesFragment"
+        tools:context=".presentation.fragments.favorites.FavoritesFragment"
         tools:visibility="visible">
 
         <!--    RecyclerView layout-->

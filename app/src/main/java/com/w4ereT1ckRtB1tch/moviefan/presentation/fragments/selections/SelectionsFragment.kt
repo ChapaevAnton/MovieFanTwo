@@ -12,7 +12,9 @@ import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentSelectionsBinding
 import com.w4ereT1ckRtB1tch.moviefan.utils.AnimationHelper
 import com.w4ereT1ckRtB1tch.moviefan.utils.SpacingItemDecoration
 import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.SelectionAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SelectionsFragment : Fragment(R.layout.fragment_selections) {
 
     private lateinit var adapter: SelectionAdapter

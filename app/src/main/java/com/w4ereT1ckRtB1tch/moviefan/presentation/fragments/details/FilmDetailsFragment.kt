@@ -13,7 +13,9 @@ import com.w4ereT1ckRtB1tch.moviefan.presentation.MainActivity
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentFilmDetailsBinding
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FilmDetailsFragment : Fragment(R.layout.fragment_film_details) {
 
     private lateinit var fabRotateClock: Animation

@@ -1,19 +1,20 @@
 package com.w4ereT1ckRtB1tch.moviefan.data.mapper
 
-import com.w4ereT1ckRtB1tch.moviefan.data.dto.FilmPopularResponse
+import com.w4ereT1ckRtB1tch.moviefan.data.dto.FilmResponse
 import com.w4ereT1ckRtB1tch.moviefan.data.dto.FilmsPopularResponse
 import com.w4ereT1ckRtB1tch.moviefan.domain.mapper.FilmsMapper
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import javax.inject.Inject
 
-class FilmsMapperImpl : FilmsMapper<FilmPopularResponse, FilmsPopularResponse> {
+class FilmsMapperImpl @Inject constructor() : FilmsMapper<@JvmSuppressWildcards FilmResponse, @JvmSuppressWildcards FilmsPopularResponse> {
 
-    override fun map(film: FilmPopularResponse): Film {
+    override fun map(film: FilmResponse): Film {
         return with(film) {
             Film(
                 title = title,
-                poster =  posterPath,
+                poster = posterPath,
                 description = overview,
                 rating = voteAverage,
                 year = LocalDate.parse(releaseDate, DateTimeFormatter.ISO_LOCAL_DATE),

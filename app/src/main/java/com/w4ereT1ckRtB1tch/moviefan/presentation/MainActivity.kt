@@ -17,8 +17,10 @@ import com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.details.FilmDetailsF
 import com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.favorites.FavoritesFragment
 import com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.home.HomeFragment
 import com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.selections.SelectionsFragment
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     companion object {

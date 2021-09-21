@@ -13,7 +13,7 @@ class FilmsMapperImpl : FilmsMapper<FilmPopularResponse, FilmsPopularResponse> {
         return with(film) {
             Film(
                 title = title,
-                poster = posterPath,
+                poster =  posterPath,
                 description = overview,
                 rating = voteAverage,
                 year = LocalDate.parse(releaseDate, DateTimeFormatter.ISO_LOCAL_DATE),

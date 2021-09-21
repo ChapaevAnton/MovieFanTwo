@@ -5,6 +5,6 @@ import retrofit2.Call
 
 interface FilmsRepository {
 
-    fun getPopularFilms(): Call<List<Film>>
+    fun getPopularFilms(page:Int): Call<List<Film>>
 
 }

@@ -3,7 +3,7 @@ package com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.w4ereT1ckRtB1tch.moviefan.domain.Film
+import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import com.w4ereT1ckRtB1tch.moviefan.databinding.ItemFilmMiniBinding
 
 class RecommendAdapter : RecyclerView.Adapter<RecommendAdapter.ListRecommendHolder>() {

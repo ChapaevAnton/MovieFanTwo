@@ -2,7 +2,7 @@ package com.w4ereT1ckRtB1tch.moviefan.data.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class FilmDto(
+data class FilmPopularResponse(
     @field:SerializedName("adult") val adult: Boolean,
     @field:SerializedName("backdrop_path") val backdropPath: String,
     @field:SerializedName("genre_ids") val genreIds: List<Int>,

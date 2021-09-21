@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.w4ereT1ckRtB1tch.moviefan.R
-import com.w4ereT1ckRtB1tch.moviefan.domain.Film
+import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import com.w4ereT1ckRtB1tch.moviefan.databinding.ItemFilmBinding
 
 class SelectionAdapter(private val onItemClickListener: OnItemClickListener) :

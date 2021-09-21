@@ -8,7 +8,7 @@
 
         <import
             alias="Film"
-            type="com.w4ereT1ckRtB1tch.moviefan.domain.Film" />
+            type="com.w4ereT1ckRtB1tch.moviefan.domain.model.Film" />
 
         <import
             alias="ViewModel"
@@ -20,7 +20,7 @@
 
         <variable
             name="film"
-            type="Film" />
+            type="com.w4ereT1ckRtB1tch.moviefan.domain.model.Film" />
 
         <variable
             name="isVisible"

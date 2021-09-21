@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.w4ereT1ckRtB1tch.moviefan.presentation.MainActivity
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentFilmDetailsBinding
-import com.w4ereT1ckRtB1tch.moviefan.domain.Film
+import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 
 class FilmDetailsFragment : Fragment(R.layout.fragment_film_details) {
 

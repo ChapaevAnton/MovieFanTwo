@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.ItemFilmBinding
-import com.w4ereT1ckRtB1tch.moviefan.domain.Film
+import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.HomeAdapter.ItemFilmHolder
 
 class HomeAdapter(private val onItemClickListener: OnItemClickListener) :

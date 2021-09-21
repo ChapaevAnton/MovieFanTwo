@@ -20,6 +20,14 @@ object DataBindingAdapter {
         }
     }
 
+    @BindingAdapter("srcGlide")
+    @JvmStatic
+    fun setImage(@Nullable imageView: ImageView?, imageUrl: String) {
+        imageView?.let {
+            Glide.with(it.context).load(imageUrl).centerCrop().into(it)
+        }
+    }
+
     @BindingAdapter("srcDrawable")
     @JvmStatic
     fun setImage(@Nullable floatingActionButton: FloatingActionButton?, drawable: Drawable) {
@@ -48,7 +56,7 @@ object DataBindingAdapter {
 
     @BindingAdapter("rating")
     @JvmStatic
-    fun setRating(@Nullable ratingCircleView: RatingCircleView?, rating: Float) {
+    fun setRating(@Nullable ratingCircleView: RatingCircleView?, rating: Double) {
         ratingCircleView?.setProgress(rating.times(10).toInt())
     }
 

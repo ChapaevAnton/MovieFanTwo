@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.w4ereT1ckRtB1tch.moviefan.App
-import com.w4ereT1ckRtB1tch.moviefan.domain.Film
+import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 
 class FilmDetailsViewModel(application: Application) : AndroidViewModel(application) {
 

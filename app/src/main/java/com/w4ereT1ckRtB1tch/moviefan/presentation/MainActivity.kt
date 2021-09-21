@@ -11,7 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.w4ereT1ckRtB1tch.moviefan.R
-import com.w4ereT1ckRtB1tch.moviefan.domain.Film
+import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import com.w4ereT1ckRtB1tch.moviefan.databinding.ActivityMainBinding
 import com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.details.FilmDetailsFragment
 import com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.favorites.FavoritesFragment

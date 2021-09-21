@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.w4ereT1ckRtB1tch.moviefan.App
 import com.w4ereT1ckRtB1tch.moviefan.domain.DataBase
-import com.w4ereT1ckRtB1tch.moviefan.domain.Film
+import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 
 class HomeViewModel : ViewModel() {
 

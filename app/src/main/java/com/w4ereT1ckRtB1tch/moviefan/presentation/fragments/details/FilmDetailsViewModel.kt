@@ -34,7 +34,7 @@ class FilmDetailsViewModel(application: Application) : AndroidViewModel(applicat
         val filmValue = film.value!!
         filmValue.isFavorites = !filmValue.isFavorites
         film.postValue(filmValue)
-        Log.d("TAG", "DataBase: ${App.instance.dataBase.getDataBase()}")
+        //Log.d("TAG", "DataBase: ${App.instance.dataBase.getDataBase()}")
     }
 
     fun onClickedShare() {

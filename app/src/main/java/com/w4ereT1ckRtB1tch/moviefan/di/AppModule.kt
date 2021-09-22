@@ -1,7 +1,7 @@
 package com.w4ereT1ckRtB1tch.moviefan.di
 
 import com.w4ereT1ckRtB1tch.moviefan.data.dto.FilmResponse
-import com.w4ereT1ckRtB1tch.moviefan.data.dto.FilmsPopularResponse
+import com.w4ereT1ckRtB1tch.moviefan.data.dto.FilmsResponse
 import com.w4ereT1ckRtB1tch.moviefan.data.mapper.FilmsMapperImpl
 import com.w4ereT1ckRtB1tch.moviefan.data.repository.FilmsRepositoryImpl
 import com.w4ereT1ckRtB1tch.moviefan.domain.mapper.FilmsMapper
@@ -20,7 +20,7 @@ abstract class AppModule {
     @Reusable
     abstract fun bindFilmsMapper(
         filmsMapper: FilmsMapperImpl
-    ): @JvmSuppressWildcards FilmsMapper<FilmResponse, FilmsPopularResponse>
+    ): @JvmSuppressWildcards FilmsMapper<FilmResponse, FilmsResponse>
 
     @Binds
     @Reusable

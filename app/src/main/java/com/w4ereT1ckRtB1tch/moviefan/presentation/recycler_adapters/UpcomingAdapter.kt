@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import com.w4ereT1ckRtB1tch.moviefan.databinding.ItemFilmMiniBinding
 
-class RecommendAdapter : RecyclerView.Adapter<RecommendAdapter.ListRecommendHolder>() {
+class UpcomingAdapter : RecyclerView.Adapter<UpcomingAdapter.ItemFilmHolder>() {
 
     var items: List<Film> = emptyList()
         set(newValue) {
@@ -14,7 +14,7 @@ class RecommendAdapter : RecyclerView.Adapter<RecommendAdapter.ListRecommendHold
             notifyDataSetChanged()
         }
 
-    inner class ListRecommendHolder(private val binding: ItemFilmMiniBinding) :
+    inner class ItemFilmHolder(private val binding: ItemFilmMiniBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(film: Film?) {
@@ -22,13 +22,13 @@ class RecommendAdapter : RecyclerView.Adapter<RecommendAdapter.ListRecommendHold
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListRecommendHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemFilmHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemFilmMiniBinding.inflate(inflater, parent, false)
-        return ListRecommendHolder(binding)
+        return ItemFilmHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ListRecommendHolder, position: Int) {
+    override fun onBindViewHolder(holder: ItemFilmHolder, position: Int) {
         holder.onBind(items[position])
     }
 

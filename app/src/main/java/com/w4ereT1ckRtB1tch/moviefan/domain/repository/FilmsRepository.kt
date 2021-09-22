@@ -7,4 +7,5 @@ interface FilmsRepository {
 
     fun getPopularFilms(page: Int): Single<List<Film>>
 
+    fun getUpcomingFilms(page: Int): Single<List<Film>>
 }

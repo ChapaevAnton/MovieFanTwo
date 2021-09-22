@@ -18,14 +18,11 @@ class HomeViewModel @Inject constructor(private val dataBase: FilmsRepository) :
     private val films: MutableLiveData<List<Film>> = MutableLiveData()
     fun getFilms(): LiveData<List<Film>> = films
 
-    private val recommendFilms: MutableLiveData<List<Film>> = MutableLiveData()
-    fun getRecommendFilms(): LiveData<List<Film>> = recommendFilms
+    private val upcomingFilms: MutableLiveData<List<Film>> = MutableLiveData()
+    fun getUpcomingFilms(): LiveData<List<Film>> = upcomingFilms
 
     init {
         loadDataBase()
-
-//        val recommendValues = dataBase.getDataBase().take(6)
-//        this.recommendFilms.postValue(recommendValues)
     }
 
     @SuppressLint("CheckResult")
@@ -33,8 +30,17 @@ class HomeViewModel @Inject constructor(private val dataBase: FilmsRepository) :
         dataBase.getPopularFilms(1)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                films.value = it
+            .subscribe({ list ->
+                films.value = list
+            }, { error ->
+                Log.d("TAG", error.toString())
+            })
+
+        dataBase.getUpcomingFilms(1)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ list ->
+                upcomingFilms.value = list
             }, { error ->
                 Log.d("TAG", error.toString())
             })

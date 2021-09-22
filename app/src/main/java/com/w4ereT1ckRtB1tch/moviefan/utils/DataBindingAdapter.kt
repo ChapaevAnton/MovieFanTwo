@@ -22,7 +22,7 @@ object DataBindingAdapter {
 
     @BindingAdapter("srcGlide")
     @JvmStatic
-    fun setImage(@Nullable imageView: ImageView?, imageUrl: String) {
+    fun setImage(@Nullable imageView: ImageView?, @Nullable imageUrl: String?) {
         imageView?.let {
             Glide.with(it.context).load(imageUrl).centerCrop().into(it)
         }

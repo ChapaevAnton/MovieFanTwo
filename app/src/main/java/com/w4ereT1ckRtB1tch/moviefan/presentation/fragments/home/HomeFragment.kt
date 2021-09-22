@@ -7,21 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.w4ereT1ckRtB1tch.moviefan.presentation.MainActivity
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentHomeBinding
 import com.w4ereT1ckRtB1tch.moviefan.utils.AnimationHelper
 import com.w4ereT1ckRtB1tch.moviefan.utils.SpacingItemDecoration
 import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.HomeAdapter
-import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.RecommendAdapter
+import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.UpcomingAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private lateinit var adapter: HomeAdapter
-    private lateinit var recommendAdapter: RecommendAdapter
+    private lateinit var upcomingAdapter: UpcomingAdapter
     private lateinit var decorator: SpacingItemDecoration
     private lateinit var decoratorMini: SpacingItemDecoration
     private var _binding: FragmentHomeBinding? = null
@@ -31,7 +30,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //список рекомендации
-        recommendAdapter = RecommendAdapter()
+        upcomingAdapter = UpcomingAdapter()
         decoratorMini = SpacingItemDecoration(5)
         //каталог фильмов
         adapter =
@@ -57,10 +56,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         Log.d("TAG", "onViewCreated: HomeFragment")
         AnimationHelper.performFragmentCircularRevealAnimation(view, requireActivity(), 1)
 
-        binding.recommendListFilm.adapter = recommendAdapter
-        binding.recommendListFilm.addItemDecoration(decoratorMini)
-        viewModel.getRecommendFilms().observe(viewLifecycleOwner) { films ->
-            recommendAdapter.items = films
+        binding.upcomingFilm.adapter = upcomingAdapter
+        binding.upcomingFilm.addItemDecoration(decoratorMini)
+        viewModel.getUpcomingFilms().observe(viewLifecycleOwner) { films ->
+            upcomingAdapter.items = films
         }
 
         binding.catalogFilm.adapter = adapter

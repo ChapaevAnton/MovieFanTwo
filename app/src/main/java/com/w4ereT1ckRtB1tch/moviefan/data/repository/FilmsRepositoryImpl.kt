@@ -1,7 +1,7 @@
 package com.w4ereT1ckRtB1tch.moviefan.data.repository
 
 import com.w4ereT1ckRtB1tch.moviefan.data.dto.FilmResponse
-import com.w4ereT1ckRtB1tch.moviefan.data.dto.FilmsPopularResponse
+import com.w4ereT1ckRtB1tch.moviefan.data.dto.FilmsResponse
 import com.w4ereT1ckRtB1tch.moviefan.data.source.TmdbApi
 import com.w4ereT1ckRtB1tch.moviefan.data.source.TmdbConfig
 import com.w4ereT1ckRtB1tch.moviefan.data.source.TmdbKey
@@ -13,12 +13,18 @@ import javax.inject.Inject
 
 class FilmsRepositoryImpl @Inject constructor(
     private val api: TmdbApi,
-    private val mapper: @JvmSuppressWildcards FilmsMapper<FilmResponse, FilmsPopularResponse>
+    private val mapper: @JvmSuppressWildcards FilmsMapper<FilmResponse, FilmsResponse>
 ) : FilmsRepository {
 
     override fun getPopularFilms(page: Int): Single<List<Film>> {
-        return api.getPopularFilms(TmdbKey.API_KEY_V3, TmdbConfig.LANGUAGE, page)
+        return api.getPopularFilms(TmdbKey.API_KEY_V3, TmdbConfig.LANGUAGE_RU, page)
             .map { mapper.map(it) }
     }
+
+    override fun getUpcomingFilms(page: Int): Single<List<Film>> {
+        return api.getUpcomingFilms(TmdbKey.API_KEY_V3, TmdbConfig.LANGUAGE_RU, page)
+            .map { mapper.map(it) }
+    }
+
 
 }

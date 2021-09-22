@@ -16,7 +16,8 @@ class FilmsMapperImpl @Inject constructor() :
         return with(film) {
             Film(
                 title = title,
-                poster = "${TmdbConfig.IMAGE_URL}${TmdbConfig.IMAGE_POSTER_SIZE}$posterPath",
+                poster = "${TmdbConfig.IMAGE_URL}${TmdbConfig.IMAGE_POSTER_SIZE_50}$posterPath",
+                backdrop = "${TmdbConfig.IMAGE_URL}${TmdbConfig.IMAGE_BACKDROP_SIZE}$backdropPath",
                 description = overview,
                 rating = voteAverage,
                 year = LocalDate.parse(releaseDate, DateTimeFormatter.ISO_LOCAL_DATE),

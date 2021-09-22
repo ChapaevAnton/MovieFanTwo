@@ -7,7 +7,8 @@ import java.time.LocalDate
 @Parcelize
 data class Film(
     val title: String,
-    val poster: String,
+    val poster: String?,
+    val backdrop: String?,
     val description: String,
     val rating: Double,
     val year: LocalDate,

@@ -22,12 +22,13 @@ class HomeViewModel @Inject constructor(private val dataBase: FilmsRepository) :
     fun getUpcomingFilms(): LiveData<List<Film>> = upcomingFilms
 
     init {
-        loadDataBase()
+        getPopular(1)
+        getUpcoming(1)
     }
 
     @SuppressLint("CheckResult")
-    private fun loadDataBase() {
-        dataBase.getPopularFilms(1)
+    private fun getPopular(page: Int) {
+        dataBase.getPopularFilms(page)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ list ->
@@ -35,8 +36,11 @@ class HomeViewModel @Inject constructor(private val dataBase: FilmsRepository) :
             }, { error ->
                 Log.d("TAG", error.toString())
             })
+    }
 
-        dataBase.getUpcomingFilms(1)
+    @SuppressLint("CheckResult")
+    private fun getUpcoming(page: Int) {
+        dataBase.getUpcomingFilms(page)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ list ->

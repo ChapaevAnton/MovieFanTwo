@@ -14,13 +14,14 @@ import com.w4ereT1ckRtB1tch.moviefan.utils.AnimationHelper
 import com.w4ereT1ckRtB1tch.moviefan.utils.SpacingItemDecoration
 import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.HomeAdapter
 import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.UpcomingAdapter
+import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.UpcomingPagingAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private lateinit var adapter: HomeAdapter
-    private lateinit var upcomingAdapter: UpcomingAdapter
+    private lateinit var upcomingAdapter: UpcomingPagingAdapter
     private lateinit var decorator: SpacingItemDecoration
     private lateinit var decoratorMini: SpacingItemDecoration
     private var _binding: FragmentHomeBinding? = null
@@ -30,7 +31,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //список рекомендации
-        upcomingAdapter = UpcomingAdapter()
+        upcomingAdapter = UpcomingPagingAdapter()
         decoratorMini = SpacingItemDecoration(5)
         //каталог фильмов
         adapter =

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.w4ereT1ckRtB1tch.moviefan.presentation.MainActivity
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentHomeBinding
@@ -59,9 +60,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         binding.upcomingFilm.adapter = upcomingAdapter
         binding.upcomingFilm.addItemDecoration(decoratorMini)
-        viewModel.getUpcomingFilms().observe(viewLifecycleOwner) { films ->
-            upcomingAdapter.items = films
-        }
+        viewModel.getUpcomingFilms()
+            .observe(viewLifecycleOwner) { films -> upcomingAdapter.submitData(lifecycle,films) }
 
         binding.catalogFilm.adapter = adapter
         binding.catalogFilm.addItemDecoration(decorator)

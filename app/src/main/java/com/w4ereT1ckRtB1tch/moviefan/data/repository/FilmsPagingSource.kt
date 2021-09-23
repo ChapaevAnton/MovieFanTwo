@@ -15,13 +15,13 @@ import javax.inject.Inject
 
 class FilmsPagingSource @Inject constructor(
     private val api: TmdbApi,
-    private val mapper: @JvmSuppressWildcards FilmsMapper<FilmResponse, FilmsResponse>,
-) : RxPagingSource<Int, List<Film>>() {
+    private val mapper: @JvmSuppressWildcards FilmsMapper<FilmResponse, FilmsResponse>
+) : RxPagingSource<Int, Film>() {
 
-    override fun getRefreshKey(state: PagingState<Int, List<Film>>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, Film>): Int? {
 
         val anchorPosition: Int = state.anchorPosition ?: return null
-        val anchorPage: LoadResult.Page<Int, List<Film>> =
+        val anchorPage: LoadResult.Page<Int, Film> =
             state.closestPageToPosition(anchorPosition) ?: return null
 
         val prevKey = anchorPage.prevKey
@@ -37,20 +37,16 @@ class FilmsPagingSource @Inject constructor(
         return null
     }
 
-    override fun loadSingle(params: LoadParams<Int>): Single<LoadResult<Int, List<Film>>> {
+    override fun loadSingle(params: LoadParams<Int>): Single<LoadResult<Int, Film>> {
         val nextPageNumber = params.key ?: 1
         return api.getUpcomingFilms(TmdbKey.API_KEY_V3, TmdbConfig.LANGUAGE_RU, nextPageNumber)
-            .subscribeOn(Schedulers.io()).map { toLoadResult(it) }
-    }
-
-    private fun toLoadResult(
-        filmsResponse: FilmsResponse
-    ): LoadResult<Int, List<Film>> {
-        return LoadResult.Page(
-            listOf(mapper.map(filmsResponse)),
-            filmsResponse.page - 1,
-            filmsResponse.page + 1
-        )
+            .subscribeOn(Schedulers.io()).map { filmsResponse ->
+                LoadResult.Page(
+                    data = mapper.map(filmsResponse),
+                    prevKey = if (nextPageNumber == 1) null else nextPageNumber - 1,
+                    nextKey = if (nextPageNumber == filmsResponse.totalPages) null else filmsResponse.page + 1
+                ) as LoadResult<Int, Film>
+            }.onErrorReturn { LoadResult.Error(it) }
     }
 
 }

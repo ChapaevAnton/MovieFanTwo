@@ -5,10 +5,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.rxjava2.cachedIn
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import com.w4ereT1ckRtB1tch.moviefan.domain.repository.FilmsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -18,12 +22,21 @@ class HomeViewModel @Inject constructor(private val dataBase: FilmsRepository) :
     private val films: MutableLiveData<List<Film>> = MutableLiveData()
     fun getFilms(): LiveData<List<Film>> = films
 
-    private val upcomingFilms: MutableLiveData<List<Film>> = MutableLiveData()
-    fun getUpcomingFilms(): LiveData<List<Film>> = upcomingFilms
+    private val upcomingFilms: MutableLiveData<PagingData<Film>> = MutableLiveData()
+    fun getUpcomingFilms(): LiveData<PagingData<Film>> = upcomingFilms
+
+    private val compositeDisposable = CompositeDisposable()
+
 
     init {
-        getPopular(1)
-        getUpcoming(1)
+
+        compositeDisposable.add(dataBase
+            .getListFilms()
+            .cachedIn(viewModelScope)
+            .subscribe {
+                upcomingFilms.value = it
+            })
+
     }
 
     @SuppressLint("CheckResult")
@@ -38,16 +51,16 @@ class HomeViewModel @Inject constructor(private val dataBase: FilmsRepository) :
             })
     }
 
-    @SuppressLint("CheckResult")
-    private fun getUpcoming(page: Int) {
-        dataBase.getUpcomingFilms(page)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ list ->
-                upcomingFilms.value = list
-            }, { error ->
-                Log.d("TAG", error.toString())
-            })
-    }
+//    @SuppressLint("CheckResult")
+//    private fun getUpcoming(page: Int) {
+//        dataBase.getUpcomingFilms(page)
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe({ list ->
+//                upcomingFilms.value = list
+//            }, { error ->
+//                Log.d("TAG", error.toString())
+//            })
+//    }
 
 }

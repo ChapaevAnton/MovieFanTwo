@@ -1,5 +1,9 @@
 package com.w4ereT1ckRtB1tch.moviefan.data.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.rxjava2.flowable
 import com.w4ereT1ckRtB1tch.moviefan.data.dto.FilmResponse
 import com.w4ereT1ckRtB1tch.moviefan.data.dto.FilmsResponse
 import com.w4ereT1ckRtB1tch.moviefan.data.source.TmdbApi
@@ -8,12 +12,14 @@ import com.w4ereT1ckRtB1tch.moviefan.data.source.TmdbKey
 import com.w4ereT1ckRtB1tch.moviefan.domain.mapper.FilmsMapper
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import com.w4ereT1ckRtB1tch.moviefan.domain.repository.FilmsRepository
+import io.reactivex.Flowable
 import io.reactivex.Single
 import javax.inject.Inject
 
 class FilmsRepositoryImpl @Inject constructor(
     private val api: TmdbApi,
-    private val mapper: @JvmSuppressWildcards FilmsMapper<FilmResponse, FilmsResponse>
+    private val mapper: @JvmSuppressWildcards FilmsMapper<FilmResponse, FilmsResponse>,
+    private val source: FilmsPagingSource
 ) : FilmsRepository {
 
     override fun getPopularFilms(page: Int): Single<List<Film>> {
@@ -26,5 +32,14 @@ class FilmsRepositoryImpl @Inject constructor(
             .map { mapper.map(it) }
     }
 
+    override fun getListFilms(): Flowable<PagingData<Film>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 20,
+                enablePlaceholders = false,
+                prefetchDistance = 1
+            ), pagingSourceFactory = { source }
+        ).flowable
+    }
 
 }

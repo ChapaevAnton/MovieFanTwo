@@ -7,15 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import com.w4ereT1ckRtB1tch.moviefan.presentation.MainActivity
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentHomeBinding
+import com.w4ereT1ckRtB1tch.moviefan.presentation.MainActivity
+import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.HomeAdapter
+import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.UpcomingPagingAdapter
 import com.w4ereT1ckRtB1tch.moviefan.utils.AnimationHelper
 import com.w4ereT1ckRtB1tch.moviefan.utils.SpacingItemDecoration
-import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.HomeAdapter
-import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.UpcomingAdapter
-import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.UpcomingPagingAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

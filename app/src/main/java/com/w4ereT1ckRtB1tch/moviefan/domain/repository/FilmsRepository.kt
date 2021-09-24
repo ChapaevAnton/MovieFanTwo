@@ -9,8 +9,6 @@ interface FilmsRepository {
 
     fun getPopularFilms(page: Int): Single<List<Film>>
 
-    fun getUpcomingFilms(page: Int): Single<List<Film>>
-
-    fun getListFilms(): Flowable<PagingData<Film>>
+    fun getUpcomingFilms(): Flowable<PagingData<Film>>
 
 }

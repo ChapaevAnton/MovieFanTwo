@@ -14,6 +14,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,16 +28,8 @@ class HomeViewModel @Inject constructor(private val dataBase: FilmsRepository) :
 
     private val compositeDisposable = CompositeDisposable()
 
-
     init {
-
-        compositeDisposable.add(dataBase
-            .getListFilms()
-            .cachedIn(viewModelScope)
-            .subscribe {
-                upcomingFilms.value = it
-            })
-
+        loadingData()
     }
 
     @SuppressLint("CheckResult")
@@ -51,16 +44,19 @@ class HomeViewModel @Inject constructor(private val dataBase: FilmsRepository) :
             })
     }
 
-//    @SuppressLint("CheckResult")
-//    private fun getUpcoming(page: Int) {
-//        dataBase.getUpcomingFilms(page)
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe({ list ->
-//                upcomingFilms.value = list
-//            }, { error ->
-//                Log.d("TAG", error.toString())
-//            })
-//    }
+    @ExperimentalCoroutinesApi
+    private fun loadingData() {
+        compositeDisposable.add(dataBase
+            .getUpcomingFilms()
+            .cachedIn(viewModelScope)
+            .subscribe {
+                upcomingFilms.value = it
+            })
+    }
+
+    override fun onCleared() {
+        compositeDisposable.clear()
+        super.onCleared()
+    }
 
 }

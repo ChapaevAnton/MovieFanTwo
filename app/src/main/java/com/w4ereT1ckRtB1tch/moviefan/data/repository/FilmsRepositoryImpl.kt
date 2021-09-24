@@ -14,12 +14,13 @@ import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import com.w4ereT1ckRtB1tch.moviefan.domain.repository.FilmsRepository
 import io.reactivex.Flowable
 import io.reactivex.Single
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
 class FilmsRepositoryImpl @Inject constructor(
     private val api: TmdbApi,
     private val mapper: @JvmSuppressWildcards FilmsMapper<FilmResponse, FilmsResponse>,
-    private val source: FilmsPagingSource
+    private val source: FilmsPagingSourceImpl
 ) : FilmsRepository {
 
     override fun getPopularFilms(page: Int): Single<List<Film>> {
@@ -27,19 +28,15 @@ class FilmsRepositoryImpl @Inject constructor(
             .map { mapper.map(it) }
     }
 
-    override fun getUpcomingFilms(page: Int): Single<List<Film>> {
-        return api.getUpcomingFilms(TmdbKey.API_KEY_V3, TmdbConfig.LANGUAGE_RU, page)
-            .map { mapper.map(it) }
-    }
-
-    override fun getListFilms(): Flowable<PagingData<Film>> {
-        return Pager(
-            config = PagingConfig(
-                pageSize = 20,
-                enablePlaceholders = false,
-                prefetchDistance = 1
-            ), pagingSourceFactory = { source }
-        ).flowable
+    @ExperimentalCoroutinesApi
+    override fun getUpcomingFilms(): Flowable<PagingData<Film>> {
+        val config = PagingConfig(
+            pageSize = 20,
+            enablePlaceholders = false,
+            prefetchDistance = 1,
+            maxSize = 80
+        )
+        return Pager(config = config, pagingSourceFactory = { source }).flowable
     }
 
 }

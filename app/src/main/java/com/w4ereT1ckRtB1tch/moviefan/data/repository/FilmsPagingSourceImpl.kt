@@ -13,40 +13,35 @@ import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class FilmsPagingSource @Inject constructor(
+class FilmsPagingSourceImpl @Inject constructor(
     private val api: TmdbApi,
     private val mapper: @JvmSuppressWildcards FilmsMapper<FilmResponse, FilmsResponse>
 ) : RxPagingSource<Int, Film>() {
 
+    companion object {
+        const val INITIAL_PAGE_NUMBER = 1
+    }
+
     override fun getRefreshKey(state: PagingState<Int, Film>): Int? {
-
-        val anchorPosition: Int = state.anchorPosition ?: return null
-        val anchorPage: LoadResult.Page<Int, Film> =
-            state.closestPageToPosition(anchorPosition) ?: return null
-
-        val prevKey = anchorPage.prevKey
-        if (prevKey != null) {
-            return prevKey + 1
-        }
-
-        val nextKey = anchorPage.nextKey
-        if (nextKey != null) {
-            return nextKey - 1
-        }
-
-        return null
+        val anchorPosition = state.anchorPosition ?: return null
+        val anchorPage = state.closestPageToPosition(anchorPosition) ?: return null
+        return anchorPage.prevKey?.plus(1) ?: anchorPage.nextKey?.minus(1)
     }
 
     override fun loadSingle(params: LoadParams<Int>): Single<LoadResult<Int, Film>> {
-        val nextPageNumber = params.key ?: 1
+        val nextPageNumber = params.key ?: INITIAL_PAGE_NUMBER
         return api.getUpcomingFilms(TmdbKey.API_KEY_V3, TmdbConfig.LANGUAGE_RU, nextPageNumber)
             .subscribeOn(Schedulers.io()).map { filmsResponse ->
-                LoadResult.Page(
-                    data = mapper.map(filmsResponse),
-                    prevKey = if (nextPageNumber == 1) null else nextPageNumber - 1,
-                    nextKey = if (nextPageNumber == filmsResponse.totalPages) null else filmsResponse.page + 1
-                ) as LoadResult<Int, Film>
+                filmsResponse.toLoadResult(nextPageNumber)
             }.onErrorReturn { LoadResult.Error(it) }
+    }
+
+    private fun FilmsResponse.toLoadResult(page: Int): LoadResult<Int, Film> {
+        return LoadResult.Page(
+            data = mapper.map(this),
+            prevKey = if (page == 1) null else page.minus(1),
+            nextKey = if (page == this.totalPages) null else this.page.plus(1)
+        )
     }
 
 }

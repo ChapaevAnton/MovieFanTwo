@@ -1,5 +1,6 @@
 package com.w4ereT1ckRtB1tch.moviefan.data.repository.paging
 
+import android.util.Log
 import androidx.paging.PagingState
 import androidx.paging.rxjava2.RxPagingSource
 import com.w4ereT1ckRtB1tch.moviefan.data.dto.FilmResponse
@@ -29,6 +30,7 @@ class FilmsPopularPagingSourceImpl @Inject constructor(
 
     override fun loadSingle(params: LoadParams<Int>): Single<LoadResult<Int, Film>> {
         val nextPageNumber = params.key ?: INITIAL_PAGE_NUMBER
+        Log.d("TAG", "loadSingle: $nextPageNumber ")
         return api.getPopularFilms(TmdbKey.API_KEY_V3, TmdbConfig.LANGUAGE_RU, nextPageNumber)
             .subscribeOn(Schedulers.io()).map { filmsResponse ->
                 filmsResponse.toLoadResult(nextPageNumber)

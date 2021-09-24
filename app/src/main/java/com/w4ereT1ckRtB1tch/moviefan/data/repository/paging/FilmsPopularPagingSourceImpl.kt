@@ -1,9 +1,10 @@
-package com.w4ereT1ckRtB1tch.moviefan.data.repository
+package com.w4ereT1ckRtB1tch.moviefan.data.repository.paging
 
 import androidx.paging.PagingState
 import androidx.paging.rxjava2.RxPagingSource
 import com.w4ereT1ckRtB1tch.moviefan.data.dto.FilmResponse
 import com.w4ereT1ckRtB1tch.moviefan.data.dto.FilmsResponse
+import com.w4ereT1ckRtB1tch.moviefan.data.repository.paging.PagingSourceConfig.INITIAL_PAGE_NUMBER
 import com.w4ereT1ckRtB1tch.moviefan.data.source.TmdbApi
 import com.w4ereT1ckRtB1tch.moviefan.data.source.TmdbConfig
 import com.w4ereT1ckRtB1tch.moviefan.data.source.TmdbKey
@@ -12,15 +13,13 @@ import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
+import javax.inject.Singleton
 
-class FilmsPagingSourceImpl @Inject constructor(
+@Singleton
+class FilmsPopularPagingSourceImpl @Inject constructor(
     private val api: TmdbApi,
     private val mapper: @JvmSuppressWildcards FilmsMapper<FilmResponse, FilmsResponse>
 ) : RxPagingSource<Int, Film>() {
-
-    companion object {
-        const val INITIAL_PAGE_NUMBER = 1
-    }
 
     override fun getRefreshKey(state: PagingState<Int, Film>): Int? {
         val anchorPosition = state.anchorPosition ?: return null
@@ -30,7 +29,7 @@ class FilmsPagingSourceImpl @Inject constructor(
 
     override fun loadSingle(params: LoadParams<Int>): Single<LoadResult<Int, Film>> {
         val nextPageNumber = params.key ?: INITIAL_PAGE_NUMBER
-        return api.getUpcomingFilms(TmdbKey.API_KEY_V3, TmdbConfig.LANGUAGE_RU, nextPageNumber)
+        return api.getPopularFilms(TmdbKey.API_KEY_V3, TmdbConfig.LANGUAGE_RU, nextPageNumber)
             .subscribeOn(Schedulers.io()).map { filmsResponse ->
                 filmsResponse.toLoadResult(nextPageNumber)
             }.onErrorReturn { LoadResult.Error(it) }
@@ -39,9 +38,8 @@ class FilmsPagingSourceImpl @Inject constructor(
     private fun FilmsResponse.toLoadResult(page: Int): LoadResult<Int, Film> {
         return LoadResult.Page(
             data = mapper.map(this),
-            prevKey = if (page == 1) null else page.minus(1),
+            prevKey = if (page == 1) null else this.page.minus(1),
             nextKey = if (page == this.totalPages) null else this.page.plus(1)
         )
     }
-
 }

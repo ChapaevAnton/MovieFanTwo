@@ -2,24 +2,16 @@ package com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import com.w4ereT1ckRtB1tch.moviefan.databinding.ItemFilmMiniBinding
+import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 
-class UpcomingAdapter : RecyclerView.Adapter<UpcomingAdapter.ItemFilmHolder>() {
+class UpcomingAdapter :
+    PagingDataAdapter<Film, UpcomingAdapter.ItemFilmHolder>(FilmComparator) {
 
-    var items: List<Film> = emptyList()
-        set(newValue) {
-            field = newValue
-            notifyDataSetChanged()
-        }
-
-    inner class ItemFilmHolder(private val binding: ItemFilmMiniBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        fun onBind(film: Film?) {
-            binding.film = film
-        }
+    override fun onBindViewHolder(holder: ItemFilmHolder, position: Int) {
+        holder.onBind(getItem(position))
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemFilmHolder {
@@ -28,11 +20,11 @@ class UpcomingAdapter : RecyclerView.Adapter<UpcomingAdapter.ItemFilmHolder>() {
         return ItemFilmHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: ItemFilmHolder, position: Int) {
-        holder.onBind(items[position])
-    }
+    inner class ItemFilmHolder(private val binding: ItemFilmMiniBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-    override fun getItemCount(): Int {
-        return items.size
+        fun onBind(film: Film?) {
+            binding.film = film
+        }
     }
 }

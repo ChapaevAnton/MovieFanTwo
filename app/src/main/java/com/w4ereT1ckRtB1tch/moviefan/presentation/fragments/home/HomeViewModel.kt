@@ -1,7 +1,5 @@
 package com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.home
 
-import android.annotation.SuppressLint
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,17 +9,15 @@ import androidx.paging.rxjava2.cachedIn
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import com.w4ereT1ckRtB1tch.moviefan.domain.repository.FilmsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val dataBase: FilmsRepository) : ViewModel() {
 
-    private val films: MutableLiveData<List<Film>> = MutableLiveData()
-    fun getFilms(): LiveData<List<Film>> = films
+    private val popularFilms: MutableLiveData<PagingData<Film>> = MutableLiveData()
+    fun getPopularFilms(): LiveData<PagingData<Film>> = popularFilms
 
     private val upcomingFilms: MutableLiveData<PagingData<Film>> = MutableLiveData()
     fun getUpcomingFilms(): LiveData<PagingData<Film>> = upcomingFilms
@@ -32,18 +28,6 @@ class HomeViewModel @Inject constructor(private val dataBase: FilmsRepository) :
         loadingData()
     }
 
-    @SuppressLint("CheckResult")
-    private fun getPopular(page: Int) {
-        dataBase.getPopularFilms(page)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ list ->
-                films.value = list
-            }, { error ->
-                Log.d("TAG", error.toString())
-            })
-    }
-
     @ExperimentalCoroutinesApi
     private fun loadingData() {
         compositeDisposable.add(dataBase
@@ -51,6 +35,12 @@ class HomeViewModel @Inject constructor(private val dataBase: FilmsRepository) :
             .cachedIn(viewModelScope)
             .subscribe {
                 upcomingFilms.value = it
+            })
+        compositeDisposable.add(dataBase
+            .getPopularFilms()
+            .cachedIn(viewModelScope)
+            .subscribe {
+                popularFilms.value = it
             })
     }
 

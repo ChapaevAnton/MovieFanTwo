@@ -4,8 +4,9 @@ import androidx.paging.rxjava2.RxPagingSource
 import com.w4ereT1ckRtB1tch.moviefan.data.dto.FilmResponse
 import com.w4ereT1ckRtB1tch.moviefan.data.dto.FilmsResponse
 import com.w4ereT1ckRtB1tch.moviefan.data.mapper.FilmsMapperImpl
-import com.w4ereT1ckRtB1tch.moviefan.data.repository.FilmsPagingSourceImpl
+import com.w4ereT1ckRtB1tch.moviefan.data.repository.paging.FilmsUpcomingPagingSourceImpl
 import com.w4ereT1ckRtB1tch.moviefan.data.repository.FilmsRepositoryImpl
+import com.w4ereT1ckRtB1tch.moviefan.data.repository.paging.FilmsPopularPagingSourceImpl
 import com.w4ereT1ckRtB1tch.moviefan.domain.mapper.FilmsMapper
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import com.w4ereT1ckRtB1tch.moviefan.domain.repository.FilmsRepository
@@ -29,10 +30,15 @@ abstract class AppModule {
     @Reusable
     abstract fun bindFilmsRepository(filmsRepository: FilmsRepositoryImpl): FilmsRepository
 
-    @Binds
-    @Reusable
-    abstract fun bindFilmsPagingSource(
-        filmsPagingSource: FilmsPagingSourceImpl
-    ): @JvmSuppressWildcards RxPagingSource<Int, Film>
-
+//    @Binds
+//    @Reusable
+//    abstract fun bindFilmsUpcomingPagingSource(
+//        filmsUpcomingPagingSource: FilmsUpcomingPagingSourceImpl
+//    ): @JvmSuppressWildcards RxPagingSource<Int, Film>
+//
+//    @Binds
+//    @Reusable
+//    abstract fun bindFilmsPopularPagingSource(
+//        filmsUpcomingPagingSource: FilmsPopularPagingSourceImpl
+//    ): @JvmSuppressWildcards RxPagingSource<Int, Film>
 }

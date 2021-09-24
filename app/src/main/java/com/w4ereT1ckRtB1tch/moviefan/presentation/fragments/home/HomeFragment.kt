@@ -11,7 +11,7 @@ import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentHomeBinding
 import com.w4ereT1ckRtB1tch.moviefan.presentation.MainActivity
 import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.HomeAdapter
-import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.UpcomingPagingAdapter
+import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.UpcomingAdapter
 import com.w4ereT1ckRtB1tch.moviefan.utils.AnimationHelper
 import com.w4ereT1ckRtB1tch.moviefan.utils.SpacingItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private lateinit var adapter: HomeAdapter
-    private lateinit var upcomingAdapter: UpcomingPagingAdapter
+    private lateinit var upcomingAdapter: UpcomingAdapter
     private lateinit var decorator: SpacingItemDecoration
     private lateinit var decoratorMini: SpacingItemDecoration
     private var _binding: FragmentHomeBinding? = null
@@ -30,7 +30,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //список рекомендации
-        upcomingAdapter = UpcomingPagingAdapter()
+        upcomingAdapter = UpcomingAdapter()
         decoratorMini = SpacingItemDecoration(5)
         //каталог фильмов
         adapter =
@@ -59,12 +59,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         binding.upcomingFilm.adapter = upcomingAdapter
         binding.upcomingFilm.addItemDecoration(decoratorMini)
         viewModel.getUpcomingFilms()
-            .observe(viewLifecycleOwner) { films -> upcomingAdapter.submitData(lifecycle,films) }
+            .observe(viewLifecycleOwner) { films ->
+                upcomingAdapter.submitData(lifecycle, films)
+            }
 
         binding.catalogFilm.adapter = adapter
         binding.catalogFilm.addItemDecoration(decorator)
-        viewModel.getFilms().observe(viewLifecycleOwner) { films ->
-            adapter.items = films
+        viewModel.getPopularFilms().observe(viewLifecycleOwner) { films ->
+            adapter.submitData(lifecycle, films)
         }
 
         //обработчик выбора пунктов меню Top Bar

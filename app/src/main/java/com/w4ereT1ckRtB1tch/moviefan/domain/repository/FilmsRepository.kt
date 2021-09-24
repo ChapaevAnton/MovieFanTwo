@@ -7,7 +7,7 @@ import io.reactivex.Single
 
 interface FilmsRepository {
 
-    fun getPopularFilms(page: Int): Single<List<Film>>
+    fun getPopularFilms(): Flowable<PagingData<Film>>
 
     fun getUpcomingFilms(): Flowable<PagingData<Film>>
 

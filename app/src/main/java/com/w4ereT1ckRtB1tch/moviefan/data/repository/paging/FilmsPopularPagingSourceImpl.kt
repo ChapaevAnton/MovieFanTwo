@@ -35,18 +35,11 @@ class FilmsPopularPagingSourceImpl @Inject constructor(
         Log.d("TAG", "pageSize: $pageSize ")
         return api.getPopularFilms(TmdbKey.API_KEY_V3, TmdbConfig.LANGUAGE_RU, nextPageNumber)
             .subscribeOn(Schedulers.io()).map { filmsResponse ->
-                filmsResponse.toLoadResult(nextPageNumber)
+                mapper.mapOfResponse(filmsResponse, nextPageNumber)
             }.onErrorReturn {
                 Log.d("TAG", "load popular: ${it.localizedMessage}")
                 LoadResult.Error(it)
             }
     }
 
-    private fun FilmsResponse.toLoadResult(page: Int): LoadResult<Int, Film> {
-        return LoadResult.Page(
-            data = mapper.map(this),
-            prevKey = if (page == 1) null else this.page.minus(1),
-            nextKey = if (page == this.totalPages) null else this.page.plus(1)
-        )
-    }
 }

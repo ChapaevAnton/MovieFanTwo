@@ -32,19 +32,11 @@ class FilmsUpcomingPagingSourceImpl @Inject constructor(
         val nextPageNumber = params.key ?: INITIAL_PAGE_NUMBER
         return api.getUpcomingFilms(TmdbKey.API_KEY_V3, TmdbConfig.LANGUAGE_RU, nextPageNumber)
             .subscribeOn(Schedulers.io()).map { filmsResponse ->
-                filmsResponse.toLoadResult(nextPageNumber)
+                mapper.mapOfResponse(filmsResponse, nextPageNumber)
             }.onErrorReturn {
                 Log.d("TAG", "load upcoming: ${it.localizedMessage}")
                 LoadResult.Error(it)
             }
-    }
-
-    private fun FilmsResponse.toLoadResult(page: Int): LoadResult<Int, Film> {
-        return LoadResult.Page(
-            data = mapper.map(this),
-            prevKey = if (page == 1) null else page.minus(1),
-            nextKey = if (page == this.totalPages) null else this.page.plus(1)
-        )
     }
 
 }

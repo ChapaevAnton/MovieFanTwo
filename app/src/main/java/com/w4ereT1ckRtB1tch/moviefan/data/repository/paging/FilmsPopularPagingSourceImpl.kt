@@ -37,7 +37,7 @@ class FilmsPopularPagingSourceImpl @Inject constructor(
             .subscribeOn(Schedulers.io()).map { filmsResponse ->
                 filmsResponse.toLoadResult(nextPageNumber)
             }.onErrorReturn {
-                Log.d("TAG", "load popular: error")
+                Log.d("TAG", "load popular: ${it.localizedMessage}")
                 LoadResult.Error(it)
             }
     }

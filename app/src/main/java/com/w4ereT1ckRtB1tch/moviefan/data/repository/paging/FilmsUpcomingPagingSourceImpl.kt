@@ -34,7 +34,7 @@ class FilmsUpcomingPagingSourceImpl @Inject constructor(
             .subscribeOn(Schedulers.io()).map { filmsResponse ->
                 filmsResponse.toLoadResult(nextPageNumber)
             }.onErrorReturn {
-                Log.d("TAG", "load upcoming: error")
+                Log.d("TAG", "load upcoming: ${it.localizedMessage}")
                 LoadResult.Error(it)
             }
     }

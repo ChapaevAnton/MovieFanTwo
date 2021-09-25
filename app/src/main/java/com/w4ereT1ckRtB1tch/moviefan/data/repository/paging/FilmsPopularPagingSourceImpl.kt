@@ -36,7 +36,10 @@ class FilmsPopularPagingSourceImpl @Inject constructor(
         return api.getPopularFilms(TmdbKey.API_KEY_V3, TmdbConfig.LANGUAGE_RU, nextPageNumber)
             .subscribeOn(Schedulers.io()).map { filmsResponse ->
                 filmsResponse.toLoadResult(nextPageNumber)
-            }.onErrorReturn { LoadResult.Error(it) }
+            }.onErrorReturn {
+                Log.d("TAG", "loadSingle: error")
+                LoadResult.Error(it)
+            }
     }
 
     private fun FilmsResponse.toLoadResult(page: Int): LoadResult<Int, Film> {

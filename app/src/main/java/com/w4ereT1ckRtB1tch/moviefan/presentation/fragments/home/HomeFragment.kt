@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentHomeBinding
 import com.w4ereT1ckRtB1tch.moviefan.presentation.MainActivity
+import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.FooterStateAdapter
 import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.HomeAdapter
 import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.UpcomingAdapter
 import com.w4ereT1ckRtB1tch.moviefan.utils.AnimationHelper
@@ -63,7 +64,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 upcomingAdapter.submitData(lifecycle, films)
             }
 
-        binding.catalogFilm.adapter = adapter
+        binding.catalogFilm.adapter =
+            adapter.withLoadStateFooter(FooterStateAdapter(adapter::retry))
         binding.catalogFilm.addItemDecoration(decorator)
         viewModel.getPopularFilms().observe(viewLifecycleOwner) { films ->
             adapter.submitData(lifecycle, films)

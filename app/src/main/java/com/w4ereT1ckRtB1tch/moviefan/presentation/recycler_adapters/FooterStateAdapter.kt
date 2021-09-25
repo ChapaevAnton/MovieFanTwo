@@ -46,6 +46,5 @@ class FooterStateAdapter(private val retry: () -> Unit) :
                 retry.setOnClickListener { retryCallback.invoke() }
             }
         }
-
     }
 }

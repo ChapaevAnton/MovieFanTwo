@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.w4ereT1ckRtB1tch.moviefan.App
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
-import dagger.hilt.android.lifecycle.HiltViewModel
 
 
 class SelectionViewModel : ViewModel() {

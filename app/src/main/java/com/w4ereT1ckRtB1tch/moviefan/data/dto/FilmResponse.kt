@@ -12,7 +12,7 @@ data class FilmResponse(
     @field:SerializedName("overview") val overview: String,
     @field:SerializedName("popularity") val popularity: Double,
     @field:SerializedName("poster_path") val posterPath: String,
-    @field:SerializedName("release_date") val releaseDate: String,
+    @field:SerializedName("release_date") val releaseDate: String?,
     @field:SerializedName("title") val title: String,
     @field:SerializedName("video") val video: Boolean,
     @field:SerializedName("vote_average") val voteAverage: Double,

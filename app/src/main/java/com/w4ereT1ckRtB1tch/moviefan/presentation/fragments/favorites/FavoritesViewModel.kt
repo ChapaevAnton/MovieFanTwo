@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.w4ereT1ckRtB1tch.moviefan.App
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
-import dagger.hilt.android.lifecycle.HiltViewModel
 
 
 class FavoritesViewModel : ViewModel() {
@@ -22,7 +21,7 @@ class FavoritesViewModel : ViewModel() {
     }
 
     fun setFavoritesFilms() {
-        val filmsValue = dataBase.getDataBase().filter { it.isFavorites}
+        val filmsValue = dataBase.getDataBase().filter { it.isFavorites }
         films.postValue(filmsValue)
     }
 }

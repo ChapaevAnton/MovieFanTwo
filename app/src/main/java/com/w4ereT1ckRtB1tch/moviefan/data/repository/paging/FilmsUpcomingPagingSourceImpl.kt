@@ -1,5 +1,6 @@
 package com.w4ereT1ckRtB1tch.moviefan.data.repository.paging
 
+import android.util.Log
 import androidx.paging.PagingState
 import androidx.paging.rxjava2.RxPagingSource
 import com.w4ereT1ckRtB1tch.moviefan.data.dto.FilmResponse
@@ -32,7 +33,10 @@ class FilmsUpcomingPagingSourceImpl @Inject constructor(
         return api.getUpcomingFilms(TmdbKey.API_KEY_V3, TmdbConfig.LANGUAGE_RU, nextPageNumber)
             .subscribeOn(Schedulers.io()).map { filmsResponse ->
                 filmsResponse.toLoadResult(nextPageNumber)
-            }.onErrorReturn { LoadResult.Error(it) }
+            }.onErrorReturn {
+                Log.d("TAG", "load upcoming: error")
+                LoadResult.Error(it)
+            }
     }
 
     private fun FilmsResponse.toLoadResult(page: Int): LoadResult<Int, Film> {

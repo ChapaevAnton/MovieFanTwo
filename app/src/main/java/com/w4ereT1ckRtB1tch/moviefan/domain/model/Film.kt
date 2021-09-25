@@ -12,6 +12,6 @@ data class Film(
     val backdrop: String?,
     val description: String,
     val rating: Double,
-    val year: LocalDate,
+    val year: LocalDate?,
     var isFavorites: Boolean = false
 ) : Parcelable

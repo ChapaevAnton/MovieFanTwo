@@ -50,8 +50,8 @@ object DataBindingAdapter {
 
     @BindingAdapter("year")
     @JvmStatic
-    fun setYear(@Nullable textView: TextView?, localDate: LocalDate) {
-        textView?.text = localDate.year.toString()
+    fun setYear(@Nullable textView: TextView?, localDate: LocalDate?) {
+        textView?.text = localDate?.year?.toString() ?: "не анонсирована"
     }
 
     @BindingAdapter("rating")

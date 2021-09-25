@@ -8,7 +8,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.w4ereT1ckRtB1tch.moviefan.App
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
-import dagger.hilt.android.lifecycle.HiltViewModel
 
 
 class FilmDetailsViewModel(application: Application) : AndroidViewModel(application) {
@@ -36,7 +35,6 @@ class FilmDetailsViewModel(application: Application) : AndroidViewModel(applicat
         val filmValue = film.value!!
         filmValue.isFavorites = !filmValue.isFavorites
         film.postValue(filmValue)
-        //Log.d("TAG", "DataBase: ${App.instance.dataBase.getDataBase()}")
     }
 
     fun onClickedShare() {
@@ -44,7 +42,7 @@ class FilmDetailsViewModel(application: Application) : AndroidViewModel(applicat
         val message = """Обязательно посмотри этот фильм:
                          |Название: "${filmValue.title}"
                          |Описание: ${filmValue.description}
-                         |Год выпуска: ${filmValue.year.year}
+                         |Год выпуска: ${filmValue.year?.year ?: "не анонсирована"}
                          |Рейтинг: ${filmValue.rating}""".trimMargin()
         val intent = Intent().apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK

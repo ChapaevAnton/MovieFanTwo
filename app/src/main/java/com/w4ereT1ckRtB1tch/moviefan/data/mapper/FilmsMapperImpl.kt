@@ -21,7 +21,7 @@ class FilmsMapperImpl @Inject constructor() :
                 backdrop = "${TmdbConfig.IMAGE_URL}${TmdbConfig.IMAGE_BACKDROP_SIZE}$backdropPath",
                 description = overview,
                 rating = voteAverage,
-                year = LocalDate.parse(releaseDate, DateTimeFormatter.ISO_LOCAL_DATE),
+                year = releaseDate?.let { LocalDate.parse(it, DateTimeFormatter.ISO_LOCAL_DATE) },
                 isFavorites = false
             )
         }

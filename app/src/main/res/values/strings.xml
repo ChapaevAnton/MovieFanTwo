@@ -18,7 +18,6 @@
     <string name="rating_film">рейтинг</string>
     <string name="description_film">описание фильма</string>
 
-
 <!--    alert dialog -->
     <string name="exit_dialog_title">Выход</string>
     <string name="exit_dialog_message">Вы действительно хотите выйти?</string>
@@ -30,5 +29,9 @@
 
 <!--    selection fragment-->
     <string name="empty_list_favorites">Список пуст</string>
+
+<!--    load state adapter-->
+    <string name="error_load_state_message">Ошибка загрузки</string>
+    <string name="retry_load">retry</string>
 
 </resources>

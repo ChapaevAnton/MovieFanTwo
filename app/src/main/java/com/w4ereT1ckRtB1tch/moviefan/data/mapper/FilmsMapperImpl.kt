@@ -22,7 +22,7 @@ class FilmsMapperImpl @Inject constructor() :
                 backdrop = "${TmdbConfig.IMAGE_URL}${TmdbConfig.IMAGE_BACKDROP_SIZE}$backdropPath",
                 description = overview,
                 rating = voteAverage,
-                year = releaseDate?.let { LocalDate.parse(it, DateTimeFormatter.ISO_LOCAL_DATE) },
+                year = releaseDate.toDate(),
                 isFavorites = false
             )
         }
@@ -40,6 +40,13 @@ class FilmsMapperImpl @Inject constructor() :
             data = mapOfResponse(films),
             prevKey = if (page == 1) null else page.minus(1),
             nextKey = if (page == films.totalPages) null else page.plus(1)
+        )
+    }
+
+    private fun String?.toDate(): LocalDate? {
+        return if (this.isNullOrEmpty()) null else LocalDate.parse(
+            this,
+            DateTimeFormatter.ISO_LOCAL_DATE
         )
     }
 

@@ -10,7 +10,6 @@ import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import com.w4ereT1ckRtB1tch.moviefan.domain.repository.FilmsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,17 +24,20 @@ class HomeViewModel @Inject constructor(private val dataBase: FilmsRepository) :
     private val compositeDisposable = CompositeDisposable()
 
     init {
-        loadingData()
+        onLoadingUpcomingData()
+        onLoadingPopularData()
     }
 
-    @ExperimentalCoroutinesApi
-    private fun loadingData() {
+    private fun onLoadingUpcomingData() {
         compositeDisposable.add(dataBase
             .getUpcomingFilms()
             .cachedIn(viewModelScope)
             .subscribe {
                 upcomingFilms.value = it
             })
+    }
+
+    private fun onLoadingPopularData() {
         compositeDisposable.add(dataBase
             .getPopularFilms()
             .cachedIn(viewModelScope)
@@ -47,6 +49,10 @@ class HomeViewModel @Inject constructor(private val dataBase: FilmsRepository) :
     override fun onCleared() {
         compositeDisposable.clear()
         super.onCleared()
+    }
+
+    fun onRefreshPopularData() {
+        onLoadingPopularData()
     }
 
 }

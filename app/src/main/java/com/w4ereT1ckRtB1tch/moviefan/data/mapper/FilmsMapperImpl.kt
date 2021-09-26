@@ -22,7 +22,7 @@ class FilmsMapperImpl @Inject constructor() :
                 backdrop = "${TmdbConfig.IMAGE_URL}${TmdbConfig.IMAGE_BACKDROP_SIZE}$backdropPath",
                 description = overview,
                 rating = voteAverage,
-                year = releaseDate.toDate(),
+                year = releaseDate.toLocalDate(),
                 isFavorites = false
             )
         }
@@ -43,7 +43,7 @@ class FilmsMapperImpl @Inject constructor() :
         )
     }
 
-    private fun String?.toDate(): LocalDate? {
+    private fun String?.toLocalDate(): LocalDate? {
         return if (this.isNullOrEmpty()) null else LocalDate.parse(
             this,
             DateTimeFormatter.ISO_LOCAL_DATE

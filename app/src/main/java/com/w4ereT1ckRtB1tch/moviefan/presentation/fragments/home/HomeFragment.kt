@@ -5,8 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.paging.LoadState
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentHomeBinding
 import com.w4ereT1ckRtB1tch.moviefan.presentation.MainActivity
@@ -65,7 +67,21 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
 
         binding.catalogFilm.adapter =
-            adapter.withLoadStateFooter(FooterStateAdapter(adapter::retry))
+            adapter.withLoadStateFooter(FooterStateAdapter { adapter.retry() })
+        adapter.addLoadStateListener { loadState ->
+            Log.d("TAG", "onLoadingPopularData: ok")
+            with(binding) {
+                swipeRefresh.isRefreshing = loadState.refresh is LoadState.Loading
+                include.loadStateError.isVisible = loadState.refresh is LoadState.Error
+                catalogFilm.isVisible = loadState.refresh !is LoadState.Error
+                if (loadState.refresh is LoadState.Error) {
+                    include.errorMessage.text =
+                        (loadState.source.refresh as LoadState.Error).error.localizedMessage
+                    include.retryLoad.setOnClickListener { adapter.retry() }
+                }
+            }
+        }
+        binding.swipeRefresh.setOnRefreshListener { viewModel.onRefreshPopularData() }
         binding.catalogFilm.addItemDecoration(decorator)
         viewModel.getPopularFilms().observe(viewLifecycleOwner) { films ->
             adapter.submitData(lifecycle, films)

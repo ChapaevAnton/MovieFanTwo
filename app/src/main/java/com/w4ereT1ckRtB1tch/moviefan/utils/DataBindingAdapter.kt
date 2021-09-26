@@ -7,6 +7,7 @@ import androidx.annotation.Nullable
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.presentation.customview.RatingCircleView
 import java.time.LocalDate
 
@@ -24,7 +25,13 @@ object DataBindingAdapter {
     @JvmStatic
     fun setImage(@Nullable imageView: ImageView?, @Nullable imageUrl: String?) {
         imageView?.let {
-            Glide.with(it.context).load(imageUrl).centerCrop().into(it)
+            Glide.with(it.context)
+                .load(imageUrl)
+                .placeholder(R.drawable.glide_load_image)
+                .error(R.drawable.glide_load_image_error)
+                .fallback(R.drawable.glide_load_image_error)
+                .centerCrop()
+                .into(it)
         }
     }
 

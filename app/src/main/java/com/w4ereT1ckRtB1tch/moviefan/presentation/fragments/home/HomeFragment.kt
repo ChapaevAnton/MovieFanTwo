@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.paging.LoadState
@@ -58,22 +57,21 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
         Log.d("TAG", "onViewCreated: HomeFragment")
         AnimationHelper.performFragmentCircularRevealAnimation(view, requireActivity(), 1)
-
+        //upcoming film
         binding.upcomingFilm.adapter = upcomingAdapter
         binding.upcomingFilm.addItemDecoration(decoratorMini)
         viewModel.getUpcomingFilms()
             .observe(viewLifecycleOwner) { films ->
                 upcomingAdapter.submitData(lifecycle, films)
             }
-
+        //popular film
         binding.catalogFilm.adapter =
             adapter.withLoadStateFooter(FooterStateAdapter { adapter.retry() })
         adapter.addLoadStateListener { loadState ->
             Log.d("TAG", "onLoadingPopularData: ok")
             with(binding) {
                 swipeRefresh.isRefreshing = loadState.refresh is LoadState.Loading
-                include.loadStateError.isVisible = loadState.refresh is LoadState.Error
-                catalogFilm.isVisible = loadState.refresh !is LoadState.Error
+                errorIsVisible = loadState.refresh is LoadState.Error
                 if (loadState.refresh is LoadState.Error) {
                     include.errorMessage.text =
                         (loadState.source.refresh as LoadState.Error).error.localizedMessage

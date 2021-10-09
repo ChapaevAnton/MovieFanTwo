@@ -8,11 +8,10 @@ import androidx.paging.PagingData
 import androidx.paging.rxjava2.cachedIn
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import com.w4ereT1ckRtB1tch.moviefan.domain.repository.FilmsRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-@HiltViewModel
+
 class HomeViewModel @Inject constructor(private val dataBase: FilmsRepository) : ViewModel() {
 
     private val popularFilms: MutableLiveData<PagingData<Film>> = MutableLiveData()

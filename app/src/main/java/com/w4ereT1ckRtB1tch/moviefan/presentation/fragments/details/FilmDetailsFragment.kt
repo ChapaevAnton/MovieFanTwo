@@ -9,13 +9,12 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.w4ereT1ckRtB1tch.moviefan.presentation.MainActivity
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentFilmDetailsBinding
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
-import dagger.hilt.android.AndroidEntryPoint
+import com.w4ereT1ckRtB1tch.moviefan.presentation.MainActivity
 
-@AndroidEntryPoint
+
 class FilmDetailsFragment : Fragment(R.layout.fragment_film_details) {
 
     private lateinit var fabRotateClock: Animation

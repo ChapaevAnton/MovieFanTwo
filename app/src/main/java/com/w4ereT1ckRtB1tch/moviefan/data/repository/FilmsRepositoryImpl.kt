@@ -4,6 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.rxjava2.flowable
+import com.w4ereT1ckRtB1tch.moviefan.App
 import com.w4ereT1ckRtB1tch.moviefan.data.repository.paging.FilmsPopularPagingSourceImpl
 import com.w4ereT1ckRtB1tch.moviefan.data.repository.paging.FilmsUpcomingPagingSourceImpl
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
@@ -16,6 +17,10 @@ class FilmsRepositoryImpl @Inject constructor(
     private val upcomingSource: FilmsUpcomingPagingSourceImpl,
     private val popularSource: FilmsPopularPagingSourceImpl
 ) : FilmsRepository {
+
+    init {
+        App.instance.appComponent.inject(this)
+    }
 
     private val configPopular = PagingConfig(
         pageSize = 20,

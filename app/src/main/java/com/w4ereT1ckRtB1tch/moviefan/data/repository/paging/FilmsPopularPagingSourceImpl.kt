@@ -3,6 +3,7 @@ package com.w4ereT1ckRtB1tch.moviefan.data.repository.paging
 import android.util.Log
 import androidx.paging.PagingState
 import androidx.paging.rxjava2.RxPagingSource
+import com.w4ereT1ckRtB1tch.moviefan.App
 import com.w4ereT1ckRtB1tch.moviefan.data.dto.FilmResponse
 import com.w4ereT1ckRtB1tch.moviefan.data.dto.FilmsResponse
 import com.w4ereT1ckRtB1tch.moviefan.data.repository.paging.PagingSourceConfig.INITIAL_PAGE_NUMBER
@@ -21,6 +22,10 @@ class FilmsPopularPagingSourceImpl @Inject constructor(
     private val api: TmdbApi,
     private val mapper: @JvmSuppressWildcards FilmsMapper<FilmResponse, FilmsResponse>
 ) : RxPagingSource<Int, Film>() {
+
+    init {
+        App.instance.appComponent.inject(this)
+    }
 
     override fun getRefreshKey(state: PagingState<Int, Film>): Int? {
         val anchorPosition = state.anchorPosition ?: return null

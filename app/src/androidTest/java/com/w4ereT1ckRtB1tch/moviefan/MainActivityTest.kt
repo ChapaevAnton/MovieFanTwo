@@ -11,7 +11,7 @@ import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.w4ereT1ckRtB1tch.moviefan.domain.DataBase
+import com.w4ereT1ckRtB1tch.moviefan.domain.db.DataBase
 import com.w4ereT1ckRtB1tch.moviefan.presentation.MainActivity
 import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.HomeAdapter
 import org.hamcrest.Matcher
@@ -20,6 +20,7 @@ import org.hamcrest.Matchers.not
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import javax.inject.Inject
 
 
 @RunWith(AndroidJUnit4::class)
@@ -27,6 +28,9 @@ class MainActivityTest {
 
     @get:Rule
     val activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
+
+    @Inject
+    lateinit var dataBase: DataBase
 
     @Test
     fun homeRecyclerCatalogFilmShouldBeAttached() {
@@ -38,7 +42,6 @@ class MainActivityTest {
             )
         )
     }
-
 
     @Test
     fun allNavigationBottomMenuDestinationsShouldWork() {
@@ -59,7 +62,7 @@ class MainActivityTest {
         onView(withId(R.id.selections_fragment_root)).check(matches(isDisplayed()))
 
         onView(withId(R.id.search_top_bar)).check(matches(isDisplayed()))
-        onView(withId(R.id.search_top_bar)).perform(typeViewSearchText(DataBase.filmDataBase[2].title))
+        onView(withId(R.id.search_top_bar)).perform(typeViewSearchText(dataBase.getDataBase()[2].title))
 
         onView(withId(R.id.selections_catalog_film)).check(matches(isDisplayed()))
         onView(withId(R.id.selections_catalog_film)).perform(
@@ -84,7 +87,6 @@ class MainActivityTest {
         onView(withId(R.id.details_description_film)).perform(swipeUp())
         onView(withId(R.id.details_description_film)).perform(swipeDown())
     }
-
 
     @Test
     fun addFilmToFavoritesButtonClickable() {
@@ -124,5 +126,4 @@ class MainActivityTest {
             }
         }
     }
-
 }

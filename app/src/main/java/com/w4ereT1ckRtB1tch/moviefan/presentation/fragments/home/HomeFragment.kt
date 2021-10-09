@@ -1,24 +1,27 @@
 package com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.home
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.paging.LoadState
+import com.w4ereT1ckRtB1tch.moviefan.App
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentHomeBinding
+import com.w4ereT1ckRtB1tch.moviefan.di.viewmodel.ViewModelFactory
 import com.w4ereT1ckRtB1tch.moviefan.presentation.MainActivity
 import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.FooterStateAdapter
 import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.HomeAdapter
 import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.UpcomingAdapter
 import com.w4ereT1ckRtB1tch.moviefan.utils.AnimationHelper
 import com.w4ereT1ckRtB1tch.moviefan.utils.SpacingItemDecoration
-import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-@AndroidEntryPoint
+
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private lateinit var adapter: HomeAdapter
@@ -27,10 +30,20 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private lateinit var decoratorMini: SpacingItemDecoration
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by viewModels<HomeViewModel>()
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    lateinit var viewModel: HomeViewModel
+    //private val viewModel by viewModels<HomeViewModel>()
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        App.instance.appComponent.inject(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this, viewModelFactory)[HomeViewModel::class.java]
         //список рекомендации
         upcomingAdapter = UpcomingAdapter()
         decoratorMini = SpacingItemDecoration(5)

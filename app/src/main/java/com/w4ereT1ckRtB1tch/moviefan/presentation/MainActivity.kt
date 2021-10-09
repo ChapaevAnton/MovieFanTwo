@@ -11,16 +11,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.w4ereT1ckRtB1tch.moviefan.R
-import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import com.w4ereT1ckRtB1tch.moviefan.databinding.ActivityMainBinding
+import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.details.FilmDetailsFragment
 import com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.favorites.FavoritesFragment
 import com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.home.HomeFragment
 import com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.selections.SelectionsFragment
-import dagger.hilt.android.AndroidEntryPoint
 
 
-@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     companion object {
@@ -30,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         const val FAVORITES_FRAGMENT_TAG = "favorite_fragment"
     }
 
-    private lateinit var binding:ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,11 +82,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
     //кнопка назад
     override fun onBackPressed() {
         Log.d("TAG", "onBackPressed: ${supportFragmentManager.backStackEntryCount}")
         if (supportFragmentManager.backStackEntryCount == 0) showExitDialog() else super.onBackPressed()
     }
+
     //функция открытия и передачи данных фрагменту FilmDetailsFragment
     fun launchFilmDetailsFragment(film: Film) {
         val bundle = Bundle()
@@ -104,6 +104,7 @@ class MainActivity : AppCompatActivity() {
         Log.d("TAG", "launchFilmDetailsFragment: ${supportFragmentManager.backStackEntryCount}")
         supportFragmentManager
     }
+
     //функция отображения SnackBar с заданной позицией и цветом
     fun showSnackBar(text: Int) {
 
@@ -113,7 +114,8 @@ class MainActivity : AppCompatActivity() {
                 view.layoutParams as CoordinatorLayout.LayoutParams
             paramsView.gravity = Gravity.BOTTOM
             view.layoutParams = paramsView
-        }.setBackgroundTint(ContextCompat.getColor(binding.frameSnackBar.context, R.color.ivi_blue)).show()
+        }.setBackgroundTint(ContextCompat.getColor(binding.frameSnackBar.context, R.color.ivi_blue))
+            .show()
     }
 
     //диалоговое окно выходы из приложения
@@ -134,6 +136,7 @@ class MainActivity : AppCompatActivity() {
         exitDialog.setCanceledOnTouchOutside(false)
         exitDialog.show()
     }
+
     //выбор фрагментов раздела контейнера
     private fun switchFragmentMenu(fragment: Fragment, tag: String) {
         Log.d("TAG", "switchFragmentMenu: $tag")

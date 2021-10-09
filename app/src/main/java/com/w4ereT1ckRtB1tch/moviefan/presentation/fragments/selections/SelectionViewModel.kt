@@ -4,13 +4,12 @@ import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.w4ereT1ckRtB1tch.moviefan.App
+import com.w4ereT1ckRtB1tch.moviefan.domain.db.DataBase
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
+import javax.inject.Inject
 
 
-class SelectionViewModel : ViewModel() {
-
-    private var dataBase = App.instance.dataBase
+class SelectionViewModel @Inject constructor(private val dataBase: DataBase) : ViewModel() {
 
     private val films: MutableLiveData<List<Film>> = MutableLiveData()
 

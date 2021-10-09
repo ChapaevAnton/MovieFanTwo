@@ -1,11 +1,9 @@
 package com.w4ereT1ckRtB1tch.moviefan
 
 import android.app.Application
-import com.w4ereT1ckRtB1tch.moviefan.data.Repository
-import com.w4ereT1ckRtB1tch.moviefan.domain.DataBase
-import dagger.hilt.android.HiltAndroidApp
+import com.w4ereT1ckRtB1tch.moviefan.di.AppComponent
+import com.w4ereT1ckRtB1tch.moviefan.di.DaggerAppComponent
 
-@HiltAndroidApp
 class App : Application() {
 
     companion object {
@@ -13,14 +11,14 @@ class App : Application() {
             private set
     }
 
-    lateinit var dataBase: DataBase
-    private lateinit var repository: Repository
+    lateinit var appComponent: AppComponent
+        private set
+
 
     override fun onCreate() {
         super.onCreate()
         instance = this
-        repository = Repository()
-        dataBase = DataBase(repository)
+        appComponent = DaggerAppComponent.create()
     }
 
 }

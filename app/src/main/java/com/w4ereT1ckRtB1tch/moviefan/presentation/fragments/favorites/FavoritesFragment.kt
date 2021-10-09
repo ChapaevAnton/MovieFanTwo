@@ -1,5 +1,6 @@
 package com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.favorites
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,27 +8,36 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.w4ereT1ckRtB1tch.moviefan.presentation.MainActivity
+import com.w4ereT1ckRtB1tch.moviefan.App
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentFavoritesBinding
+import com.w4ereT1ckRtB1tch.moviefan.di.viewmodel.ViewModelFactory
+import com.w4ereT1ckRtB1tch.moviefan.presentation.MainActivity
+import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.FavoritesAdapter
 import com.w4ereT1ckRtB1tch.moviefan.utils.AnimationHelper
 import com.w4ereT1ckRtB1tch.moviefan.utils.SpacingItemDecoration
-import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.FavoritesAdapter
-import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-@AndroidEntryPoint
+
 class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
     private lateinit var adapter: FavoritesAdapter
     private lateinit var decorator: SpacingItemDecoration
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by lazy {
-        ViewModelProvider.NewInstanceFactory().create(FavoritesViewModel::class.java)
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    lateinit var viewModel: FavoritesViewModel
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        App.instance.appComponent.inject(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this, viewModelFactory)[FavoritesViewModel::class.java]
         adapter = FavoritesAdapter { film ->
             (requireActivity() as MainActivity).launchFilmDetailsFragment(film)
         }

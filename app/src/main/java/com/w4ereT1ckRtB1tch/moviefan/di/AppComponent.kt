@@ -1,13 +1,7 @@
 package com.w4ereT1ckRtB1tch.moviefan.di
 
 import android.app.Application
-import com.w4ereT1ckRtB1tch.moviefan.data.db.DataBaseImpl
-import com.w4ereT1ckRtB1tch.moviefan.data.mapper.FilmsMapperImpl
-import com.w4ereT1ckRtB1tch.moviefan.data.repository.FilmsRepositoryImpl
-import com.w4ereT1ckRtB1tch.moviefan.data.repository.paging.FilmsPopularPagingSourceImpl
-import com.w4ereT1ckRtB1tch.moviefan.data.repository.paging.FilmsUpcomingPagingSourceImpl
 import com.w4ereT1ckRtB1tch.moviefan.di.viewmodel.ViewModelModule
-import com.w4ereT1ckRtB1tch.moviefan.presentation.MainActivity
 import com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.details.FilmDetailsFragment
 import com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.favorites.FavoritesFragment
 import com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.home.HomeFragment

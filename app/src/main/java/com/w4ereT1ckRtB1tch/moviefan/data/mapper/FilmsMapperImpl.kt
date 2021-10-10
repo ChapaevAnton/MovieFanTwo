@@ -1,7 +1,6 @@
 package com.w4ereT1ckRtB1tch.moviefan.data.mapper
 
 import androidx.paging.PagingSource
-import com.w4ereT1ckRtB1tch.moviefan.App
 import com.w4ereT1ckRtB1tch.moviefan.data.dto.FilmResponse
 import com.w4ereT1ckRtB1tch.moviefan.data.dto.FilmsResponse
 import com.w4ereT1ckRtB1tch.moviefan.data.source.TmdbConfig
@@ -13,10 +12,6 @@ import javax.inject.Inject
 
 class FilmsMapperImpl @Inject constructor() :
     FilmsMapper<@JvmSuppressWildcards FilmResponse, @JvmSuppressWildcards FilmsResponse> {
-
-    init {
-     //   App.instance.appComponent.inject(this)
-    }
 
     override fun mapOfResponse(film: FilmResponse): Film {
         return with(film) {

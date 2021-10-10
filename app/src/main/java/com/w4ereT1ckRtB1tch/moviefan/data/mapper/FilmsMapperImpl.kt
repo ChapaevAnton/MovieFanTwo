@@ -15,7 +15,7 @@ class FilmsMapperImpl @Inject constructor() :
     FilmsMapper<@JvmSuppressWildcards FilmResponse, @JvmSuppressWildcards FilmsResponse> {
 
     init {
-        App.instance.appComponent.inject(this)
+     //   App.instance.appComponent.inject(this)
     }
 
     override fun mapOfResponse(film: FilmResponse): Film {

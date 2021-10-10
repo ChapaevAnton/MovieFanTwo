@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.paging.LoadState
 import com.w4ereT1ckRtB1tch.moviefan.App
 import com.w4ereT1ckRtB1tch.moviefan.R
@@ -33,8 +33,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    lateinit var viewModel: HomeViewModel
-    //private val viewModel by viewModels<HomeViewModel>()
+    private val viewModel by viewModels<HomeViewModel>(factoryProducer = { viewModelFactory })
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -43,7 +42,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this, viewModelFactory)[HomeViewModel::class.java]
         //список рекомендации
         upcomingAdapter = UpcomingAdapter()
         decoratorMini = SpacingItemDecoration(5)

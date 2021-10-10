@@ -19,7 +19,7 @@ class FilmsRepositoryImpl @Inject constructor(
 ) : FilmsRepository {
 
     init {
-        App.instance.appComponent.inject(this)
+       // App.instance.appComponent.inject(this)
     }
 
     private val configPopular = PagingConfig(

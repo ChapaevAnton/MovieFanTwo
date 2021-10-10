@@ -24,7 +24,7 @@ class FilmsUpcomingPagingSourceImpl @Inject constructor(
 ) : RxPagingSource<Int, Film>() {
 
     init {
-        App.instance.appComponent.inject(this)
+        //App.instance.appComponent.inject(this)
     }
 
     override fun getRefreshKey(state: PagingState<Int, Film>): Int? {

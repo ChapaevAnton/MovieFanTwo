@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.w4ereT1ckRtB1tch.moviefan.App
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentSelectionsBinding
@@ -25,13 +25,9 @@ class SelectionsFragment : Fragment(R.layout.fragment_selections) {
     private var _binding: FragmentSelectionsBinding? = null
     private val binding get() = _binding!!
 
-//    private val viewModel by lazy {
-//        ViewModelProvider.NewInstanceFactory().create(SelectionViewModel::class.java)
-//    }
-
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    lateinit var viewModel: SelectionViewModel
+    private val viewModel by viewModels<SelectionViewModel>(factoryProducer = { viewModelFactory })
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -40,7 +36,6 @@ class SelectionsFragment : Fragment(R.layout.fragment_selections) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this, viewModelFactory)[SelectionViewModel::class.java]
         adapter = SelectionAdapter { film ->
             (requireActivity() as MainActivity).launchFilmDetailsFragment(film)
         }

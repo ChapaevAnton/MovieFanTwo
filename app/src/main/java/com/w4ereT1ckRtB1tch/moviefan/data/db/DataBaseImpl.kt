@@ -8,7 +8,7 @@ import javax.inject.Inject
 class DataBaseImpl @Inject constructor() : DataBase {
     private val repository = Repository()
     init {
-        App.instance.appComponent.inject(this)
+     //   App.instance.appComponent.inject(this)
     }
     override fun getDataBase(): List<Film> = repository.filmDataBase
 }

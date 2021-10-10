@@ -8,9 +8,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.w4ereT1ckRtB1tch.moviefan.App
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
+import javax.inject.Inject
 
 
-class FilmDetailsViewModel(application: Application) : AndroidViewModel(application) {
+class FilmDetailsViewModel @Inject constructor(application: Application) :
+    AndroidViewModel(application) {
 
     private val film: MutableLiveData<Film> = MutableLiveData()
     private val isVisible: MutableLiveData<Boolean> = MutableLiveData()

@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.w4ereT1ckRtB1tch.moviefan.App
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentFavoritesBinding
@@ -28,7 +28,7 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    lateinit var viewModel: FavoritesViewModel
+    private val viewModel by viewModels<FavoritesViewModel>(factoryProducer = { viewModelFactory })
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -37,7 +37,6 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this, viewModelFactory)[FavoritesViewModel::class.java]
         adapter = FavoritesAdapter { film ->
             (requireActivity() as MainActivity).launchFilmDetailsFragment(film)
         }

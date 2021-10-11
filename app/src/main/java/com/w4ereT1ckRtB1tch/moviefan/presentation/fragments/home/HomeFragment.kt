@@ -1,15 +1,12 @@
 package com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.home
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.paging.LoadState
-import com.w4ereT1ckRtB1tch.moviefan.App
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentHomeBinding
 import com.w4ereT1ckRtB1tch.moviefan.di.viewmodel.ViewModelFactory
@@ -19,10 +16,11 @@ import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.HomeAdapter
 import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.UpcomingAdapter
 import com.w4ereT1ckRtB1tch.moviefan.utils.AnimationHelper
 import com.w4ereT1ckRtB1tch.moviefan.utils.SpacingItemDecoration
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
 
-class HomeFragment : Fragment(R.layout.fragment_home) {
+class HomeFragment : DaggerFragment(R.layout.fragment_home) {
 
     private lateinit var adapter: HomeAdapter
     private lateinit var upcomingAdapter: UpcomingAdapter
@@ -34,11 +32,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     private val viewModel by viewModels<HomeViewModel>(factoryProducer = { viewModelFactory })
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        App.instance.appComponent.inject(this)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

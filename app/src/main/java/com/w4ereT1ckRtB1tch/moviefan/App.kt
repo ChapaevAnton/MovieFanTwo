@@ -1,24 +1,13 @@
 package com.w4ereT1ckRtB1tch.moviefan
 
-import android.app.Application
-import com.w4ereT1ckRtB1tch.moviefan.di.AppComponent
 import com.w4ereT1ckRtB1tch.moviefan.di.DaggerAppComponent
+import dagger.android.AndroidInjector
+import dagger.android.support.DaggerApplication
 
-class App : Application() {
+class App : DaggerApplication() {
 
-    companion object {
-        lateinit var instance: App
-            private set
-    }
-
-    lateinit var appComponent: AppComponent
-        private set
-
-
-    override fun onCreate() {
-        super.onCreate()
-        instance = this
-        appComponent = DaggerAppComponent.builder().application(this).build()
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        return DaggerAppComponent.builder().application(this).build()
     }
 
 }

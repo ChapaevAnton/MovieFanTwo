@@ -1,13 +1,10 @@
 package com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.selections
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.w4ereT1ckRtB1tch.moviefan.App
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentSelectionsBinding
 import com.w4ereT1ckRtB1tch.moviefan.di.viewmodel.ViewModelFactory
@@ -15,10 +12,11 @@ import com.w4ereT1ckRtB1tch.moviefan.presentation.MainActivity
 import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.SelectionAdapter
 import com.w4ereT1ckRtB1tch.moviefan.utils.AnimationHelper
 import com.w4ereT1ckRtB1tch.moviefan.utils.SpacingItemDecoration
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
 
-class SelectionsFragment : Fragment(R.layout.fragment_selections) {
+class SelectionsFragment : DaggerFragment(R.layout.fragment_selections) {
 
     private lateinit var adapter: SelectionAdapter
     private lateinit var decorator: SpacingItemDecoration
@@ -28,11 +26,6 @@ class SelectionsFragment : Fragment(R.layout.fragment_selections) {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     private val viewModel by viewModels<SelectionViewModel>(factoryProducer = { viewModelFactory })
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        App.instance.appComponent.inject(this)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

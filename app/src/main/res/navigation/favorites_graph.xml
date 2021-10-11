@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/favorites_graph"
+    app:startDestination="@id/favoritesFragment">
+
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.favorites.FavoritesFragment"
+        android:label="@string/main_menu_favorites"
+        tools:layout="@layout/fragment_favorites">
+        <action
+            android:id="@+id/action_open_item_from_favorites_to_details"
+            app:destination="@id/filmDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/filmDetailsFragment"
+        android:name="com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.details.FilmDetailsFragment"
+        android:label="@string/details_fragment"
+        tools:layout="@layout/fragment_film_details">
+        <argument
+            android:name="film"
+            app:argType="com.w4ereT1ckRtB1tch.moviefan.domain.model.Film" />
+    </fragment>
+
+</navigation>

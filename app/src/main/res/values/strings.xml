@@ -26,9 +26,10 @@
 
 <!--    selection fragment-->
     <string name="search_view_hint">Найти фильм</string>
-
-<!--    selection fragment-->
     <string name="empty_list_favorites">Список пуст</string>
+
+<!--    details fragment-->
+    <string name="details_fragment">Детали фильма</string>
 
 <!--    load state adapter-->
     <string name="error_load_state_message">Ошибка загрузки</string>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.home.HomeFragment"
+        android:label="@string/main_menu_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_open_item_from_home_to_details"
+            app:destination="@+id/filmDetailsFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/filmDetailsFragment"
+        android:name="com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.details.FilmDetailsFragment"
+        android:label="@string/details_fragment"
+        tools:layout="@layout/fragment_film_details">
+        <argument
+            android:name="film"
+            app:argType="com.w4ereT1ckRtB1tch.moviefan.domain.model.Film" />
+    </fragment>
+
+</navigation>

@@ -8,7 +8,6 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.home.HomeFragment"
-        android:label="@string/main_menu_home"
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_open_item_from_home_to_details"
@@ -19,7 +18,6 @@
     <fragment
         android:id="@+id/filmDetailsFragment"
         android:name="com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.details.FilmDetailsFragment"
-        android:label="@string/details_fragment"
         tools:layout="@layout/fragment_film_details">
         <argument
             android:name="film"

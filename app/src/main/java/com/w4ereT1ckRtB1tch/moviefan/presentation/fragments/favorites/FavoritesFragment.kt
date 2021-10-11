@@ -6,10 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentFavoritesBinding
 import com.w4ereT1ckRtB1tch.moviefan.di.viewmodel.ViewModelFactory
-import com.w4ereT1ckRtB1tch.moviefan.presentation.MainActivity
+import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.FavoritesAdapter
 import com.w4ereT1ckRtB1tch.moviefan.utils.AnimationHelper
 import com.w4ereT1ckRtB1tch.moviefan.utils.SpacingItemDecoration
@@ -31,7 +32,7 @@ class FavoritesFragment : DaggerFragment(R.layout.fragment_favorites) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         adapter = FavoritesAdapter { film ->
-            (requireActivity() as MainActivity).launchFilmDetailsFragment(film)
+            openFilmDetailsFragment(film)
         }
         decorator = SpacingItemDecoration(10)
         Log.d("TAG", "onCreate: FavoritesFragment")
@@ -68,6 +69,11 @@ class FavoritesFragment : DaggerFragment(R.layout.fragment_favorites) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun openFilmDetailsFragment(film: Film) {
+        val action = FavoritesFragmentDirections.actionOpenItemFromFavoritesToDetails(film)
+        findNavController().navigate(action)
     }
 
 }

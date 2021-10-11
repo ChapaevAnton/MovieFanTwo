@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentFilmDetailsBinding
 import com.w4ereT1ckRtB1tch.moviefan.di.viewmodel.ViewModelFactory
@@ -23,6 +24,7 @@ class FilmDetailsFragment : DaggerFragment(R.layout.fragment_film_details) {
     private lateinit var fabRotateAntiClock: Animation
     private var _binding: FragmentFilmDetailsBinding? = null
     private val binding get() = _binding!!
+    private val args:FilmDetailsFragmentArgs by navArgs()
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -30,7 +32,7 @@ class FilmDetailsFragment : DaggerFragment(R.layout.fragment_film_details) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.setFilm(arguments?.get(MainActivity.ITEM_FILM_DETAILS) as Film)
+        viewModel.setFilm(args.film)
         fabRotateClock =
             AnimationUtils.loadAnimation(requireContext(), R.anim.fab_rotate_clock_animation)
         fabRotateAntiClock =

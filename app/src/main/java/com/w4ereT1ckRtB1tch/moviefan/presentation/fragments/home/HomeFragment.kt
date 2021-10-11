@@ -6,10 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import androidx.paging.LoadState
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentHomeBinding
 import com.w4ereT1ckRtB1tch.moviefan.di.viewmodel.ViewModelFactory
+import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import com.w4ereT1ckRtB1tch.moviefan.presentation.MainActivity
 import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.FooterStateAdapter
 import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.HomeAdapter
@@ -42,7 +46,7 @@ class HomeFragment : DaggerFragment(R.layout.fragment_home) {
         adapter =
             HomeAdapter { film ->
                 //слушатель открываем фрагмент и передаем данные
-                (requireActivity() as MainActivity).launchFilmDetailsFragment(film)
+                openFilmDetailsFragment(film)
             }
         decorator = SpacingItemDecoration(10)
 
@@ -59,6 +63,10 @@ class HomeFragment : DaggerFragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //Поддержка вариантов панели приложений
+        val navController = findNavController()
+        val appBarConfig = AppBarConfiguration(navController.graph)
+        binding.menuTopBarHome.setupWithNavController(navController, appBarConfig)
         Log.d("TAG", "onViewCreated: HomeFragment")
         AnimationHelper.performFragmentCircularRevealAnimation(view, requireActivity(), 1)
         //upcoming film
@@ -90,7 +98,7 @@ class HomeFragment : DaggerFragment(R.layout.fragment_home) {
         }
 
         //обработчик выбора пунктов меню Top Bar
-        binding.menuTopBar.setOnMenuItemClickListener { menuItem ->
+        binding.menuTopBarHome.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.main_menu_setting -> {
                     (requireActivity() as MainActivity).showSnackBar(R.string.main_menu_settings)
@@ -104,6 +112,11 @@ class HomeFragment : DaggerFragment(R.layout.fragment_home) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun openFilmDetailsFragment(film: Film) {
+        val action = HomeFragmentDirections.actionOpenItemFromHomeToDetails(film)
+        findNavController().navigate(action)
     }
 
 }

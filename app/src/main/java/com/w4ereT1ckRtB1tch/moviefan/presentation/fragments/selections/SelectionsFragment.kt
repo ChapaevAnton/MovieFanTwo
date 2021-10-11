@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentSelectionsBinding
 import com.w4ereT1ckRtB1tch.moviefan.di.viewmodel.ViewModelFactory
-import com.w4ereT1ckRtB1tch.moviefan.presentation.MainActivity
+import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.SelectionAdapter
 import com.w4ereT1ckRtB1tch.moviefan.utils.AnimationHelper
 import com.w4ereT1ckRtB1tch.moviefan.utils.SpacingItemDecoration
@@ -29,9 +32,7 @@ class SelectionsFragment : DaggerFragment(R.layout.fragment_selections) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adapter = SelectionAdapter { film ->
-            (requireActivity() as MainActivity).launchFilmDetailsFragment(film)
-        }
+        adapter = SelectionAdapter { film -> openFilmDetailsFragment(film) }
         decorator = SpacingItemDecoration(10)
     }
 
@@ -46,6 +47,10 @@ class SelectionsFragment : DaggerFragment(R.layout.fragment_selections) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //Поддержка вариантов панели приложений
+        val navController = findNavController()
+        val appBarConfig = AppBarConfiguration(navController.graph)
+        binding.menuTopBarSelections.setupWithNavController(navController, appBarConfig)
         //анимация открытия фрагмента
         AnimationHelper.performFragmentCircularRevealAnimation(view, requireActivity(), 2)
         binding.selectionsCatalogFilm.adapter = adapter
@@ -59,5 +64,9 @@ class SelectionsFragment : DaggerFragment(R.layout.fragment_selections) {
         _binding = null
     }
 
+    private fun openFilmDetailsFragment(film: Film) {
+        val action = SelectionsFragmentDirections.actionOpenItemFromSelectionsToDetails(film)
+        findNavController().navigate(action)
+    }
 
 }

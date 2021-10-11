@@ -35,7 +35,7 @@
             app:layout_constraintVertical_chainStyle="spread_inside">
 
             <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/menu_top_bar"
+                android:id="@+id/menu_top_bar_home"
                 style="@style/Widget.MaterialComponents.Toolbar.Primary"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"

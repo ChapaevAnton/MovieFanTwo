@@ -11,15 +11,9 @@
     <string name="main_menu_navigation">Навигация</string>
 
 <!--    description for cards image-->
-    <string name="top_bar_image4">фильм 4</string>
-    <string name="top_bar_image3">фильм 3</string>
-    <string name="top_bar_image2">фильм 2</string>
     <string name="poster_film">постер фильма</string>
-    <string name="title_film">название фильма</string>
-    <string name="rating_film">рейтинг</string>
-    <string name="description_film">описание фильма</string>
 
-<!--    alert dialog -->
+    <!--    alert dialog -->
     <string name="exit_dialog_title">Выход</string>
     <string name="exit_dialog_message">Вы действительно хотите выйти?</string>
     <string name="exit_dialog_yes">Да</string>

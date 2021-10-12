@@ -5,10 +5,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
 import androidx.paging.LoadState
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentHomeBinding
@@ -49,7 +48,6 @@ class HomeFragment : DaggerFragment(R.layout.fragment_home) {
                 openFilmDetailsFragment(film)
             }
         decorator = SpacingItemDecoration(10)
-
     }
 
     override fun onCreateView(
@@ -63,10 +61,6 @@ class HomeFragment : DaggerFragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //Поддержка вариантов панели приложений
-        val navController = findNavController()
-        val appBarConfig = AppBarConfiguration(navController.graph)
-        binding.menuTopBarHome.setupWithNavController(navController, appBarConfig)
         Log.d("TAG", "onViewCreated: HomeFragment")
         AnimationHelper.performFragmentCircularRevealAnimation(view, requireActivity(), 1)
         //upcoming film
@@ -97,7 +91,7 @@ class HomeFragment : DaggerFragment(R.layout.fragment_home) {
             adapter.submitData(lifecycle, films)
         }
 
-        //обработчик выбора пунктов меню Top Bar
+        //обработчик выбора пунктов меню опции Top Bar
         binding.menuTopBarHome.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.main_menu_setting -> {
@@ -107,6 +101,12 @@ class HomeFragment : DaggerFragment(R.layout.fragment_home) {
                 else -> false
             }
         }
+        //обработчик выбора пунктов меню Top Bar
+        binding.menuTopBarHome.setNavigationOnClickListener {
+            (requireActivity() as MainActivity).showSnackBar(R.string.main_menu_navigation)
+        }
+        //обработчик выбора кнопки назад
+        onBackPressed()
     }
 
     override fun onDestroyView() {
@@ -119,4 +119,12 @@ class HomeFragment : DaggerFragment(R.layout.fragment_home) {
         findNavController().navigate(action)
     }
 
+    private fun onBackPressed() {
+        requireActivity().onBackPressedDispatcher.addCallback(
+            owner = viewLifecycleOwner,
+            enabled = true
+        ) {
+            (requireActivity() as MainActivity).showExitDialog()
+        }
+    }
 }

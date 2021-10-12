@@ -12,8 +12,6 @@ import androidx.navigation.fragment.navArgs
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentFilmDetailsBinding
 import com.w4ereT1ckRtB1tch.moviefan.di.viewmodel.ViewModelFactory
-import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
-import com.w4ereT1ckRtB1tch.moviefan.presentation.MainActivity
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -24,7 +22,7 @@ class FilmDetailsFragment : DaggerFragment(R.layout.fragment_film_details) {
     private lateinit var fabRotateAntiClock: Animation
     private var _binding: FragmentFilmDetailsBinding? = null
     private val binding get() = _binding!!
-    private val args:FilmDetailsFragmentArgs by navArgs()
+    private val args: FilmDetailsFragmentArgs by navArgs()
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory

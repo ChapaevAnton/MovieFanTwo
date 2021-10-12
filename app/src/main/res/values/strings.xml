@@ -8,6 +8,7 @@
     <string name="main_menu_my_selections">Каталог</string>
     <string name="main_menu_profile">Профиль</string>
     <string name="main_menu_settings">Настройки</string>
+    <string name="main_menu_navigation">Навигация</string>
 
 <!--    description for cards image-->
     <string name="top_bar_image4">фильм 4</string>

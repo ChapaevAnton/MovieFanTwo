@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentSelectionsBinding
 import com.w4ereT1ckRtB1tch.moviefan.di.viewmodel.ViewModelFactory
@@ -47,10 +45,6 @@ class SelectionsFragment : DaggerFragment(R.layout.fragment_selections) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //Поддержка вариантов панели приложений
-        val navController = findNavController()
-        val appBarConfig = AppBarConfiguration(navController.graph)
-        binding.menuTopBarSelections.setupWithNavController(navController, appBarConfig)
         //анимация открытия фрагмента
         AnimationHelper.performFragmentCircularRevealAnimation(view, requireActivity(), 2)
         binding.selectionsCatalogFilm.adapter = adapter

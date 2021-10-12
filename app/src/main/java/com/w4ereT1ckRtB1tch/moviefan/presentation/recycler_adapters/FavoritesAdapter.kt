@@ -18,7 +18,7 @@ class FavoritesAdapter(private val onItemClickListener: OnItemClickListener) :
             notifyDataSetChanged()
         }
 
-    inner class ItemFilmHolder(private val binding: ItemFilmBinding) :
+    class ItemFilmHolder(private val binding: ItemFilmBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(film: Film?, onItemClickListener: OnItemClickListener) {

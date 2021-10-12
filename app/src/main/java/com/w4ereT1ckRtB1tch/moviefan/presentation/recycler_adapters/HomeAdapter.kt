@@ -23,7 +23,7 @@ class HomeAdapter(private val onItemClickListener: OnItemClickListener) :
         holder.onBind(getItem(position), onItemClickListener)
     }
 
-    inner class ItemFilmHolder(private val binding: ItemFilmBinding) :
+    class ItemFilmHolder(private val binding: ItemFilmBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(film: Film?, onItemClickListener: OnItemClickListener) {

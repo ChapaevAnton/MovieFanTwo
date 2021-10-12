@@ -20,7 +20,7 @@ class UpcomingAdapter :
         return ItemFilmHolder(binding)
     }
 
-    inner class ItemFilmHolder(private val binding: ItemFilmMiniBinding) :
+    class ItemFilmHolder(private val binding: ItemFilmMiniBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(film: Film?) {

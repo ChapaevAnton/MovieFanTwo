@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         if (savedInstanceState == null) {
-            setupMenuNavigation()
+            initMenuNavigation()
         }
     }
 
@@ -35,7 +35,12 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfig) || super.onSupportNavigateUp()
     }
 
-    private fun setupMenuNavigation() {
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        initMenuNavigation()
+    }
+
+    private fun initMenuNavigation() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment
         navController = navHostFragment.navController

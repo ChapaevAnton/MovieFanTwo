@@ -17,22 +17,18 @@ abstract class ViewModelModule {
     abstract fun bindViewModelFactory(viewModelFactory: ViewModelFactory): ViewModelProvider.Factory
 
     @Binds
-    @IntoMap
-    @ViewModelKey(HomeViewModel::class)
+    @[IntoMap ViewModelKey(HomeViewModel::class)]
     abstract fun homeViewModel(homeViewModel: HomeViewModel): ViewModel
 
     @Binds
-    @IntoMap
-    @ViewModelKey(SelectionViewModel::class)
+    @[IntoMap ViewModelKey(SelectionViewModel::class)]
     abstract fun selectionsViewModel(selectionViewModel: SelectionViewModel): ViewModel
 
     @Binds
-    @IntoMap
-    @ViewModelKey(FavoritesViewModel::class)
+    @[IntoMap ViewModelKey(FavoritesViewModel::class)]
     abstract fun favoritesViewModel(favoritesViewModel: FavoritesViewModel): ViewModel
 
     @Binds
-    @IntoMap
-    @ViewModelKey(FilmDetailsViewModel::class)
+    @[IntoMap ViewModelKey(FilmDetailsViewModel::class)]
     abstract fun filmDetailsViewModel(filmDetailsViewModel: FilmDetailsViewModel): ViewModel
 }

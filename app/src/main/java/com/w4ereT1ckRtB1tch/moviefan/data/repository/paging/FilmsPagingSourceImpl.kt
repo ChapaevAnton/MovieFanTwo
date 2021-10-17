@@ -13,13 +13,12 @@ import com.w4ereT1ckRtB1tch.moviefan.domain.mapper.FilmsMapper
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class FilmsPopularPagingSourceImpl @Inject constructor(
+
+class FilmsPagingSourceImpl constructor(
     private val api: TmdbApi,
-    private val mapper: @JvmSuppressWildcards FilmsMapper<FilmResponse, FilmsResponse>
+    private val mapper: @JvmSuppressWildcards FilmsMapper<FilmResponse, FilmsResponse>,
+    private val category: String
 ) : RxPagingSource<Int, Film>() {
 
     override fun getRefreshKey(state: PagingState<Int, Film>): Int? {
@@ -33,7 +32,7 @@ class FilmsPopularPagingSourceImpl @Inject constructor(
         val pageSize = params.loadSize
         Log.d("TAG", "nextPageNumber: $nextPageNumber ")
         Log.d("TAG", "pageSize: $pageSize ")
-        return api.getPopularFilms(TmdbKey.API_KEY_V3, TmdbConfig.LANGUAGE_RU, nextPageNumber)
+        return api.getFilms(category, TmdbKey.API_KEY_V3, TmdbConfig.LANGUAGE_RU, nextPageNumber)
             .subscribeOn(Schedulers.io()).map { filmsResponse ->
                 mapper.mapOfResponse(filmsResponse, nextPageNumber)
             }.onErrorReturn {

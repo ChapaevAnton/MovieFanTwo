@@ -13,6 +13,16 @@
             android:id="@+id/action_open_item_from_home_to_details"
             app:destination="@+id/filmDetailsFragment" />
 
+        <action
+            android:id="@+id/action_open_from_home_to_settings"
+            app:destination="@+id/settingsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.settings.SettingsFragment"
+        tools:layout="@layout/fragment_settings">
+
     </fragment>
 
     <fragment

@@ -1,16 +1,17 @@
 <resources>
-<!--    name app-->
+    <!--    name app-->
     <string name="app_name">Movie Fan</string>
 
-<!--    top main bar setting and bottom main bar menu-->
+    <!--    top main bar setting and bottom main bar menu-->
     <string name="main_menu_home">Мой MF</string>
     <string name="main_menu_favorites">Избранное</string>
     <string name="main_menu_my_selections">Каталог</string>
     <string name="main_menu_profile">Профиль</string>
     <string name="main_menu_settings">Настройки</string>
+    <string name="main_menu_about">О приложении</string>
     <string name="main_menu_navigation">Навигация</string>
 
-<!--    description for cards image-->
+    <!--    description for cards image-->
     <string name="poster_film">постер фильма</string>
 
     <!--    alert dialog -->
@@ -18,14 +19,20 @@
     <string name="exit_dialog_message">Вы действительно хотите выйти?</string>
     <string name="exit_dialog_yes">Да</string>
     <string name="exit_dialog_no">Нет</string>
+    <!--    home fragment-->
 
-<!--    selection fragment-->
+    <!--    settings fragment-->
+    <string name="settings_home_fragment">Настройка раздела Мой MF</string>
+    <string name="radio_button_popular">Список популярных фильмов</string>
+    <string name="radio_button_top_rate">Список лучших фильмов</string>
+
+    <!--    selection fragment-->
     <string name="search_view_hint">Найти фильм</string>
     <string name="empty_list_favorites">Список пуст</string>
 
-<!--    details fragment-->
+    <!--    details fragment-->
 
-<!--    load state adapter-->
+    <!--    load state adapter-->
     <string name="error_load_state_message">Ошибка загрузки</string>
     <string name="retry_load">retry</string>
 

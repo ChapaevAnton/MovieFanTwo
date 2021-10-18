@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layoutAnimation xmlns:android="http://schemas.android.com/apk/res/android"
     android:animation="@anim/cards_spawn_animation"
-    android:animationOrder="random"
+    android:animationOrder="normal"
     android:delay="0.5"
     android:interpolator="@android:interpolator/decelerate_quad" />
 

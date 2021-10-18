@@ -17,7 +17,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 
-class FilmsPagingSourceImpl @Inject constructor(
+class FilmsMiniPagingSourceImpl @Inject constructor(
     private val api: TmdbApi,
     private val mapper: @JvmSuppressWildcards FilmsMapper<FilmResponse, FilmsResponse>,
     private val preference: PreferenceProvider
@@ -35,7 +35,7 @@ class FilmsPagingSourceImpl @Inject constructor(
         Log.d("TAG", "nextPageNumber: $nextPageNumber ")
         Log.d("TAG", "pageSize: $pageSize ")
         return api.getFilms(
-            preference.restoreDefaultPanelBottom(),
+            preference.restoreDefaultPanelTop(),
             TmdbKey.API_KEY_V3,
             TmdbConfig.LANGUAGE_RU,
             nextPageNumber

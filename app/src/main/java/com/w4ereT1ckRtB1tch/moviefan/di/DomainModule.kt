@@ -1,19 +1,33 @@
 package com.w4ereT1ckRtB1tch.moviefan.di
 
-import android.app.Application
+import com.w4ereT1ckRtB1tch.moviefan.data.preferences.HomeBottomPanelSettings
+import com.w4ereT1ckRtB1tch.moviefan.data.preferences.HomeTopPanelSettings
 import com.w4ereT1ckRtB1tch.moviefan.data.preferences.PreferenceProvider
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
-class DomainModule {
+abstract class DomainModule {
 
-    @Provides
+    @Binds
     @Singleton
-    fun providePreferenceProvider(application: Application): PreferenceProvider =
-        PreferenceProvider(application)
+    @HomeTopSettings
+    abstract fun provideHomeTopPanelSettings(
+        homeTopPanelSettings: HomeTopPanelSettings
+    ): PreferenceProvider
 
+    @Binds
+    @Singleton
+    @HomeBottomSettings
+    abstract fun provideHomeBottomPanelSettings(
+        homeBottomPanelSettings: HomeBottomPanelSettings
+    ): PreferenceProvider
 }
 
+@Qualifier
+annotation class HomeTopSettings
 
+@Qualifier
+annotation class HomeBottomSettings

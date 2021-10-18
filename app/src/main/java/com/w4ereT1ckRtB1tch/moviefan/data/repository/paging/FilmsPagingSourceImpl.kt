@@ -14,10 +14,8 @@ import com.w4ereT1ckRtB1tch.moviefan.domain.mapper.FilmsMapper
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
 
-
-class HomeTopPanelPagingSourceImpl @Inject constructor(
+class FilmsPagingSourceImpl constructor(
     private val api: TmdbApi,
     private val mapper: @JvmSuppressWildcards FilmsMapper<FilmResponse, FilmsResponse>,
     private val preference: PreferenceProvider
@@ -35,7 +33,7 @@ class HomeTopPanelPagingSourceImpl @Inject constructor(
         Log.d("TAG", "nextPageNumber: $nextPageNumber ")
         Log.d("TAG", "pageSize: $pageSize ")
         return api.getFilms(
-            preference.restoreDefaultPanelBottom(),
+            preference.restoreCategorySetting(),
             TmdbKey.API_KEY_V3,
             TmdbConfig.LANGUAGE_RU,
             nextPageNumber
@@ -43,7 +41,7 @@ class HomeTopPanelPagingSourceImpl @Inject constructor(
             .subscribeOn(Schedulers.io()).map { filmsResponse ->
                 mapper.mapOfResponse(filmsResponse, nextPageNumber)
             }.onErrorReturn {
-                Log.d("TAG", "load popular: ${it.localizedMessage}")
+                Log.d("TAG", "load: ${it.localizedMessage}")
                 LoadResult.Error(it)
             }
     }

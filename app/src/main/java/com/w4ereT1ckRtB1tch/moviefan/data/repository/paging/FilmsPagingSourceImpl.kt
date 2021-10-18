@@ -5,7 +5,7 @@ import androidx.paging.PagingState
 import androidx.paging.rxjava2.RxPagingSource
 import com.w4ereT1ckRtB1tch.moviefan.data.dto.FilmResponse
 import com.w4ereT1ckRtB1tch.moviefan.data.dto.FilmsResponse
-import com.w4ereT1ckRtB1tch.moviefan.data.preferences.PreferenceProvider
+import com.w4ereT1ckRtB1tch.moviefan.domain.preference.PreferenceProvider
 import com.w4ereT1ckRtB1tch.moviefan.data.repository.paging.PagingSourceConfig.INITIAL_PAGE_NUMBER
 import com.w4ereT1ckRtB1tch.moviefan.data.source.TmdbApi
 import com.w4ereT1ckRtB1tch.moviefan.data.source.TmdbConfig

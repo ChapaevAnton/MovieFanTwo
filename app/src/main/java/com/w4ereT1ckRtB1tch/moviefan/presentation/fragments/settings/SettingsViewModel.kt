@@ -3,7 +3,7 @@ package com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.settings
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.w4ereT1ckRtB1tch.moviefan.data.preferences.PreferenceProvider
+import com.w4ereT1ckRtB1tch.moviefan.domain.preference.PreferenceProvider
 import com.w4ereT1ckRtB1tch.moviefan.di.HomeBottomSettings
 import javax.inject.Inject
 

@@ -6,6 +6,7 @@ import com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.details.FilmDetailsV
 import com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.favorites.FavoritesViewModel
 import com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.home.HomeViewModel
 import com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.selections.SelectionViewModel
+import com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.settings.SettingsViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -31,4 +32,8 @@ abstract class ViewModelModule {
     @Binds
     @[IntoMap ViewModelKey(FilmDetailsViewModel::class)]
     abstract fun filmDetailsViewModel(filmDetailsViewModel: FilmDetailsViewModel): ViewModel
+
+    @Binds
+    @[IntoMap ViewModelKey(SettingsViewModel::class)]
+    abstract fun settingsViewModel(settingsViewModel: SettingsViewModel): ViewModel
 }

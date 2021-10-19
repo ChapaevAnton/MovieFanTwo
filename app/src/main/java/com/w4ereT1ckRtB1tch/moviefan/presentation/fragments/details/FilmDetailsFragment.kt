@@ -67,8 +67,9 @@ class FilmDetailsFragment : DaggerFragment(R.layout.fragment_film_details) {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
+        binding.unbind()
         _binding = null
+        super.onDestroyView()
     }
 
 }

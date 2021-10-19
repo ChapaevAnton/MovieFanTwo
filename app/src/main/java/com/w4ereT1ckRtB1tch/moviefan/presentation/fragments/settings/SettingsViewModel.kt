@@ -13,7 +13,7 @@ class SettingsViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val bottomPanel: MutableLiveData<String> = MutableLiveData()
-    fun getBottomPanelSettings(): LiveData<String> = bottomPanel
+    fun getBottomPanelCategory(): LiveData<String> = bottomPanel
 
     init {
         initPanelSettings()

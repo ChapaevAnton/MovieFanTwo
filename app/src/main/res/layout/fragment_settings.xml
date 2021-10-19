@@ -48,7 +48,7 @@
         app:layout_constraintTop_toBottomOf="@id/settings_home_label">
 
         <RadioButton
-            android:id="@+id/radio_button_popular"
+            android:id="@+id/popular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/radio_button_popular"
@@ -57,7 +57,7 @@
             app:buttonTint="@color/white" />
 
         <RadioButton
-            android:id="@+id/radio_button_top_rated"
+            android:id="@+id/top_rated"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/radio_button_top_rate"

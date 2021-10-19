@@ -34,22 +34,23 @@ class SettingsFragment : DaggerFragment(R.layout.fragment_settings) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getBottomPanelSettings().observe(viewLifecycleOwner) { settingCategory ->
-            when (settingCategory) {
-                MoviesConfig.Path.POPULAR_CATEGORY -> binding.homeSettings.check(R.id.radio_button_popular)
-                MoviesConfig.Path.TOP_RATED_CATEGORY -> binding.homeSettings.check(R.id.radio_button_top_rated)
+        viewModel.getBottomPanelCategory().observe(viewLifecycleOwner) { category ->
+            when (category) {
+                MoviesConfig.Path.POPULAR_CATEGORY -> binding.homeSettings.check(R.id.popular)
+                MoviesConfig.Path.TOP_RATED_CATEGORY -> binding.homeSettings.check(R.id.top_rated)
             }
         }
         binding.homeSettings.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
-                R.id.radio_button_popular -> viewModel.setBottomPanelCategory(MoviesConfig.Path.POPULAR_CATEGORY)
-                R.id.radio_button_top_rated -> viewModel.setBottomPanelCategory(MoviesConfig.Path.TOP_RATED_CATEGORY)
+                R.id.popular -> viewModel.setBottomPanelCategory(MoviesConfig.Path.POPULAR_CATEGORY)
+                R.id.top_rated -> viewModel.setBottomPanelCategory(MoviesConfig.Path.TOP_RATED_CATEGORY)
             }
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
         _binding = null
+        super.onDestroyView()
     }
+
 }

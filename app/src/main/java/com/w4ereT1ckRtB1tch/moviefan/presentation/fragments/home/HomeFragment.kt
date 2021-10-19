@@ -115,8 +115,9 @@ class HomeFragment : DaggerFragment(R.layout.fragment_home) {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
+        binding.unbind()
         _binding = null
+        super.onDestroyView()
     }
 
     private fun openFilmDetailsFragment(film: Film) {

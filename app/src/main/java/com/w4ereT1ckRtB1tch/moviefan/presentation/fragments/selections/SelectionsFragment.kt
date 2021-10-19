@@ -54,8 +54,9 @@ class SelectionsFragment : DaggerFragment(R.layout.fragment_selections) {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
+        binding.unbind()
         _binding = null
+        super.onDestroyView()
     }
 
     private fun openFilmDetailsFragment(film: Film) {

@@ -95,7 +95,12 @@ class HomeFragment : DaggerFragment(R.layout.fragment_home) {
         binding.menuTopBarHome.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.main_menu_setting -> {
-                    (requireActivity() as MainActivity).showSnackBar(R.string.main_menu_settings)
+                    val action = HomeFragmentDirections.actionOpenFromHomeToSettings()
+                    findNavController().navigate(action)
+                    true
+                }
+                R.id.main_menu_about -> {
+                    (requireActivity() as MainActivity).showSnackBar(R.string.main_menu_about)
                     true
                 }
                 else -> false
@@ -110,8 +115,9 @@ class HomeFragment : DaggerFragment(R.layout.fragment_home) {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
+        binding.unbind()
         _binding = null
+        super.onDestroyView()
     }
 
     private fun openFilmDetailsFragment(film: Film) {

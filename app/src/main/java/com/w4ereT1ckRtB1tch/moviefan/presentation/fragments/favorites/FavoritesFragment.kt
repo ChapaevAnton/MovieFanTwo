@@ -67,8 +67,9 @@ class FavoritesFragment : DaggerFragment(R.layout.fragment_favorites) {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
+        binding.unbind()
         _binding = null
+        super.onDestroyView()
     }
 
     private fun openFilmDetailsFragment(film: Film) {

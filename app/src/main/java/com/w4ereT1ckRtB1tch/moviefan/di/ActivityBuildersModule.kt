@@ -4,6 +4,7 @@ import com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.details.FilmDetailsF
 import com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.favorites.FavoritesFragment
 import com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.home.HomeFragment
 import com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.selections.SelectionsFragment
+import com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.settings.SettingsFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -11,14 +12,17 @@ import dagger.android.ContributesAndroidInjector
 abstract class ActivityBuildersModule {
 
     @ContributesAndroidInjector
-    abstract fun contributeFilmDetailsFragment():FilmDetailsFragment
+    abstract fun contributeFilmDetailsFragment(): FilmDetailsFragment
 
     @ContributesAndroidInjector
-    abstract fun contributeFavoritesFragment():FavoritesFragment
+    abstract fun contributeFavoritesFragment(): FavoritesFragment
 
     @ContributesAndroidInjector
-    abstract fun contributeHomeFragment():HomeFragment
+    abstract fun contributeHomeFragment(): HomeFragment
 
     @ContributesAndroidInjector
-    abstract fun contributeSelectionsFragment():SelectionsFragment
+    abstract fun contributeSelectionsFragment(): SelectionsFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributesSettingsFragment(): SettingsFragment
 }

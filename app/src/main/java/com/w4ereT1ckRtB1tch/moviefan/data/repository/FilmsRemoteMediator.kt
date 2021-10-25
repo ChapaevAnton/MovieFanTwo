@@ -39,13 +39,13 @@ class FilmsRemoteMediator @Inject constructor(
                 }
                 LoadType.PREPEND -> {
                     val remoteKeys = getRemoteKeyForFirstItem(state)
-                        ?: throw InvalidObjectException("Result is empty")
-                    remoteKeys.prevKey ?: INVALID_PAGE
+                        //?: throw InvalidObjectException("Result is empty")
+                    remoteKeys?.prevKey ?: INVALID_PAGE
                 }
                 LoadType.APPEND -> {
                     val remoteKeys = getRemoteKeyForLastItem(state)
-                        ?: throw InvalidObjectException("Result is empty")
-                    remoteKeys.nextKey ?: INVALID_PAGE
+                        //?: throw InvalidObjectException("Result is empty")
+                    remoteKeys?.nextKey ?: INVALID_PAGE
                 }
             }
         }.flatMap { nextPageNumber ->

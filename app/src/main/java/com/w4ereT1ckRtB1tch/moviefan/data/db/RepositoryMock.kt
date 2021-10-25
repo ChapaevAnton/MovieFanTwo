@@ -4,7 +4,7 @@ import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import java.time.LocalDate
 import java.time.Month
 
-class Repository {
+class RepositoryMock {
 
     val filmDataBase: List<Film> =
         listOf(

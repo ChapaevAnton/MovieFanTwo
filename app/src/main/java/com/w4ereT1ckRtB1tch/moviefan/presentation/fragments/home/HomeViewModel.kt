@@ -12,7 +12,7 @@ import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 
-class HomeViewModel @Inject constructor(private val dataBase: FilmsRepository) : ViewModel() {
+class HomeViewModel @Inject constructor(private val repository: FilmsRepository) : ViewModel() {
 
     private val popularFilms: MutableLiveData<PagingData<Film>> = MutableLiveData()
     fun getPopularFilms(): LiveData<PagingData<Film>> = popularFilms
@@ -28,7 +28,7 @@ class HomeViewModel @Inject constructor(private val dataBase: FilmsRepository) :
     }
 
     private fun onLoadingUpcomingData() {
-        compositeDisposable.add(dataBase
+        compositeDisposable.add(repository
             .getUpcomingFilms()
             .cachedIn(viewModelScope)
             .subscribe {
@@ -37,7 +37,7 @@ class HomeViewModel @Inject constructor(private val dataBase: FilmsRepository) :
     }
 
     private fun onLoadingPopularData() {
-        compositeDisposable.add(dataBase
+        compositeDisposable.add(repository
             .getPopularFilms()
             .cachedIn(viewModelScope)
             .subscribe {

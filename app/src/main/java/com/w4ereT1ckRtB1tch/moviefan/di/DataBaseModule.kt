@@ -1,15 +1,23 @@
 package com.w4ereT1ckRtB1tch.moviefan.di
 
-import com.w4ereT1ckRtB1tch.moviefan.data.db.DataBaseImplMock
-import com.w4ereT1ckRtB1tch.moviefan.domain.db.DataBaseMock
-import dagger.Binds
+import android.app.Application
+import androidx.room.Room
+import com.w4ereT1ckRtB1tch.moviefan.data.db.FilmDataBase
 import dagger.Module
-import dagger.Reusable
+import dagger.Provides
+import javax.inject.Singleton
+
 
 @Module
-abstract class DataBaseModule {
+class DataBaseModule {
 
-    @Binds
-    @Reusable
-    abstract fun bindDataBase(dataBaseImplMock: DataBaseImplMock): DataBaseMock
+    @Provides
+    @Singleton
+    fun provideFilmDataBase(application: Application) =
+        Room.databaseBuilder(
+            application.applicationContext,
+            FilmDataBase::class.java,
+            "TMDB.db"
+        ).build()
+
 }

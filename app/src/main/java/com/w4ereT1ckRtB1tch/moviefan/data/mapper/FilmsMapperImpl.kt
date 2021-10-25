@@ -16,7 +16,7 @@ class FilmsMapperImpl @Inject constructor() :
     override fun mapOfResponse(film: FilmResponse): Film {
         return with(film) {
             Film(
-                id = id,
+                filmId = filmId,
                 title = title,
                 poster = "${TmdbConfig.IMAGE_URL}${TmdbConfig.IMAGE_POSTER_SIZE_50}$posterPath",
                 backdrop = "${TmdbConfig.IMAGE_URL}${TmdbConfig.IMAGE_BACKDROP_SIZE}$backdropPath",

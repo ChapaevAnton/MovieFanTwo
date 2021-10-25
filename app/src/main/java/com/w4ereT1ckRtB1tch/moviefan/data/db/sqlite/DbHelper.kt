@@ -1,9 +1,9 @@
-package com.w4ereT1ckRtB1tch.moviefan.data.db
+package com.w4ereT1ckRtB1tch.moviefan.data.db.sqlite
 
 import android.app.Application
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.w4ereT1ckRtB1tch.moviefan.data.db.DbScheme.FilmTable
+import com.w4ereT1ckRtB1tch.moviefan.data.db.sqlite.DbScheme.FilmTable
 
 class DbHelper(application: Application) : SQLiteOpenHelper(
     application.applicationContext,

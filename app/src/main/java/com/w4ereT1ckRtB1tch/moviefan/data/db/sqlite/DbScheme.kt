@@ -1,4 +1,4 @@
-package com.w4ereT1ckRtB1tch.moviefan.data.db
+package com.w4ereT1ckRtB1tch.moviefan.data.db.sqlite
 
 class DbScheme {
 

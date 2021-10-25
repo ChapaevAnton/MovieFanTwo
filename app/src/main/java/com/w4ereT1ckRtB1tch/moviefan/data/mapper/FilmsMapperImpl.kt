@@ -6,6 +6,7 @@ import com.w4ereT1ckRtB1tch.moviefan.data.dto.FilmsResponse
 import com.w4ereT1ckRtB1tch.moviefan.data.source.TmdbConfig
 import com.w4ereT1ckRtB1tch.moviefan.domain.mapper.FilmsMapper
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
+import com.w4ereT1ckRtB1tch.moviefan.domain.model.Films
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import javax.inject.Inject
@@ -28,8 +29,18 @@ class FilmsMapperImpl @Inject constructor() :
         }
     }
 
-    override fun mapOfResponse(films: FilmsResponse): List<Film> {
-        return films.results.map { mapOfResponse(it) }.toList()
+    override fun mapOfResponse(films: List<FilmResponse>): List<Film> {
+        return films.map { mapOfResponse(it) }.toList()
+    }
+
+    override fun mapOfResponse(films: FilmsResponse): Films {
+        return with(films) {
+            Films(
+                page = page,
+                totalPage = totalPages,
+                films = mapOfResponse(results)
+            )
+        }
     }
 
     override fun mapOfResponse(
@@ -37,7 +48,7 @@ class FilmsMapperImpl @Inject constructor() :
         page: Int
     ): PagingSource.LoadResult<Int, Film> {
         return PagingSource.LoadResult.Page(
-            data = mapOfResponse(films),
+            data = mapOfResponse(films.results),
             prevKey = if (page == 1) null else page.minus(1),
             nextKey = if (page == films.totalPages) null else page.plus(1)
         )
@@ -49,5 +60,6 @@ class FilmsMapperImpl @Inject constructor() :
             DateTimeFormatter.ISO_LOCAL_DATE
         )
     }
+
 
 }

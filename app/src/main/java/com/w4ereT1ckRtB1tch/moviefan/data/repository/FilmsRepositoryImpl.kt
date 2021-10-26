@@ -16,7 +16,8 @@ import io.reactivex.Flowable
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
-class FilmsRepositoryImpl @Inject constructor(
+class FilmsRepositoryImpl @ExperimentalPagingApi
+@Inject constructor(
     @PagingUpcoming
     private val upcomingSource: RxPagingSource<Int, Film>,
     @PagingPopular
@@ -47,7 +48,6 @@ class FilmsRepositoryImpl @Inject constructor(
 //        ).flowable
 //    }
 
-    // FIXME: 25.10.2021 not working pagingSourceFactory = { dataBase.filmRxDao().selectAll() }
     @ExperimentalPagingApi
     @ExperimentalCoroutinesApi
     override fun getPopularFilms(): Flowable<PagingData<Film>> {

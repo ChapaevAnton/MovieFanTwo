@@ -17,10 +17,10 @@ import com.w4ereT1ckRtB1tch.moviefan.domain.model.FilmRemoteKeys
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Films
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import java.io.InvalidObjectException
 import javax.inject.Inject
 
-@OptIn(ExperimentalPagingApi::class)
+
+@ExperimentalPagingApi
 class FilmsRemoteMediatorImpl @Inject constructor(
     private val api: TmdbApi,
     private val mapper: @JvmSuppressWildcards FilmsMapper<FilmResponse, FilmsResponse>,
@@ -39,16 +39,15 @@ class FilmsRemoteMediatorImpl @Inject constructor(
                 }
                 LoadType.PREPEND -> {
                     val remoteKeys = getRemoteKeyForFirstItem(state)
-                        ?: throw InvalidObjectException("Result is empty")
                     remoteKeys?.prevKey ?: INVALID_PAGE_INDEX
                 }
                 LoadType.APPEND -> {
                     val remoteKeys = getRemoteKeyForLastItem(state)
-                        ?: throw InvalidObjectException("Result is empty")
                     remoteKeys?.nextKey ?: INVALID_PAGE_INDEX
                 }
             }
         }.flatMap { nextPageNumber ->
+            // FIXME: 26.10.2021 MoviesConfig.Path.POPULAR_CATEGORY
             if (nextPageNumber == INVALID_PAGE_INDEX) {
                 Single.just(MediatorResult.Success(endOfPaginationReached = true))
             } else {
@@ -72,7 +71,6 @@ class FilmsRemoteMediatorImpl @Inject constructor(
     @Suppress("DEPRECATION")
     private fun insertToDataBase(page: Int, loadType: LoadType, data: Films): Films {
         dataBase.beginTransaction()
-
         try {
             if (loadType == LoadType.REFRESH) {
                 dataBase.filmRemoteKeysRxDao().clearRemoteKeys()

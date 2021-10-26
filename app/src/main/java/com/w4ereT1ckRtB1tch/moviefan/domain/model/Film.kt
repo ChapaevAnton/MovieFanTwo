@@ -7,13 +7,6 @@ import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
 
-// FIXME: 25.10.2021 refactoring model to
-//  @kotlinx.android.parcel.Parcelize
-//  data class Movies(
-//  val total: Int = 0,
-//  val page: Int = 0,
-//  val movies: List<Movie>
-//  ) : Parcelable
 
 @Parcelize
 data class Films(

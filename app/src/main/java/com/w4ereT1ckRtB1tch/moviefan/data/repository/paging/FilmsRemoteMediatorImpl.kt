@@ -7,7 +7,6 @@ import androidx.paging.rxjava2.RxRemoteMediator
 import com.w4ereT1ckRtB1tch.moviefan.data.db.FilmDataBase
 import com.w4ereT1ckRtB1tch.moviefan.data.dto.FilmResponse
 import com.w4ereT1ckRtB1tch.moviefan.data.dto.FilmsResponse
-import com.w4ereT1ckRtB1tch.moviefan.data.source.MoviesConfig
 import com.w4ereT1ckRtB1tch.moviefan.data.source.TmdbApi
 import com.w4ereT1ckRtB1tch.moviefan.data.source.TmdbConfig
 import com.w4ereT1ckRtB1tch.moviefan.data.source.TmdbKey
@@ -15,16 +14,17 @@ import com.w4ereT1ckRtB1tch.moviefan.domain.mapper.FilmsMapper
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.FilmRemoteKeys
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Films
+import com.w4ereT1ckRtB1tch.moviefan.domain.preference.PreferenceProvider
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
 
 
 @ExperimentalPagingApi
-class FilmsRemoteMediatorImpl @Inject constructor(
+class FilmsRemoteMediatorImpl constructor(
     private val api: TmdbApi,
     private val mapper: @JvmSuppressWildcards FilmsMapper<FilmResponse, FilmsResponse>,
-    private val dataBase: FilmDataBase
+    private val dataBase: FilmDataBase,
+    private val preference: PreferenceProvider
 ) : RxRemoteMediator<Int, Film>() {
 
     override fun loadSingle(
@@ -47,12 +47,11 @@ class FilmsRemoteMediatorImpl @Inject constructor(
                 }
             }
         }.flatMap { nextPageNumber ->
-            // FIXME: 26.10.2021 MoviesConfig.Path.POPULAR_CATEGORY
             if (nextPageNumber == INVALID_PAGE_INDEX) {
                 Single.just(MediatorResult.Success(endOfPaginationReached = true))
             } else {
                 api.getFilms(
-                    MoviesConfig.Path.POPULAR_CATEGORY,
+                    preference.restoreCategorySetting(),
                     TmdbKey.API_KEY_V3,
                     TmdbConfig.LANGUAGE_RU,
                     nextPageNumber

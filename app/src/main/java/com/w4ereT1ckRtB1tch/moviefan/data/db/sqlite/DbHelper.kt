@@ -11,7 +11,7 @@ class DbHelper(application: Application) : SQLiteOpenHelper(
 ) {
 
     companion object {
-        const val DATABASE_NAME = "films.db"
+        const val DATABASE_NAME = "TMDB.db"
         const val DATABASE_VERSION = 1
     }
 

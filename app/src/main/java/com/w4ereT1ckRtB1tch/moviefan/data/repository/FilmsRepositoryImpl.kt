@@ -5,9 +5,9 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.rxjava2.RxPagingSource
+import androidx.paging.rxjava2.RxRemoteMediator
 import androidx.paging.rxjava2.flowable
 import com.w4ereT1ckRtB1tch.moviefan.data.db.FilmDataBase
-import com.w4ereT1ckRtB1tch.moviefan.data.repository.paging.FilmsRemoteMediatorImpl
 import com.w4ereT1ckRtB1tch.moviefan.di.PagingPopular
 import com.w4ereT1ckRtB1tch.moviefan.di.PagingUpcoming
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
@@ -21,8 +21,7 @@ class FilmsRepositoryImpl @ExperimentalPagingApi
     @PagingUpcoming
     private val upcomingSource: RxPagingSource<Int, Film>,
     @PagingPopular
-    private val popularSource: RxPagingSource<Int, Film>,
-    private val remoteMediator: FilmsRemoteMediatorImpl,
+    private val remoteMediator: RxRemoteMediator<Int, Film>,
     private val dataBase: FilmDataBase
 ) : FilmsRepository {
 
@@ -39,14 +38,6 @@ class FilmsRepositoryImpl @ExperimentalPagingApi
         prefetchDistance = 2,
         maxSize = 100
     )
-
-//    @ExperimentalCoroutinesApi
-//    override fun getPopularFilms(): Flowable<PagingData<Film>> {
-//        return Pager(
-//            config = configPopular,
-//            pagingSourceFactory = { popularSource }
-//        ).flowable
-//    }
 
     @ExperimentalPagingApi
     @ExperimentalCoroutinesApi

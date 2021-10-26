@@ -13,7 +13,7 @@ class DataBaseModule {
 
     @Provides
     @Singleton
-    fun provideFilmDataBase(application: Application) =
+    fun provideFilmDataBase(application: Application): FilmDataBase =
         Room.databaseBuilder(
             application.applicationContext,
             FilmDataBase::class.java,

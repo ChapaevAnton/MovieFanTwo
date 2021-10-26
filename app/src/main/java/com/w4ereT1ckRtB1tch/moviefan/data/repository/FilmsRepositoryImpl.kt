@@ -7,6 +7,7 @@ import androidx.paging.PagingData
 import androidx.paging.rxjava2.RxPagingSource
 import androidx.paging.rxjava2.flowable
 import com.w4ereT1ckRtB1tch.moviefan.data.db.FilmDataBase
+import com.w4ereT1ckRtB1tch.moviefan.data.repository.paging.FilmsRemoteMediatorImpl
 import com.w4ereT1ckRtB1tch.moviefan.di.PagingPopular
 import com.w4ereT1ckRtB1tch.moviefan.di.PagingUpcoming
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
@@ -20,7 +21,7 @@ class FilmsRepositoryImpl @Inject constructor(
     private val upcomingSource: RxPagingSource<Int, Film>,
     @PagingPopular
     private val popularSource: RxPagingSource<Int, Film>,
-    private val remoteMediator: FilmsRemoteMediator,
+    private val remoteMediator: FilmsRemoteMediatorImpl,
     private val dataBase: FilmDataBase
 ) : FilmsRepository {
 
@@ -53,7 +54,7 @@ class FilmsRepositoryImpl @Inject constructor(
         return Pager(
             config = configPopular,
             remoteMediator = remoteMediator,
-            pagingSourceFactory = { popularSource }
+            pagingSourceFactory = { dataBase.filmRxDao().selectAll() }
         ).flowable
     }
 

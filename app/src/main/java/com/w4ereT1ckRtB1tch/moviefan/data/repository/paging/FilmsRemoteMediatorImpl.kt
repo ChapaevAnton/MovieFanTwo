@@ -1,4 +1,4 @@
-package com.w4ereT1ckRtB1tch.moviefan.data.repository
+package com.w4ereT1ckRtB1tch.moviefan.data.repository.paging
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
@@ -21,7 +21,7 @@ import java.io.InvalidObjectException
 import javax.inject.Inject
 
 @OptIn(ExperimentalPagingApi::class)
-class FilmsRemoteMediator @Inject constructor(
+class FilmsRemoteMediatorImpl @Inject constructor(
     private val api: TmdbApi,
     private val mapper: @JvmSuppressWildcards FilmsMapper<FilmResponse, FilmsResponse>,
     private val dataBase: FilmDataBase
@@ -35,21 +35,21 @@ class FilmsRemoteMediator @Inject constructor(
             when (it) {
                 LoadType.REFRESH -> {
                     val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
-                    remoteKeys?.nextKey?.minus(1) ?: 1
+                    remoteKeys?.nextKey?.minus(1) ?: STARTING_PAGE_INDEX
                 }
                 LoadType.PREPEND -> {
                     val remoteKeys = getRemoteKeyForFirstItem(state)
-                        //?: throw InvalidObjectException("Result is empty")
-                    remoteKeys?.prevKey ?: INVALID_PAGE
+                        ?: throw InvalidObjectException("Result is empty")
+                    remoteKeys?.prevKey ?: INVALID_PAGE_INDEX
                 }
                 LoadType.APPEND -> {
                     val remoteKeys = getRemoteKeyForLastItem(state)
-                        //?: throw InvalidObjectException("Result is empty")
-                    remoteKeys?.nextKey ?: INVALID_PAGE
+                        ?: throw InvalidObjectException("Result is empty")
+                    remoteKeys?.nextKey ?: INVALID_PAGE_INDEX
                 }
             }
         }.flatMap { nextPageNumber ->
-            if (nextPageNumber == INVALID_PAGE) {
+            if (nextPageNumber == INVALID_PAGE_INDEX) {
                 Single.just(MediatorResult.Success(endOfPaginationReached = true))
             } else {
                 api.getFilms(
@@ -57,18 +57,17 @@ class FilmsRemoteMediator @Inject constructor(
                     TmdbKey.API_KEY_V3,
                     TmdbConfig.LANGUAGE_RU,
                     nextPageNumber
-                ).map {
-                    mapper.mapOfResponse(it)
+                ).map { filmsResponse ->
+                    mapper.mapOfResponse(filmsResponse)
+                }.map { films ->
+                    insertToDataBase(nextPageNumber, loadType, films)
                 }.map<MediatorResult> {
-                    // FIXME: 25.10.2021  val endOfPage = total == page
                     MediatorResult.Success(endOfPaginationReached = it.endOfPage)
                 }.onErrorReturn { MediatorResult.Error(it) }
             }
-
         }
     }
 
-    // TODO: 25.10.2021 added record database
     // FIXME: 25.10.2021 DEPRECATION
     @Suppress("DEPRECATION")
     private fun insertToDataBase(page: Int, loadType: LoadType, data: Films): Films {
@@ -80,8 +79,8 @@ class FilmsRemoteMediator @Inject constructor(
                 dataBase.filmRxDao().clearFilms()
             }
 
-            val prevKey = if (page == 1) null else page - 1
-            val nextKey = if (data.endOfPage) null else page + 1
+            val prevKey = if (page == 1) null else page.minus(-1)
+            val nextKey = if (data.endOfPage) null else page.plus(1)
             val keys = data.films.map {
                 FilmRemoteKeys(filmId = it.filmId, prevKey = prevKey, nextKey = nextKey)
             }
@@ -92,7 +91,6 @@ class FilmsRemoteMediator @Inject constructor(
         } finally {
             dataBase.endTransaction()
         }
-
         return data
     }
 
@@ -117,6 +115,7 @@ class FilmsRemoteMediator @Inject constructor(
     }
 
     companion object {
-        const val INVALID_PAGE = -1
+        const val INVALID_PAGE_INDEX = -1
+        const val STARTING_PAGE_INDEX = 1
     }
 }

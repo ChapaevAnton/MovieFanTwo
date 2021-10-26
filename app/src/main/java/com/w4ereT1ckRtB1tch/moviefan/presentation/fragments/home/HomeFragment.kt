@@ -73,18 +73,19 @@ class HomeFragment : DaggerFragment(R.layout.fragment_home) {
         //popular film
         binding.catalogFilm.adapter =
             adapter.withLoadStateFooter(FooterStateAdapter { adapter.retry() })
-        adapter.addLoadStateListener { loadState ->
-            Log.d("TAG", "onLoadingPopularData: ok")
-            with(binding) {
-                swipeRefresh.isRefreshing = loadState.refresh is LoadState.Loading
-                errorIsVisible = loadState.refresh is LoadState.Error
-                if (loadState.refresh is LoadState.Error) {
-                    include.errorMessage.text =
-                        (loadState.source.refresh as LoadState.Error).error.localizedMessage
-                    include.retryLoad.setOnClickListener { adapter.retry() }
-                }
-            }
-        }
+        // FIXME: 26.10.2021 breakdown here in airplane mod
+//        adapter.addLoadStateListener { loadState ->
+//            Log.d("TAG", "onLoadingPopularData: ok")
+//            with(binding) {
+//                swipeRefresh.isRefreshing = loadState.refresh is LoadState.Loading
+//                errorIsVisible = loadState.refresh is LoadState.Error
+//                if (loadState.refresh is LoadState.Error) {
+//                    include.errorMessage.text =
+//                        (loadState.source.refresh as LoadState.Error).error.localizedMessage
+//                    include.retryLoad.setOnClickListener { adapter.retry() }
+//                }
+//            }
+//        }
         binding.swipeRefresh.setOnRefreshListener { viewModel.onRefreshPopularData() }
         binding.catalogFilm.addItemDecoration(decorator)
         viewModel.getPopularFilms().observe(viewLifecycleOwner) { films ->

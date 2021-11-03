@@ -15,7 +15,7 @@ object DataBindingAdapter {
 
     @BindingAdapter("srcGlide")
     @JvmStatic
-    fun setImage(@Nullable imageView: ImageView?, imageId: Int) {
+    inline fun setImage(@Nullable imageView: ImageView?, imageId: Int) {
         imageView?.let {
             Glide.with(it.context).load(imageId).centerCrop().into(it)
         }
@@ -23,7 +23,7 @@ object DataBindingAdapter {
 
     @BindingAdapter("srcGlide")
     @JvmStatic
-    fun setImage(@Nullable imageView: ImageView?, @Nullable imageUrl: String?) {
+    inline fun setImage(@Nullable imageView: ImageView?, @Nullable imageUrl: String?) {
         imageView?.let {
             Glide.with(it.context)
                 .load(imageUrl)
@@ -37,19 +37,22 @@ object DataBindingAdapter {
 
     @BindingAdapter("srcDrawable")
     @JvmStatic
-    fun setImage(@Nullable floatingActionButton: FloatingActionButton?, drawable: Drawable) {
+    inline fun setImage(@Nullable floatingActionButton: FloatingActionButton?, drawable: Drawable) {
         floatingActionButton?.setImageDrawable(drawable)
     }
 
     @BindingAdapter("srcDrawable")
     @JvmStatic
-    fun setImage(@Nullable imageView: ImageView?, drawable: Drawable) {
+    inline fun setImage(@Nullable imageView: ImageView?, drawable: Drawable) {
         imageView?.setImageDrawable(drawable)
     }
 
     @BindingAdapter("visibleState")
     @JvmStatic
-    fun setVisibleState(@Nullable floatingActionButton: FloatingActionButton?, visible: Boolean) {
+    inline fun setVisibleState(
+        @Nullable floatingActionButton: FloatingActionButton?,
+        visible: Boolean
+    ) {
         floatingActionButton?.let {
             if (visible) it.show() else it.hide()
         }
@@ -57,13 +60,15 @@ object DataBindingAdapter {
 
     @BindingAdapter("year")
     @JvmStatic
-    fun setYear(@Nullable textView: TextView?, localDate: LocalDate?) {
-        textView?.text = localDate?.year?.toString() ?: "не анонсирована"
+    inline fun setYear(@Nullable textView: TextView?, localDate: LocalDate?) {
+        textView?.let {
+            it.text = localDate?.year?.toString() ?: it.context.getString(R.string.not_announced)
+        }
     }
 
     @BindingAdapter("rating")
     @JvmStatic
-    fun setRating(@Nullable ratingCircleView: RatingCircleView?, rating: Double) {
+    inline fun setRating(@Nullable ratingCircleView: RatingCircleView?, rating: Double) {
         ratingCircleView?.setProgress(rating.times(10).toInt())
     }
 

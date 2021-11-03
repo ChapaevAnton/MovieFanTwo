@@ -9,20 +9,20 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
-abstract class ActivityBuildersModule {
+interface ActivityBuildersModule {
 
     @ContributesAndroidInjector
-    abstract fun contributeFilmDetailsFragment(): FilmDetailsFragment
+    fun contributeFilmDetailsFragment(): FilmDetailsFragment
 
     @ContributesAndroidInjector
-    abstract fun contributeFavoritesFragment(): FavoritesFragment
+    fun contributeFavoritesFragment(): FavoritesFragment
 
     @ContributesAndroidInjector
-    abstract fun contributeHomeFragment(): HomeFragment
+    fun contributeHomeFragment(): HomeFragment
 
     @ContributesAndroidInjector
-    abstract fun contributeSelectionsFragment(): SelectionsFragment
+    fun contributeSelectionsFragment(): SelectionsFragment
 
     @ContributesAndroidInjector
-    abstract fun contributesSettingsFragment(): SettingsFragment
+    fun contributesSettingsFragment(): SettingsFragment
 }

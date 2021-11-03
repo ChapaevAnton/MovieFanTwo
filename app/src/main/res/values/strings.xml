@@ -31,6 +31,13 @@
     <string name="empty_list_favorites">Список пуст</string>
 
     <!--    details fragment-->
+    <string name="intent_message">
+        Обязательно посмотри этот фильм:
+        Название: "%1$s"
+        Описание: %2$s
+        Год выпуска: %3$s
+        Рейтинг: %4$s</string>
+    <string name="not_announced">не анонсирован</string>
 
     <!--    load state adapter-->
     <string name="error_load_state_message">Ошибка загрузки</string>

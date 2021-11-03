@@ -18,7 +18,7 @@ import dagger.Reusable
 import javax.inject.Qualifier
 
 @Module
-class PagingModule {
+object PagingModule {
 
     @Provides
     @Reusable

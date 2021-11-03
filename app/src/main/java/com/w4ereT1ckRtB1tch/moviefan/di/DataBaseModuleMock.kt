@@ -7,11 +7,10 @@ import dagger.Module
 import dagger.Reusable
 
 @Module
-abstract class DataBaseModuleMock {
+interface DataBaseModuleMock {
 
     @Binds
     @Reusable
-    abstract fun bindDataBaseMock(dataBaseImplMock: DataBaseImplMock): DataBaseMock
-
+    fun bindDataBaseMock(dataBaseImplMock: DataBaseImplMock): DataBaseMock
 
 }

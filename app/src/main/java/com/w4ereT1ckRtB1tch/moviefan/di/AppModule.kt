@@ -11,16 +11,16 @@ import dagger.Module
 import dagger.Reusable
 
 @Module
-abstract class AppModule {
+interface AppModule {
 
     @Binds
     @Reusable
-    abstract fun bindFilmsMapper(
+    fun bindFilmsMapper(
         filmsMapper: FilmsMapperImpl
     ): @JvmSuppressWildcards FilmsMapper<FilmResponse, FilmsResponse>
 
     @Binds
     @Reusable
-    abstract fun bindFilmsRepository(filmsRepository: FilmsRepositoryImpl): FilmsRepository
+    fun bindFilmsRepository(filmsRepository: FilmsRepositoryImpl): FilmsRepository
 
 }

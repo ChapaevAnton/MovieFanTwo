@@ -12,28 +12,28 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 
 @Module
-abstract class ViewModelModule {
+interface ViewModelModule {
 
     @Binds
-    abstract fun bindViewModelFactory(viewModelFactory: ViewModelFactory): ViewModelProvider.Factory
+    fun bindViewModelFactory(viewModelFactory: ViewModelFactory): ViewModelProvider.Factory
 
     @Binds
     @[IntoMap ViewModelKey(HomeViewModel::class)]
-    abstract fun homeViewModel(homeViewModel: HomeViewModel): ViewModel
+    fun homeViewModel(homeViewModel: HomeViewModel): ViewModel
 
     @Binds
     @[IntoMap ViewModelKey(SelectionViewModel::class)]
-    abstract fun selectionsViewModel(selectionViewModel: SelectionViewModel): ViewModel
+    fun selectionsViewModel(selectionViewModel: SelectionViewModel): ViewModel
 
     @Binds
     @[IntoMap ViewModelKey(FavoritesViewModel::class)]
-    abstract fun favoritesViewModel(favoritesViewModel: FavoritesViewModel): ViewModel
+    fun favoritesViewModel(favoritesViewModel: FavoritesViewModel): ViewModel
 
     @Binds
     @[IntoMap ViewModelKey(FilmDetailsViewModel::class)]
-    abstract fun filmDetailsViewModel(filmDetailsViewModel: FilmDetailsViewModel): ViewModel
+    fun filmDetailsViewModel(filmDetailsViewModel: FilmDetailsViewModel): ViewModel
 
     @Binds
     @[IntoMap ViewModelKey(SettingsViewModel::class)]
-    abstract fun settingsViewModel(settingsViewModel: SettingsViewModel): ViewModel
+    fun settingsViewModel(settingsViewModel: SettingsViewModel): ViewModel
 }

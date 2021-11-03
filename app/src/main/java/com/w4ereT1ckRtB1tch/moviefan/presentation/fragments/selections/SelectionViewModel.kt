@@ -19,7 +19,7 @@ class SelectionViewModel @Inject constructor(private val dataBase: DataBaseMock)
 
     init {
         val filmsValue = dataBase.getDataBase()
-        films.postValue(filmsValue)
+        films.value = filmsValue
     }
 
     fun onQueryTextListener(): SearchView.OnQueryTextListener? {
@@ -48,13 +48,13 @@ class SelectionViewModel @Inject constructor(private val dataBase: DataBaseMock)
 
     private fun setFilter() {
         val filmsValue = dataBase.getDataBase()
-        films.postValue(filmsValue)
+        films.value = filmsValue
     }
 
     private fun setFilter(filter: String) {
         val filmsValue = dataBase.getDataBase()
             .filter { film -> film.title.lowercase().contains(filter.lowercase()) }
-        films.postValue(filmsValue)
+        films.value = filmsValue
     }
 
 }

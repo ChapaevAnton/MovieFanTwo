@@ -16,11 +16,11 @@ class FavoritesViewModel @Inject constructor(private val dataBase: DataBaseMock)
 
     init {
         val filmsValue = dataBase.getDataBase().filter { it.isFavorites }
-        films.postValue(filmsValue)
+        films.value = filmsValue
     }
 
     fun setFavoritesFilms() {
         val filmsValue = dataBase.getDataBase().filter { it.isFavorites }
-        films.postValue(filmsValue)
+        films.value = filmsValue
     }
 }

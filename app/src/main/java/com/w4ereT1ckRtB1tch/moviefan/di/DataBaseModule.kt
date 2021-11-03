@@ -1,23 +1,28 @@
 package com.w4ereT1ckRtB1tch.moviefan.di
 
-import android.app.Application
+import android.content.Context
 import androidx.room.Room
 import com.w4ereT1ckRtB1tch.moviefan.data.db.FilmDataBase
+import com.w4ereT1ckRtB1tch.moviefan.data.db.RepositoryMock
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
 
 @Module
-class DataBaseModule {
+object DataBaseModule {
 
     @Provides
     @Singleton
-    fun provideFilmDataBase(application: Application): FilmDataBase =
+    fun provideFilmDataBase(context: Context): FilmDataBase =
         Room.databaseBuilder(
-            application.applicationContext,
+            context,
             FilmDataBase::class.java,
             "TMDB.db"
         ).build()
+
+    @Provides
+    @Singleton
+    fun provideRepositoryMock(): RepositoryMock = RepositoryMock()
 
 }

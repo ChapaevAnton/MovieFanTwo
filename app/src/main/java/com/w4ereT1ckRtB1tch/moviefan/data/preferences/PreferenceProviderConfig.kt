@@ -1,4 +1,4 @@
-package com.w4ereT1ckRtB1tch.moviefan.domain.preference
+package com.w4ereT1ckRtB1tch.moviefan.data.preferences
 
 import com.w4ereT1ckRtB1tch.moviefan.data.source.MoviesConfig
 

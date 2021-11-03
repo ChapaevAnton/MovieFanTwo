@@ -30,7 +30,7 @@ data class Film(
     val description: String,
     val rating: Double,
     val year: LocalDate?,
-    var isFavorites: Boolean = false
+    val isFavorites: Boolean = false
 ) : Parcelable
 
 @Parcelize

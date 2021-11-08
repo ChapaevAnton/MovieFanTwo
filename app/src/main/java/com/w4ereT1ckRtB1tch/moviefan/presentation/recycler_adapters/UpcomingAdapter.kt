@@ -24,7 +24,9 @@ class UpcomingAdapter :
         RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(film: Film?) {
-            binding.film = film
+            film?.let {
+                binding.film = it
+            }
         }
     }
 }

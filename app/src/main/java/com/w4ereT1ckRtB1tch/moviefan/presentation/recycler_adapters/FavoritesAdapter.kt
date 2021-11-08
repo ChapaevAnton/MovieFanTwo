@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.w4ereT1ckRtB1tch.moviefan.R
-import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import com.w4ereT1ckRtB1tch.moviefan.databinding.ItemFilmBinding
+import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.FavoritesAdapter.ItemFilmHolder
 
 class FavoritesAdapter(private val onItemClickListener: OnItemClickListener) :
@@ -22,8 +22,10 @@ class FavoritesAdapter(private val onItemClickListener: OnItemClickListener) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(film: Film?, onItemClickListener: OnItemClickListener) {
-            binding.film = film
-            binding.onItemClicked = onItemClickListener
+            film?.let {
+                binding.film = it
+                binding.onItemClicked = onItemClickListener
+            }
         }
     }
 

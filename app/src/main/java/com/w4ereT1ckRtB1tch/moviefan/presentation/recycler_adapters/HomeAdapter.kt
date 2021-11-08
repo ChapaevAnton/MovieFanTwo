@@ -27,8 +27,10 @@ class HomeAdapter(private val onItemClickListener: OnItemClickListener) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(film: Film?, onItemClickListener: OnItemClickListener) {
-            binding.film = film
-            binding.onItemClicked = onItemClickListener
+            film?.let {
+                binding.film = it
+                binding.onItemClicked = onItemClickListener
+            }
         }
     }
 }

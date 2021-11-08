@@ -2,7 +2,8 @@ package com.w4ereT1ckRtB1tch.moviefan.di
 
 import android.content.Context
 import androidx.room.Room
-import com.w4ereT1ckRtB1tch.moviefan.data.db.FilmDataBase
+import com.w4ereT1ckRtB1tch.moviefan.data.db.AppDataBase
+import com.w4ereT1ckRtB1tch.moviefan.data.db.FilmDataBaseScheme
 import com.w4ereT1ckRtB1tch.moviefan.data.db.RepositoryMock
 import dagger.Module
 import dagger.Provides
@@ -14,11 +15,11 @@ object DataBaseModule {
 
     @Provides
     @Singleton
-    fun provideFilmDataBase(context: Context): FilmDataBase =
+    fun provideFilmDataBase(context: Context): AppDataBase =
         Room.databaseBuilder(
             context,
-            FilmDataBase::class.java,
-            "TMDB.db"
+            AppDataBase::class.java,
+            FilmDataBaseScheme.DataBase.NAME
         ).build()
 
     @Provides

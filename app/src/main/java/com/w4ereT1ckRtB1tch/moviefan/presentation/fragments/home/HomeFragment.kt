@@ -64,7 +64,8 @@ class HomeFragment : DaggerFragment(R.layout.fragment_home) {
         binding.catalogFilm.adapter =
             adapter.withLoadStateFooter(FooterStateAdapter { adapter.retry() })
         adapter.addLoadStateListener { loadState ->
-            binding.isEmptyList = adapter.itemCount == 0
+            binding.isEmptyList = adapter.itemCount == 0 && loadState.refresh !is LoadState.Loading
+            binding.isLoadList = loadState.refresh is LoadState.Loading
             binding.swipeRefresh.isRefreshing = loadState.refresh is LoadState.Loading
         }
         binding.swipeRefresh.setOnRefreshListener { viewModel.onRefreshPopularData() }

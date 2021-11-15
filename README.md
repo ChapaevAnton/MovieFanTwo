@@ -1,9 +1,10 @@
 # MovieFanTwo
-on development
+### on development
+https://www.themoviedb.org/
 
-ветки: 
-* develop - проверено
-* в homework41 - самые последение изменения
+## ветки: 
+## * develop - проверено
+## * в homework41 - самые последение изменения
 
 Навигатор по фильмам и сериалам, рейтинги и рецензии
 
@@ -17,15 +18,3 @@ on development
 
 ![image](https://user-images.githubusercontent.com/69672210/132940676-9f2eae9d-2f2a-4f6a-8d2b-57402e76bcd1.png)
 ![image](https://user-images.githubusercontent.com/69672210/132940682-35ce642b-6bb3-4476-beef-ab5c5efd7553.png)
-
-starting from branch homework32
-
-25.08.21 fix gradle bags data binding is not work
-
-Ater updating the android studio, a failure occurred due to which the project was not going to be assembled and gave an error kotlin-kapt 
-and date binding during assembly, it was not possible to fix it after 18 hours. A project with an error up to branch 32 on github. This project 
-is rebuilt on the basis of a new project and all files from branch 32 have been transferred to it.
-
-The project is now being developed in this repository. The old project, up to branch 32, is available at this link https://github.com/ChapaevAnton/MovieFan
-
-p\s managed to fix, the problem was that the name of the packages should not start with a capital letter ... it turned out after the transfer(

@@ -7,7 +7,7 @@
 
         <import
             alias="Film"
-            type="com.w4ereT1ckRtB1tch.moviefan.domain.Film" />
+            type="com.w4ereT1ckRtB1tch.moviefan.domain.model.Film" />
 
         <variable
             name="film"

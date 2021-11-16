@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -19,7 +20,7 @@ android {
     }
 
     buildFeatures {
-        viewBinding = true
+        viewBinding true
         dataBinding true
     }
 
@@ -52,15 +53,35 @@ dependencies {
     //RecyclerViewActions
     testImplementation 'org.hamcrest:hamcrest-library:2.2'
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.4.0'
-
-
     //Lottie for Android
     def lottieVersion = "4.0.0"
     implementation "com.airbnb.android:lottie:$lottieVersion"
-
     //Glide
     def glideVersion = "4.12.0"
     implementation "com.github.bumptech.glide:glide:$glideVersion"
     kapt "com.github.bumptech.glide:compiler:$glideVersion"
+    //retrofit
+    def retrofitVersion = "2.9.0"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+    //Gson
+    implementation 'com.google.code.gson:gson:2.8.8'
+    //okHttp
+    implementation "com.squareup.okhttp3:logging-interceptor:4.9.1"
+    //rxjava
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    //hilt
+    implementation "com.google.dagger:hilt-android:2.38.1"
+    kapt "com.google.dagger:hilt-compiler:2.38.1"
+    //navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
+    //paging3
+    def paging_version = "3.1.0-alpha03"
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
+    implementation "androidx.paging:paging-rxjava2-ktx:$paging_version"
+    //Swipe refresh layout
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
 }

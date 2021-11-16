@@ -1,18 +1,20 @@
 package com.w4ereT1ckRtB1tch.moviefan
 
 import android.app.Application
-import com.w4ereT1ckRtB1tch.moviefan.domain.DataBase
 import com.w4ereT1ckRtB1tch.moviefan.data.Repository
+import com.w4ereT1ckRtB1tch.moviefan.domain.DataBase
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class App : Application() {
 
-    companion object{
-        lateinit var instance:App
-        private set
+    companion object {
+        lateinit var instance: App
+            private set
     }
 
-    private lateinit var repository: Repository
     lateinit var dataBase: DataBase
+    private lateinit var repository: Repository
 
     override fun onCreate() {
         super.onCreate()
@@ -20,4 +22,5 @@ class App : Application() {
         repository = Repository()
         dataBase = DataBase(repository)
     }
+
 }

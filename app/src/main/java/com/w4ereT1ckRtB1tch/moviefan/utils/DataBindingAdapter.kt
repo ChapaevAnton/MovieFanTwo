@@ -7,7 +7,8 @@ import androidx.annotation.Nullable
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.w4ereT1ckRtB1tch.moviefan.view.customview.RatingCircleView
+import com.w4ereT1ckRtB1tch.moviefan.R
+import com.w4ereT1ckRtB1tch.moviefan.presentation.customview.RatingCircleView
 import java.time.LocalDate
 
 object DataBindingAdapter {
@@ -17,6 +18,20 @@ object DataBindingAdapter {
     fun setImage(@Nullable imageView: ImageView?, imageId: Int) {
         imageView?.let {
             Glide.with(it.context).load(imageId).centerCrop().into(it)
+        }
+    }
+
+    @BindingAdapter("srcGlide")
+    @JvmStatic
+    fun setImage(@Nullable imageView: ImageView?, @Nullable imageUrl: String?) {
+        imageView?.let {
+            Glide.with(it.context)
+                .load(imageUrl)
+                .placeholder(R.drawable.glide_load_image)
+                .error(R.drawable.glide_load_image_error)
+                .fallback(R.drawable.glide_load_image_error)
+                .centerCrop()
+                .into(it)
         }
     }
 
@@ -42,13 +57,13 @@ object DataBindingAdapter {
 
     @BindingAdapter("year")
     @JvmStatic
-    fun setYear(@Nullable textView: TextView?, localDate: LocalDate) {
-        textView?.text = localDate.year.toString()
+    fun setYear(@Nullable textView: TextView?, localDate: LocalDate?) {
+        textView?.text = localDate?.year?.toString() ?: "не анонсирована"
     }
 
     @BindingAdapter("rating")
     @JvmStatic
-    fun setRating(@Nullable ratingCircleView: RatingCircleView?, rating: Float) {
+    fun setRating(@Nullable ratingCircleView: RatingCircleView?, rating: Double) {
         ratingCircleView?.setProgress(rating.times(10).toInt())
     }
 

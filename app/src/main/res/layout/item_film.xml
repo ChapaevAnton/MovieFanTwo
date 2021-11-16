@@ -11,7 +11,7 @@
 
         <import
             alias="OnItemClickListener"
-            type="com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.OnItemClickListener" />
+            type="com.w4ereT1ckRtB1tch.moviefan.presentation.adapters.OnItemClickListener" />
 
         <variable
             name="film"

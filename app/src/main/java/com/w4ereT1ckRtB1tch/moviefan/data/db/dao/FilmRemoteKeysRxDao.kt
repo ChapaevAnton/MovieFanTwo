@@ -1,4 +1,4 @@
-package com.w4ereT1ckRtB1tch.moviefan.data.db.rx
+package com.w4ereT1ckRtB1tch.moviefan.data.db.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -12,7 +12,7 @@ interface FilmRemoteKeysRxDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(remoteKey: List<FilmRemoteKeys>)
 
-    @Query("SELECT * FROM film_remote_keys WHERE filmId = :filmId")
+    @Query("SELECT * FROM film_remote_keys WHERE film_id = :filmId")
     fun remoteKeyByFilmId(filmId: Int): FilmRemoteKeys?
 
     @Query("DELETE FROM film_remote_keys")

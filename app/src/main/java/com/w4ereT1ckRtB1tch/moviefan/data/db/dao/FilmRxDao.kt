@@ -1,4 +1,4 @@
-package com.w4ereT1ckRtB1tch.moviefan.data.db.rx
+package com.w4ereT1ckRtB1tch.moviefan.data.db.dao
 
 import androidx.paging.PagingSource
 import androidx.room.Dao

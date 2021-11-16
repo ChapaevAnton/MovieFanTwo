@@ -11,6 +11,10 @@
             name="isEmptyList"
             type="Boolean" />
 
+        <variable
+            name="isLoadList"
+            type="Boolean" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -78,7 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layoutAnimation="@anim/cards_spawn_layout_animation"
-                    android:visibility="@{isEmptyList ? View.INVISIBLE : View.VISIBLE}"
+                    android:visibility="@{isLoadList ? View.INVISIBLE : View.VISIBLE}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/item_film"
                     tools:visibility="visible" />

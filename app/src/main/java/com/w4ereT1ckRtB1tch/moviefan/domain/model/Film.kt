@@ -1,8 +1,11 @@
 package com.w4ereT1ckRtB1tch.moviefan.domain.model
 
 import android.os.Parcelable
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.w4ereT1ckRtB1tch.moviefan.data.db.AppDataBase.Companion.RemoteKeys
+import com.w4ereT1ckRtB1tch.moviefan.data.db.AppDataBase.Companion.Films
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
@@ -20,23 +23,23 @@ data class Films(
 }
 
 @Parcelize
-@Entity(tableName = "films")
+@Entity(tableName = Films.NAME)
 data class Film(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    val filmId: Int,
-    val title: String,
-    val poster: String?,
-    val backdrop: String?,
-    val description: String,
-    val rating: Double,
-    val year: LocalDate?,
-    val isFavorites: Boolean = false
+    @ColumnInfo(name = Films.Columns.FILM_ID) val filmId: Int,
+    @ColumnInfo(name = Films.Columns.TITLE) val title: String,
+    @ColumnInfo(name = Films.Columns.POSTER) val poster: String?,
+    @ColumnInfo(name = Films.Columns.BACKDROP) val backdrop: String?,
+    @ColumnInfo(name = Films.Columns.DESCRIPTION) val description: String,
+    @ColumnInfo(name = Films.Columns.RATING) val rating: Double,
+    @ColumnInfo(name = Films.Columns.YEAR) val year: LocalDate?,
+    @ColumnInfo(name = Films.Columns.IS_FAVORITES) val isFavorites: Boolean = false
 ) : Parcelable
 
 @Parcelize
-@Entity(tableName = "film_remote_keys")
+@Entity(tableName = RemoteKeys.NAME)
 data class FilmRemoteKeys(
-    @PrimaryKey val filmId: Int,
-    val prevKey: Int?,
-    val nextKey: Int?
+    @ColumnInfo(name = RemoteKeys.Columns.FILM_ID) @PrimaryKey val filmId: Int,
+    @ColumnInfo(name = RemoteKeys.Columns.PREV_KEY) val prevKey: Int?,
+    @ColumnInfo(name = RemoteKeys.Columns.NEXT_KEY) val nextKey: Int?
 ) : Parcelable

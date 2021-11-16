@@ -3,7 +3,7 @@ package com.w4ereT1ckRtB1tch.moviefan.di
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.rxjava2.RxPagingSource
 import androidx.paging.rxjava2.RxRemoteMediator
-import com.w4ereT1ckRtB1tch.moviefan.data.db.FilmDataBase
+import com.w4ereT1ckRtB1tch.moviefan.data.db.AppDataBase
 import com.w4ereT1ckRtB1tch.moviefan.data.dto.FilmResponse
 import com.w4ereT1ckRtB1tch.moviefan.data.dto.FilmsResponse
 import com.w4ereT1ckRtB1tch.moviefan.data.repository.paging.FilmsPagingSourceImpl
@@ -37,7 +37,7 @@ object PagingModule {
     fun provideHomeBottomPanelRemoteMediator(
         api: TmdbApi,
         mapper: @JvmSuppressWildcards FilmsMapper<FilmResponse, FilmsResponse>,
-        dataBase: FilmDataBase,
+        dataBase: AppDataBase,
         @HomeBottomSettings
         preference: PreferenceProvider
     ): RxRemoteMediator<Int, Film> = FilmsRemoteMediatorImpl(api, mapper, dataBase, preference)

@@ -4,7 +4,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.rxjava2.RxRemoteMediator
-import com.w4ereT1ckRtB1tch.moviefan.data.db.FilmDataBase
+import com.w4ereT1ckRtB1tch.moviefan.data.db.AppDataBase
 import com.w4ereT1ckRtB1tch.moviefan.data.dto.FilmResponse
 import com.w4ereT1ckRtB1tch.moviefan.data.dto.FilmsResponse
 import com.w4ereT1ckRtB1tch.moviefan.data.source.TmdbApi
@@ -23,7 +23,7 @@ import io.reactivex.schedulers.Schedulers
 class FilmsRemoteMediatorImpl constructor(
     private val api: TmdbApi,
     private val mapper: @JvmSuppressWildcards FilmsMapper<FilmResponse, FilmsResponse>,
-    private val dataBase: FilmDataBase,
+    private val dataBase: AppDataBase,
     private val preference: PreferenceProvider
 ) : RxRemoteMediator<Int, Film>() {
 

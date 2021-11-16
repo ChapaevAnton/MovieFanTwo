@@ -14,9 +14,9 @@ import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentHomeBinding
 import com.w4ereT1ckRtB1tch.moviefan.di.viewmodel.ViewModelFactory
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import com.w4ereT1ckRtB1tch.moviefan.presentation.MainActivity
-import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.FooterStateAdapter
-import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.HomeAdapter
-import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.UpcomingAdapter
+import com.w4ereT1ckRtB1tch.moviefan.presentation.adapters.FooterStateAdapter
+import com.w4ereT1ckRtB1tch.moviefan.presentation.adapters.HomeAdapter
+import com.w4ereT1ckRtB1tch.moviefan.presentation.adapters.UpcomingAdapter
 import com.w4ereT1ckRtB1tch.moviefan.utils.AnimationHelper
 import com.w4ereT1ckRtB1tch.moviefan.utils.SpacingItemDecoration
 import dagger.android.support.DaggerFragment
@@ -25,30 +25,20 @@ import javax.inject.Inject
 
 class HomeFragment : DaggerFragment(R.layout.fragment_home) {
 
-    private lateinit var adapter: HomeAdapter
-    private lateinit var upcomingAdapter: UpcomingAdapter
-    private lateinit var decorator: SpacingItemDecoration
-    private lateinit var decoratorMini: SpacingItemDecoration
+    private val adapter by lazy {
+        HomeAdapter { film ->
+            openFilmDetailsFragment(film)
+        }
+    }
+    private val upcomingAdapter by lazy { UpcomingAdapter() }
+    private val decorator by lazy { SpacingItemDecoration(10) }
+    private val decoratorMini by lazy { SpacingItemDecoration(5) }
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     private val viewModel by viewModels<HomeViewModel>(factoryProducer = { viewModelFactory })
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        //список рекомендации
-        upcomingAdapter = UpcomingAdapter()
-        decoratorMini = SpacingItemDecoration(5)
-        //каталог фильмов
-        adapter =
-            HomeAdapter { film ->
-                //слушатель открываем фрагмент и передаем данные
-                openFilmDetailsFragment(film)
-            }
-        decorator = SpacingItemDecoration(10)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -74,16 +64,9 @@ class HomeFragment : DaggerFragment(R.layout.fragment_home) {
         binding.catalogFilm.adapter =
             adapter.withLoadStateFooter(FooterStateAdapter { adapter.retry() })
         adapter.addLoadStateListener { loadState ->
-            Log.d("TAG", "onLoadingPopularData: ok")
-            with(binding) {
-                swipeRefresh.isRefreshing = loadState.refresh is LoadState.Loading
-                errorIsVisible = loadState.refresh is LoadState.Error
-                if (loadState.refresh is LoadState.Error) {
-                    include.errorMessage.text =
-                        (loadState.source.refresh as LoadState.Error).error.localizedMessage
-                    include.retryLoad.setOnClickListener { adapter.retry() }
-                }
-            }
+            binding.isEmptyList = adapter.itemCount == 0 && loadState.refresh !is LoadState.Loading
+            binding.isLoadList = loadState.refresh is LoadState.Loading
+            binding.swipeRefresh.isRefreshing = loadState.refresh is LoadState.Loading
         }
         binding.swipeRefresh.setOnRefreshListener { viewModel.onRefreshPopularData() }
         binding.catalogFilm.addItemDecoration(decorator)
@@ -120,7 +103,7 @@ class HomeFragment : DaggerFragment(R.layout.fragment_home) {
         super.onDestroyView()
     }
 
-    private fun openFilmDetailsFragment(film: Film) {
+    private fun openFilmDetailsFragment(film: Film?) {
         val action = HomeFragmentDirections.actionOpenItemFromHomeToDetails(film)
         findNavController().navigate(action)
     }

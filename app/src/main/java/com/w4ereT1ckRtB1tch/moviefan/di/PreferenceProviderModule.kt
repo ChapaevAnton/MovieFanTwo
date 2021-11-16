@@ -9,19 +9,19 @@ import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
-abstract class PreferenceProviderModule {
+interface PreferenceProviderModule {
 
     @Binds
     @Singleton
     @HomeTopSettings
-    abstract fun provideHomeTopPanelSettings(
+    fun provideHomeTopPanelSettings(
         homeTopPanelSettings: HomeTopPanelSettings
     ): PreferenceProvider
 
     @Binds
     @Singleton
     @HomeBottomSettings
-    abstract fun provideHomeBottomPanelSettings(
+    fun provideHomeBottomPanelSettings(
         homeBottomPanelSettings: HomeBottomPanelSettings
     ): PreferenceProvider
 }

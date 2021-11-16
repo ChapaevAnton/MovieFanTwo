@@ -8,7 +8,11 @@
         <import type="android.view.View" />
 
         <variable
-            name="errorIsVisible"
+            name="isEmptyList"
+            type="Boolean" />
+
+        <variable
+            name="isLoadList"
             type="Boolean" />
 
     </data>
@@ -78,17 +82,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layoutAnimation="@anim/cards_spawn_layout_animation"
-                    android:visibility="@{!errorIsVisible ? View.VISIBLE : View.INVISIBLE}"
+                    android:visibility="@{isLoadList ? View.INVISIBLE : View.VISIBLE}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/item_film"
                     tools:visibility="visible" />
 
-                <include
-                    android:id="@+id/include"
-                    layout="@layout/layout_load_state_error"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="@{errorIsVisible ? View.VISIBLE : View.INVISIBLE}" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/empty_list_favorites"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:visibility="@{isEmptyList ? View.VISIBLE : View.INVISIBLE}"
+                    tools:visibility="invisible" />
+
             </FrameLayout>
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

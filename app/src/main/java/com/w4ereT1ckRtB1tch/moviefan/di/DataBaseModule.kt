@@ -1,15 +1,28 @@
 package com.w4ereT1ckRtB1tch.moviefan.di
 
-import com.w4ereT1ckRtB1tch.moviefan.data.db.DataBaseImpl
-import com.w4ereT1ckRtB1tch.moviefan.domain.db.DataBase
-import dagger.Binds
+import android.content.Context
+import androidx.room.Room
+import com.w4ereT1ckRtB1tch.moviefan.data.db.AppDataBase
+import com.w4ereT1ckRtB1tch.moviefan.data.db.RepositoryMock
 import dagger.Module
-import dagger.Reusable
+import dagger.Provides
+import javax.inject.Singleton
+
 
 @Module
-abstract class DataBaseModule {
+object DataBaseModule {
 
-    @Binds
-    @Reusable
-    abstract fun bindDataBase(dataBaseImpl: DataBaseImpl): DataBase
+    @Provides
+    @Singleton
+    fun provideFilmDataBase(context: Context): AppDataBase =
+        Room.databaseBuilder(
+            context,
+            AppDataBase::class.java,
+            AppDataBase.NAME
+        ).build()
+
+    @Provides
+    @Singleton
+    fun provideRepositoryMock(): RepositoryMock = RepositoryMock()
+
 }

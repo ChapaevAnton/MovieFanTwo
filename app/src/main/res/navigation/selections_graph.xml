@@ -20,7 +20,8 @@
         tools:layout="@layout/fragment_film_details">
         <argument
             android:name="film"
-            app:argType="com.w4ereT1ckRtB1tch.moviefan.domain.model.Film" />
+            app:argType="com.w4ereT1ckRtB1tch.moviefan.domain.model.Film"
+            app:nullable="true" />
     </fragment>
 
 </navigation>

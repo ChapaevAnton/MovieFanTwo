@@ -11,7 +11,7 @@ import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentFavoritesBinding
 import com.w4ereT1ckRtB1tch.moviefan.di.viewmodel.ViewModelFactory
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
-import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.FavoritesAdapter
+import com.w4ereT1ckRtB1tch.moviefan.presentation.adapters.FavoritesAdapter
 import com.w4ereT1ckRtB1tch.moviefan.utils.AnimationHelper
 import com.w4ereT1ckRtB1tch.moviefan.utils.SpacingItemDecoration
 import dagger.android.support.DaggerFragment
@@ -20,23 +20,16 @@ import javax.inject.Inject
 
 class FavoritesFragment : DaggerFragment(R.layout.fragment_favorites) {
 
-    private lateinit var adapter: FavoritesAdapter
-    private lateinit var decorator: SpacingItemDecoration
+    private val adapter by lazy {
+        FavoritesAdapter { film -> openFilmDetailsFragment(film) }
+    }
+    private val decorator by lazy { SpacingItemDecoration(10) }
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     private val viewModel by viewModels<FavoritesViewModel>(factoryProducer = { viewModelFactory })
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        adapter = FavoritesAdapter { film ->
-            openFilmDetailsFragment(film)
-        }
-        decorator = SpacingItemDecoration(10)
-        Log.d("TAG", "onCreate: FavoritesFragment")
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,7 +65,7 @@ class FavoritesFragment : DaggerFragment(R.layout.fragment_favorites) {
         super.onDestroyView()
     }
 
-    private fun openFilmDetailsFragment(film: Film) {
+    private fun openFilmDetailsFragment(film: Film?) {
         val action = FavoritesFragmentDirections.actionOpenItemFromFavoritesToDetails(film)
         findNavController().navigate(action)
     }

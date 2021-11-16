@@ -7,7 +7,7 @@ import dagger.android.support.DaggerApplication
 class App : DaggerApplication() {
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        return DaggerAppComponent.builder().application(this).build()
+        return DaggerAppComponent.builder().context(this.applicationContext).build()
     }
 
 }

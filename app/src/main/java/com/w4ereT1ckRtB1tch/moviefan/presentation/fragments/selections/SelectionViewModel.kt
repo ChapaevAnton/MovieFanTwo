@@ -4,12 +4,12 @@ import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.w4ereT1ckRtB1tch.moviefan.domain.db.DataBase
+import com.w4ereT1ckRtB1tch.moviefan.domain.db.DataBaseMock
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import javax.inject.Inject
 
 
-class SelectionViewModel @Inject constructor(private val dataBase: DataBase) : ViewModel() {
+class SelectionViewModel @Inject constructor(private val dataBase: DataBaseMock) : ViewModel() {
 
     private val films: MutableLiveData<List<Film>> = MutableLiveData()
 
@@ -19,7 +19,7 @@ class SelectionViewModel @Inject constructor(private val dataBase: DataBase) : V
 
     init {
         val filmsValue = dataBase.getDataBase()
-        films.postValue(filmsValue)
+        films.value = filmsValue
     }
 
     fun onQueryTextListener(): SearchView.OnQueryTextListener? {
@@ -48,13 +48,13 @@ class SelectionViewModel @Inject constructor(private val dataBase: DataBase) : V
 
     private fun setFilter() {
         val filmsValue = dataBase.getDataBase()
-        films.postValue(filmsValue)
+        films.value = filmsValue
     }
 
     private fun setFilter(filter: String) {
         val filmsValue = dataBase.getDataBase()
             .filter { film -> film.title.lowercase().contains(filter.lowercase()) }
-        films.postValue(filmsValue)
+        films.value = filmsValue
     }
 
 }

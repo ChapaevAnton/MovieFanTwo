@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
-class NetworkModule {
+object NetworkModule {
 
     @Provides
     fun provideServiceTmdbApi(retrofit: Retrofit): TmdbApi {

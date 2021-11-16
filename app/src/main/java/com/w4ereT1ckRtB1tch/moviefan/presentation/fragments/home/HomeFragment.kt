@@ -14,9 +14,9 @@ import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentHomeBinding
 import com.w4ereT1ckRtB1tch.moviefan.di.viewmodel.ViewModelFactory
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import com.w4ereT1ckRtB1tch.moviefan.presentation.MainActivity
-import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.FooterStateAdapter
-import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.HomeAdapter
-import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.UpcomingAdapter
+import com.w4ereT1ckRtB1tch.moviefan.presentation.adapters.FooterStateAdapter
+import com.w4ereT1ckRtB1tch.moviefan.presentation.adapters.HomeAdapter
+import com.w4ereT1ckRtB1tch.moviefan.presentation.adapters.UpcomingAdapter
 import com.w4ereT1ckRtB1tch.moviefan.utils.AnimationHelper
 import com.w4ereT1ckRtB1tch.moviefan.utils.SpacingItemDecoration
 import dagger.android.support.DaggerFragment

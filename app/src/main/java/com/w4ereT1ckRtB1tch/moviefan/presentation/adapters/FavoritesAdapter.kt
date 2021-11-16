@@ -1,4 +1,4 @@
-package com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters
+package com.w4ereT1ckRtB1tch.moviefan.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.ItemFilmBinding
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
-import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.FavoritesAdapter.ItemFilmHolder
+import com.w4ereT1ckRtB1tch.moviefan.presentation.adapters.FavoritesAdapter.ItemFilmHolder
 
 class FavoritesAdapter(private val onItemClickListener: OnItemClickListener) :
     RecyclerView.Adapter<ItemFilmHolder>() {

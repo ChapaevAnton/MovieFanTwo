@@ -1,4 +1,4 @@
-package com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters
+package com.w4ereT1ckRtB1tch.moviefan.presentation.adapters
 
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 

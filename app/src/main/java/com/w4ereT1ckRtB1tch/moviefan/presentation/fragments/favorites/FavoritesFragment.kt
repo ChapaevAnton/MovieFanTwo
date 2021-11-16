@@ -11,7 +11,7 @@ import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentFavoritesBinding
 import com.w4ereT1ckRtB1tch.moviefan.di.viewmodel.ViewModelFactory
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
-import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.FavoritesAdapter
+import com.w4ereT1ckRtB1tch.moviefan.presentation.adapters.FavoritesAdapter
 import com.w4ereT1ckRtB1tch.moviefan.utils.AnimationHelper
 import com.w4ereT1ckRtB1tch.moviefan.utils.SpacingItemDecoration
 import dagger.android.support.DaggerFragment

@@ -1,4 +1,4 @@
-package com.w4ereT1ckRtB1tch.moviefan.ui.utils
+package com.w4ereT1ckRtB1tch.moviefan.utils
 
 import android.content.res.Resources
 import android.graphics.Rect

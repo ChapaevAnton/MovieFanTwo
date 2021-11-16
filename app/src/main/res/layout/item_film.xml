@@ -7,19 +7,19 @@
 
         <import
             alias="Film"
-            type="com.w4ereT1ckRtB1tch.moviefan.data.Film" />
+            type="com.w4ereT1ckRtB1tch.moviefan.domain.Film" />
 
         <import
             alias="OnItemClickListener"
-            type="com.w4ereT1ckRtB1tch.moviefan.ui.listeners.OnItemClickListener" />
+            type="com.w4ereT1ckRtB1tch.moviefan.view.recycler_adapters.OnItemClickListener" />
 
         <variable
             name="film"
-            type="Film" />
+            type="com.w4ereT1ckRtB1tch.moviefan.domain.Film" />
 
         <variable
             name="onItemClicked"
-            type="OnItemClickListener" />
+            type="com.w4ereT1ckRtB1tch.moviefan.view.recycler_adapters.OnItemClickListener" />
 
     </data>
 
@@ -99,7 +99,7 @@
                 app:year="@{film.year}"
                 tools:text="@tools:sample/lorem" />
 
-            <com.w4ereT1ckRtB1tch.moviefan.ui.custom.view.RatingCircleView
+            <com.w4ereT1ckRtB1tch.moviefan.view.customview.RatingCircleView
                 android:id="@+id/rating_circle_film"
                 android:layout_width="50dp"
                 android:layout_height="50dp"

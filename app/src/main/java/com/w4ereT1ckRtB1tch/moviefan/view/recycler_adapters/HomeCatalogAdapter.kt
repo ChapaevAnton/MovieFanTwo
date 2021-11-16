@@ -1,27 +1,23 @@
-package com.w4ereT1ckRtB1tch.moviefan.ui.selections
+package com.w4ereT1ckRtB1tch.moviefan.view.recycler_adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.w4ereT1ckRtB1tch.moviefan.R
-import com.w4ereT1ckRtB1tch.moviefan.data.Film
 import com.w4ereT1ckRtB1tch.moviefan.databinding.ItemFilmBinding
-import com.w4ereT1ckRtB1tch.moviefan.ui.listeners.OnItemClickListener
+import com.w4ereT1ckRtB1tch.moviefan.domain.Film
+import com.w4ereT1ckRtB1tch.moviefan.view.recycler_adapters.HomeCatalogAdapter.ItemFilmHolder
 
-class SelectionCatalogFilmAdapter(private val onItemClickListener: OnItemClickListener) :
-    RecyclerView.Adapter<SelectionCatalogFilmAdapter.ItemFilmHolder>() {
+class HomeCatalogAdapter(private val onItemClickListener: OnItemClickListener) :
+    RecyclerView.Adapter<ItemFilmHolder>() {
 
-    private var items = listOf<Film>()
-
-    fun addItems(listItems: List<Film>) {
-        this.items = listItems
-    }
-
-    fun updateItems(listItems: List<Film>) {
-        this.items = listItems
-        notifyDataSetChanged()
-    }
+    var items: List<Film> = emptyList()
+        set(newValue) {
+            if (field == newValue) return
+            field = newValue
+            notifyDataSetChanged()
+        }
 
     inner class ItemFilmHolder(private val binding: ItemFilmBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -46,4 +42,5 @@ class SelectionCatalogFilmAdapter(private val onItemClickListener: OnItemClickLi
     override fun getItemCount(): Int {
         return items.size
     }
+
 }

@@ -10,12 +10,12 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
-import com.w4ereT1ckRtB1tch.moviefan.data.Film
+import com.w4ereT1ckRtB1tch.moviefan.domain.Film
 import com.w4ereT1ckRtB1tch.moviefan.databinding.ActivityMainBinding
-import com.w4ereT1ckRtB1tch.moviefan.ui.details.FilmDetailsFragment
-import com.w4ereT1ckRtB1tch.moviefan.ui.favorites.FavoritesFragment
-import com.w4ereT1ckRtB1tch.moviefan.ui.home.HomeFragment
-import com.w4ereT1ckRtB1tch.moviefan.ui.selections.SelectionsFragment
+import com.w4ereT1ckRtB1tch.moviefan.view.fragments.details.FilmDetailsFragment
+import com.w4ereT1ckRtB1tch.moviefan.view.fragments.favorites.FavoritesFragment
+import com.w4ereT1ckRtB1tch.moviefan.view.fragments.home.HomeFragment
+import com.w4ereT1ckRtB1tch.moviefan.view.fragments.selections.SelectionsFragment
 
 
 class MainActivity : AppCompatActivity() {

@@ -53,7 +53,7 @@
         <!-- Query Text Color -->
         <item name="android:textColorPrimary">@color/white</item>
         <!-- Hint Color -->
-        <item name="android:textColorHint">@color/white</item>
+        <item name="android:textColorHint">@color/gray</item>
         <!-- Icon Color -->
         <item name="android:tint">@color/white</item>
 

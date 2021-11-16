@@ -8,35 +8,23 @@
 
         <import
             alias="Film"
-            type="com.w4ereT1ckRtB1tch.moviefan.data.Film" />
+            type="com.w4ereT1ckRtB1tch.moviefan.domain.Film" />
 
         <import
-            alias="OnClickListener"
-            type="android.view.View.OnClickListener" />
+            alias="ViewModel"
+            type="com.w4ereT1ckRtB1tch.moviefan.viewmodel.FilmDetailsFragmentViewModel" />
 
-        <import
-            alias="ObservableField"
-            type="androidx.databinding.ObservableField" />
+        <variable
+            name="viewModel"
+            type="ViewModel" />
 
         <variable
             name="film"
-            type="ObservableField&lt;Film&gt;" />
-
-        <variable
-            name="onClickedDetails"
-            type="OnClickListener" />
-
-        <variable
-            name="onClickedShare"
-            type="OnClickListener" />
-
-        <variable
-            name="onClickedFavorites"
-            type="OnClickListener" />
+            type="Film" />
 
         <variable
             name="isVisible"
-            type="androidx.databinding.ObservableBoolean" />
+            type="Boolean" />
 
     </data>
 
@@ -45,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context=".ui.details.FilmDetailsFragment">
+        tools:context=".view.fragments.details.FilmDetailsFragment">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/details_film_app_bar_layout"
@@ -89,7 +77,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="25dp"
             android:layout_marginBottom="130dp"
-            android:onClick="@{(v) -> onClickedShare.onClick(v)}"
+            android:onClick="@{() -> viewModel.onClickedShare()}"
             android:visibility="invisible"
             app:backgroundTint="@color/ivi_red"
             app:fabSize="mini"
@@ -106,14 +94,14 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="25dp"
             android:layout_marginBottom="80dp"
-            android:onClick="@{(v) -> onClickedFavorites.onClick(v)}"
+            android:onClick="@{() -> viewModel.onClickedFavorites()}"
             android:visibility="invisible"
             app:backgroundTint="@color/ivi_red"
             app:fabSize="mini"
             app:layout_anchor="@id/include"
             app:layout_anchorGravity="bottom|end"
             app:rippleColor="@color/ivi_blue"
-            app:srcDrawable="@{film.observableIsFavorites ? @drawable/ic_round_favorite_24 : @drawable/ic_round_favorite_border_24}"
+            app:srcDrawable="@{film.favorites ? @drawable/ic_round_favorite_24 : @drawable/ic_round_favorite_border_24}"
             app:tint="@color/white"
             app:visibleState="@{isVisible}" />
 
@@ -123,7 +111,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
-            android:onClick="@{(v) -> onClickedDetails.onClick(v)}"
+            android:onClick="@{() -> viewModel.onClickedDetails()}"
             app:backgroundTint="@color/ivi_red"
             app:layout_anchor="@id/include"
             app:layout_anchorGravity="bottom|end"

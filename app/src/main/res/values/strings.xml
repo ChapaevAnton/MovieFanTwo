@@ -28,5 +28,7 @@
 <!--    selection fragment-->
     <string name="search_view_hint">Найти фильм</string>
 
+<!--    selection fragment-->
+    <string name="empty_list_favorites">Список пуст</string>
 
 </resources>

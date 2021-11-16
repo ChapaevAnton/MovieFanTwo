@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:background="@color/ivi_blue_dark"
         android:visibility="invisible"
-        tools:context=".ui.home.HomeFragment"
+        tools:context=".view.fragments.home.HomeFragment"
         tools:visibility="visible">
 
         <!-- Regular top app bar tools-->

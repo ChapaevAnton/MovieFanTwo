@@ -1,4 +1,4 @@
-package com.w4ereT1ckRtB1tch.moviefan.ui.utils
+package com.w4ereT1ckRtB1tch.moviefan.utils
 
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
@@ -7,7 +7,7 @@ import androidx.annotation.Nullable
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.w4ereT1ckRtB1tch.moviefan.ui.custom.view.RatingCircleView
+import com.w4ereT1ckRtB1tch.moviefan.view.customview.RatingCircleView
 import java.time.LocalDate
 
 object DataBindingAdapter {

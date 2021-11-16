@@ -5,35 +5,31 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.w4ereT1ckRtB1tch.moviefan.presentation.MainActivity
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentFavoritesBinding
+import com.w4ereT1ckRtB1tch.moviefan.di.viewmodel.ViewModelFactory
+import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
+import com.w4ereT1ckRtB1tch.moviefan.presentation.adapters.FavoritesAdapter
 import com.w4ereT1ckRtB1tch.moviefan.utils.AnimationHelper
 import com.w4ereT1ckRtB1tch.moviefan.utils.SpacingItemDecoration
-import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.FavoritesAdapter
-import dagger.hilt.android.AndroidEntryPoint
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
-@AndroidEntryPoint
-class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
 
-    private lateinit var adapter: FavoritesAdapter
-    private lateinit var decorator: SpacingItemDecoration
+class FavoritesFragment : DaggerFragment(R.layout.fragment_favorites) {
+
+    private val adapter by lazy {
+        FavoritesAdapter { film -> openFilmDetailsFragment(film) }
+    }
+    private val decorator by lazy { SpacingItemDecoration(10) }
     private var _binding: FragmentFavoritesBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by lazy {
-        ViewModelProvider.NewInstanceFactory().create(FavoritesViewModel::class.java)
-    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        adapter = FavoritesAdapter { film ->
-            (requireActivity() as MainActivity).launchFilmDetailsFragment(film)
-        }
-        decorator = SpacingItemDecoration(10)
-        Log.d("TAG", "onCreate: FavoritesFragment")
-    }
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    private val viewModel by viewModels<FavoritesViewModel>(factoryProducer = { viewModelFactory })
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,8 +60,14 @@ class FavoritesFragment : Fragment(R.layout.fragment_favorites) {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
+        binding.unbind()
         _binding = null
+        super.onDestroyView()
+    }
+
+    private fun openFilmDetailsFragment(film: Film?) {
+        val action = FavoritesFragmentDirections.actionOpenItemFromFavoritesToDetails(film)
+        findNavController().navigate(action)
     }
 
 }

@@ -9,21 +9,18 @@ import com.w4ereT1ckRtB1tch.moviefan.domain.repository.FilmsRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Reusable
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
 
 @Module
-@InstallIn(SingletonComponent::class)
-abstract class AppModule {
+interface AppModule {
 
     @Binds
     @Reusable
-    abstract fun bindFilmsMapper(
+    fun bindFilmsMapper(
         filmsMapper: FilmsMapperImpl
     ): @JvmSuppressWildcards FilmsMapper<FilmResponse, FilmsResponse>
 
     @Binds
     @Reusable
-    abstract fun bindFilmsRepository(filmsRepository: FilmsRepositoryImpl): FilmsRepository
+    fun bindFilmsRepository(filmsRepository: FilmsRepositoryImpl): FilmsRepository
 
 }

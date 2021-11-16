@@ -6,7 +6,7 @@ data class FilmResponse(
     @field:SerializedName("adult") val adult: Boolean,
     @field:SerializedName("backdrop_path") val backdropPath: String?,
     @field:SerializedName("genre_ids") val genreIds: List<Int>,
-    @field:SerializedName("id") val id: Int,
+    @field:SerializedName("id") val filmId: Int,
     @field:SerializedName("original_language") val originalLanguage: String,
     @field:SerializedName("original_title") val originalTitle: String,
     @field:SerializedName("overview") val overview: String,

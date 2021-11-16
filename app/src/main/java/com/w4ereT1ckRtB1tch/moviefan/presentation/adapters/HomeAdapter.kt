@@ -1,4 +1,4 @@
-package com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters
+package com.w4ereT1ckRtB1tch.moviefan.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -23,12 +23,14 @@ class HomeAdapter(private val onItemClickListener: OnItemClickListener) :
         holder.onBind(getItem(position), onItemClickListener)
     }
 
-    inner class ItemFilmHolder(private val binding: ItemFilmBinding) :
+    class ItemFilmHolder(private val binding: ItemFilmBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(film: Film?, onItemClickListener: OnItemClickListener) {
-            binding.film = film
-            binding.onItemClicked = onItemClickListener
+            film?.let {
+                binding.film = it
+                binding.onItemClicked = onItemClickListener
+            }
         }
     }
 }

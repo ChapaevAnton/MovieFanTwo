@@ -1,4 +1,4 @@
-package com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters
+package com.w4ereT1ckRtB1tch.moviefan.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -20,11 +20,13 @@ class UpcomingAdapter :
         return ItemFilmHolder(binding)
     }
 
-    inner class ItemFilmHolder(private val binding: ItemFilmMiniBinding) :
+    class ItemFilmHolder(private val binding: ItemFilmMiniBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(film: Film?) {
-            binding.film = film
+            film?.let {
+                binding.film = it
+            }
         }
     }
 }

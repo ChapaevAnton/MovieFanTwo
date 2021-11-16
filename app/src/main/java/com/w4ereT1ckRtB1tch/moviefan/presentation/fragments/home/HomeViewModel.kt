@@ -8,12 +8,11 @@ import androidx.paging.PagingData
 import androidx.paging.rxjava2.cachedIn
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import com.w4ereT1ckRtB1tch.moviefan.domain.repository.FilmsRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-@HiltViewModel
-class HomeViewModel @Inject constructor(private val dataBase: FilmsRepository) : ViewModel() {
+
+class HomeViewModel @Inject constructor(private val repository: FilmsRepository) : ViewModel() {
 
     private val popularFilms: MutableLiveData<PagingData<Film>> = MutableLiveData()
     fun getPopularFilms(): LiveData<PagingData<Film>> = popularFilms
@@ -29,7 +28,7 @@ class HomeViewModel @Inject constructor(private val dataBase: FilmsRepository) :
     }
 
     private fun onLoadingUpcomingData() {
-        compositeDisposable.add(dataBase
+        compositeDisposable.add(repository
             .getUpcomingFilms()
             .cachedIn(viewModelScope)
             .subscribe {
@@ -38,7 +37,7 @@ class HomeViewModel @Inject constructor(private val dataBase: FilmsRepository) :
     }
 
     private fun onLoadingPopularData() {
-        compositeDisposable.add(dataBase
+        compositeDisposable.add(repository
             .getPopularFilms()
             .cachedIn(viewModelScope)
             .subscribe {

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -9,7 +8,11 @@
         <import type="android.view.View" />
 
         <variable
-            name="errorIsVisible"
+            name="isEmptyList"
+            type="Boolean" />
+
+        <variable
+            name="isLoadList"
             type="Boolean" />
 
     </data>
@@ -35,7 +38,7 @@
             app:layout_constraintVertical_chainStyle="spread_inside">
 
             <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/menu_top_bar"
+                android:id="@+id/menu_top_bar_home"
                 style="@style/Widget.MaterialComponents.Toolbar.Primary"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
@@ -68,29 +71,36 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/upcoming_film"
-            tools:visibility="invisible">
+            app:layout_constraintTop_toBottomOf="@+id/upcoming_film">
 
-            <include
-                android:id="@+id/include"
-                layout="@layout/layout_load_state_error"
-                bind:errorIsVisible="@{errorIsVisible}" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <!-- RecyclerView layout catalog film-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/catalog_film"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layoutAnimation="@anim/cards_spawn_layout_animation"
+                    android:visibility="@{isLoadList ? View.INVISIBLE : View.VISIBLE}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_film"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/empty_list_favorites"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:visibility="@{isEmptyList ? View.VISIBLE : View.INVISIBLE}"
+                    tools:visibility="invisible" />
+
+            </FrameLayout>
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-        <!-- RecyclerView layout catalog film-->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/catalog_film"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layoutAnimation="@anim/cards_spawn_layout_animation"
-            android:visibility="@{!errorIsVisible ? View.VISIBLE : View.INVISIBLE}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/upcoming_film"
-            tools:listitem="@layout/item_film" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

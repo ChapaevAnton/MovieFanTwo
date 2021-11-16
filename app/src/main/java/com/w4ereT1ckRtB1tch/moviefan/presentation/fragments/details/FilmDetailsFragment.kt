@@ -7,29 +7,30 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.w4ereT1ckRtB1tch.moviefan.presentation.MainActivity
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentFilmDetailsBinding
-import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
-import dagger.hilt.android.AndroidEntryPoint
+import com.w4ereT1ckRtB1tch.moviefan.di.viewmodel.ViewModelFactory
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
-@AndroidEntryPoint
-class FilmDetailsFragment : Fragment(R.layout.fragment_film_details) {
+
+class FilmDetailsFragment : DaggerFragment(R.layout.fragment_film_details) {
 
     private lateinit var fabRotateClock: Animation
     private lateinit var fabRotateAntiClock: Animation
     private var _binding: FragmentFilmDetailsBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by lazy {
-        ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
-            .create(FilmDetailsViewModel::class.java)
-    }
+    private val args: FilmDetailsFragmentArgs by navArgs()
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    private val viewModel by viewModels<FilmDetailsViewModel>(factoryProducer = { viewModelFactory })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.setFilm(arguments?.get(MainActivity.ITEM_FILM_DETAILS) as Film)
+        viewModel.setFilm(args.film)
         fabRotateClock =
             AnimationUtils.loadAnimation(requireContext(), R.anim.fab_rotate_clock_animation)
         fabRotateAntiClock =
@@ -66,8 +67,9 @@ class FilmDetailsFragment : Fragment(R.layout.fragment_film_details) {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
+        binding.unbind()
         _binding = null
+        super.onDestroyView()
     }
 
 }

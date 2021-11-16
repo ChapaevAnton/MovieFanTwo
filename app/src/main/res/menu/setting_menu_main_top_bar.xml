@@ -5,8 +5,13 @@
     <item
         android:id="@+id/main_menu_setting"
         android:contentDescription="@string/main_menu_settings"
-        android:icon="@drawable/ic_round_more_setting_24"
         android:title="@string/main_menu_settings"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="withText|never" />
+
+    <item
+        android:contentDescription="@string/main_menu_about"
+        android:id="@+id/main_menu_about"
+        android:title="@string/main_menu_about"
+        app:showAsAction="withText|never"/>
 
 </menu>

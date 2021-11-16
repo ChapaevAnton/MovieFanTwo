@@ -1,4 +1,4 @@
-package com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters
+package com.w4ereT1ckRtB1tch.moviefan.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -28,7 +28,7 @@ class FooterStateAdapter(private val retry: () -> Unit) :
         return FooterStateHolder(binding)
     }
 
-    inner class FooterStateHolder(private val binding: ItemLoadStateErrorBinding) :
+    class FooterStateHolder(private val binding: ItemLoadStateErrorBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(loadState: LoadState, retryCallback: () -> Unit) {

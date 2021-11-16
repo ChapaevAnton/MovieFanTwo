@@ -1,16 +1,15 @@
-package com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters
+package com.w4ereT1ckRtB1tch.moviefan.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.w4ereT1ckRtB1tch.moviefan.R
-import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import com.w4ereT1ckRtB1tch.moviefan.databinding.ItemFilmBinding
-import com.w4ereT1ckRtB1tch.moviefan.presentation.recycler_adapters.FavoritesAdapter.ItemFilmHolder
+import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 
-class FavoritesAdapter(private val onItemClickListener: OnItemClickListener) :
-    RecyclerView.Adapter<ItemFilmHolder>() {
+class SelectionAdapter(private val onItemClickListener: OnItemClickListener) :
+    RecyclerView.Adapter<SelectionAdapter.ItemFilmHolder>() {
 
     var items: List<Film> = emptyList()
         set(newValue) {
@@ -18,12 +17,14 @@ class FavoritesAdapter(private val onItemClickListener: OnItemClickListener) :
             notifyDataSetChanged()
         }
 
-    inner class ItemFilmHolder(private val binding: ItemFilmBinding) :
+    class ItemFilmHolder(private val binding: ItemFilmBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(film: Film?, onItemClickListener: OnItemClickListener) {
-            binding.film = film
-            binding.onItemClicked = onItemClickListener
+            film?.let {
+                binding.film = it
+                binding.onItemClicked = onItemClickListener
+            }
         }
     }
 
@@ -41,5 +42,4 @@ class FavoritesAdapter(private val onItemClickListener: OnItemClickListener) :
     override fun getItemCount(): Int {
         return items.size
     }
-
 }

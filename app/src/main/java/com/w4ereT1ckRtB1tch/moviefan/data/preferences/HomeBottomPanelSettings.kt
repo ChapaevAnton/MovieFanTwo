@@ -3,10 +3,9 @@ package com.w4ereT1ckRtB1tch.moviefan.data.preferences
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import com.w4ereT1ckRtB1tch.moviefan.domain.preference.PreferenceProvider
-import com.w4ereT1ckRtB1tch.moviefan.data.preferences.PreferenceProviderConfig.BottomPanel.DEFAULT_CATEGORY_BOTTOM
-import com.w4ereT1ckRtB1tch.moviefan.data.preferences.PreferenceProviderConfig.BottomPanel.KEY_DEFAULT_CATEGORY_BOTTOM
-import com.w4ereT1ckRtB1tch.moviefan.data.preferences.PreferenceProviderConfig.BottomPanel.KEY_FIRST_LAUNCH_APP_BOTTOM
+import com.w4ereT1ckRtB1tch.moviefan.data.preferences.PreferenceProvider.Companion.BottomPanel.DEFAULT_CATEGORY_BOTTOM
+import com.w4ereT1ckRtB1tch.moviefan.data.preferences.PreferenceProvider.Companion.BottomPanel.KEY_DEFAULT_CATEGORY_BOTTOM
+import com.w4ereT1ckRtB1tch.moviefan.data.preferences.PreferenceProvider.Companion.BottomPanel.KEY_FIRST_LAUNCH_APP_BOTTOM
 import javax.inject.Inject
 
 class HomeBottomPanelSettings @Inject constructor(context: Context) :
@@ -14,7 +13,7 @@ class HomeBottomPanelSettings @Inject constructor(context: Context) :
 
     private val sharedPreferences: SharedPreferences =
         context.getSharedPreferences(
-            PreferenceProviderConfig.FILE_NAME_SETTINGS,
+            PreferenceProvider.FILE_NAME_SETTINGS,
             Context.MODE_PRIVATE
         )
 

@@ -15,6 +15,7 @@
         <item name="colorControlActivated">@color/white</item>
         <!--    CustomSnackbar-->
         <item name="snackbarTextViewStyle">@style/Snackbar.TextView</item>
+        <item name="snackbarButtonStyle">@style/Widget.App.SnackbarButton</item>
     </style>
 
     <!-- Bottom navigation menu main-->

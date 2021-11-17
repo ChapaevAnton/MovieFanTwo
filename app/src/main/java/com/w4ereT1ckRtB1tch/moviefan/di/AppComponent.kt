@@ -17,6 +17,7 @@ import javax.inject.Singleton
         NetworkModule::class,
         DataBaseModule::class,
         DataBaseModuleMock::class,
+        MediaStoreModule::class,
         PreferenceProviderModule::class,
         PagingModule::class,
         ViewModelModule::class,

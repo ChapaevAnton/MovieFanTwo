@@ -39,6 +39,8 @@
         Рейтинг: %4$s</string>
     <string name="not_announced">не анонсирован</string>
     <string name="permission_denied_external_storage">Загрузка изображения не разрешена</string>
+    <string name="load_image_complete">Загрузка изображения завершена</string>
+    <string name="to_image_gallery">галерея</string>
 
     <!--    load state adapter-->
     <string name="error_load_state_message">Ошибка загрузки</string>

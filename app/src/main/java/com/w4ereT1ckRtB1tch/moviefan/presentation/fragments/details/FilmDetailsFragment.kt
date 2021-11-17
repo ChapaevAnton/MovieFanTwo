@@ -42,6 +42,7 @@ class FilmDetailsFragment : DaggerFragment(R.layout.fragment_film_details) {
                 } else {
                     Log.d("TAG", "Permission denied...!")
                     (requireActivity() as MainActivity).showSnackBar(R.string.permission_denied_external_storage)
+                        .show()
                 }
             }
         viewModel.setFilm(args.film)
@@ -63,12 +64,10 @@ class FilmDetailsFragment : DaggerFragment(R.layout.fragment_film_details) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewModel.getFilm().observe(viewLifecycleOwner) { film ->
             Log.d("TAG", "getFilm(): $film")
             binding.film = film
         }
-
         viewModel.isVisible().observe(viewLifecycleOwner) { visible ->
             binding.apply {
                 if (visible)
@@ -78,12 +77,18 @@ class FilmDetailsFragment : DaggerFragment(R.layout.fragment_film_details) {
                 isVisible = visible
             }
         }
-
         viewModel.getPermission().observe(viewLifecycleOwner) {
             permissionResult?.launch(
                 Manifest.permission.WRITE_EXTERNAL_STORAGE,
                 null
             )
+        }
+        viewModel.getLoadComplete().observe(viewLifecycleOwner) {
+            (requireActivity() as MainActivity).showSnackBar(R.string.load_image_complete)
+                .setAction(R.string.to_image_gallery) { viewModel.toImageGallery() }.show()
+        }
+        viewModel.isLoadImage().observe(viewLifecycleOwner) { isLoad ->
+            binding.progressLoad.visibility = if (isLoad) View.VISIBLE else View.INVISIBLE
         }
     }
 

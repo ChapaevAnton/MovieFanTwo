@@ -2,7 +2,7 @@ package com.w4ereT1ckRtB1tch.moviefan.di
 
 import com.w4ereT1ckRtB1tch.moviefan.data.preferences.HomeBottomPanelSettings
 import com.w4ereT1ckRtB1tch.moviefan.data.preferences.HomeTopPanelSettings
-import com.w4ereT1ckRtB1tch.moviefan.domain.preference.PreferenceProvider
+import com.w4ereT1ckRtB1tch.moviefan.data.preferences.PreferenceProvider
 import dagger.Binds
 import dagger.Module
 import javax.inject.Qualifier
@@ -14,14 +14,14 @@ interface PreferenceProviderModule {
     @Binds
     @Singleton
     @HomeTopSettings
-    fun provideHomeTopPanelSettings(
+    fun bindHomeTopPanelSettings(
         homeTopPanelSettings: HomeTopPanelSettings
     ): PreferenceProvider
 
     @Binds
     @Singleton
     @HomeBottomSettings
-    fun provideHomeBottomPanelSettings(
+    fun bindHomeBottomPanelSettings(
         homeBottomPanelSettings: HomeBottomPanelSettings
     ): PreferenceProvider
 }

@@ -77,9 +77,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="25dp"
             android:layout_marginBottom="180dp"
-            app:backgroundTint="@color/ivi_red"
             android:onClick="@{()->viewModel.onClickedDownloads()}"
             android:visibility="invisible"
+            app:backgroundTint="@color/ivi_red"
             app:fabSize="mini"
             app:layout_anchor="@id/include"
             app:layout_anchorGravity="bottom|end"
@@ -140,6 +140,19 @@
             android:id="@+id/include"
             layout="@layout/nested_film_details"
             bind:film="@{film}" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progress_load"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="invisible"
+            app:hideAnimationBehavior="outward"
+            app:indicatorColor="@color/ivi_red"
+            app:layout_anchor="@id/include"
+            app:layout_anchorGravity="top"
+            app:showAnimationBehavior="outward"
+            app:trackThickness="6dp" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

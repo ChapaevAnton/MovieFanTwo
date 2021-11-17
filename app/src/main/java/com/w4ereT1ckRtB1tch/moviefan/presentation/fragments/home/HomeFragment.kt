@@ -83,7 +83,7 @@ class HomeFragment : DaggerFragment(R.layout.fragment_home) {
                     true
                 }
                 R.id.main_menu_about -> {
-                    (requireActivity() as MainActivity).showSnackBar(R.string.main_menu_about)
+                    (requireActivity() as MainActivity).showSnackBar(R.string.main_menu_about).show()
                     true
                 }
                 else -> false
@@ -91,7 +91,7 @@ class HomeFragment : DaggerFragment(R.layout.fragment_home) {
         }
         //обработчик выбора пунктов меню Top Bar
         binding.menuTopBarHome.setNavigationOnClickListener {
-            (requireActivity() as MainActivity).showSnackBar(R.string.main_menu_navigation)
+            (requireActivity() as MainActivity).showSnackBar(R.string.main_menu_navigation).show()
         }
         //обработчик выбора кнопки назад
         onBackPressed()

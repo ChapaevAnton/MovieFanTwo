@@ -12,17 +12,24 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.w4ereT1ckRtB1tch.moviefan.R
+import com.w4ereT1ckRtB1tch.moviefan.data.mediastore.ImageMediaStore
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import com.w4ereT1ckRtB1tch.moviefan.utils.SingleLiveEvent
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
 @SuppressLint("StaticFieldLeak")
-class FilmDetailsViewModel @Inject constructor(private val context: Context) :
+class FilmDetailsViewModel @Inject constructor(
+    private val context: Context,
+    private val imageMediaStore: ImageMediaStore
+) :
     ViewModel() {
 
     private val film: MutableLiveData<Film> = MutableLiveData()
     private val isVisible: MutableLiveData<Boolean> = MutableLiveData()
     private val permission: SingleLiveEvent<Unit> = SingleLiveEvent()
+    private val loadComplete: SingleLiveEvent<Unit> = SingleLiveEvent()
+    private val isLoadImage: MutableLiveData<Boolean> = MutableLiveData()
 
     fun getFilm(): LiveData<Film> = film
 
@@ -33,6 +40,10 @@ class FilmDetailsViewModel @Inject constructor(private val context: Context) :
     fun isVisible(): LiveData<Boolean> = isVisible
 
     fun getPermission(): LiveData<Unit> = permission
+
+    fun getLoadComplete(): LiveData<Unit> = loadComplete
+
+    fun isLoadImage(): LiveData<Boolean> = isLoadImage
 
     fun onClickedDetails() {
         if (isVisible.value == null) isVisible.value = false
@@ -67,14 +78,31 @@ class FilmDetailsViewModel @Inject constructor(private val context: Context) :
     }
 
     fun onClickedDownloads() {
-        checkPermission()
+        downloadImage()
     }
 
-    private fun checkPermission() {
+    fun toImageGallery() {
+        val intent = Intent
+            .makeMainSelectorActivity(Intent.ACTION_MAIN, Intent.CATEGORY_APP_GALLERY)
+            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        context.startActivity(intent)
+    }
+
+    private val downloadScope = CoroutineScope(Dispatchers.IO)
+
+    private fun downloadImage() {
         if (isPermissionGranted()) {
             permission.value = Unit
-        } else {
-
+            return
+        }
+        MainScope().launch {
+            isLoadImage.value = true
+            val downloadsJob = downloadScope.async {
+                imageMediaStore.downloadImageUrl(film.value?.backdrop)
+            }
+            imageMediaStore.saveImageToGallery(downloadsJob.await(), film.value)
+            loadComplete.value = Unit
+            isLoadImage.value = false
         }
     }
 

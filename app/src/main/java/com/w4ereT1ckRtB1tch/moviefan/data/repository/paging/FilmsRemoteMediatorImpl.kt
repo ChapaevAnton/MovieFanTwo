@@ -14,7 +14,7 @@ import com.w4ereT1ckRtB1tch.moviefan.domain.mapper.FilmsMapper
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.FilmRemoteKeys
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Films
-import com.w4ereT1ckRtB1tch.moviefan.domain.preference.PreferenceProvider
+import com.w4ereT1ckRtB1tch.moviefan.data.preferences.PreferenceProvider
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 

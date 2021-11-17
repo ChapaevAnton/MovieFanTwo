@@ -11,7 +11,7 @@ import com.w4ereT1ckRtB1tch.moviefan.data.repository.paging.FilmsRemoteMediatorI
 import com.w4ereT1ckRtB1tch.moviefan.data.source.TmdbApi
 import com.w4ereT1ckRtB1tch.moviefan.domain.mapper.FilmsMapper
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
-import com.w4ereT1ckRtB1tch.moviefan.domain.preference.PreferenceProvider
+import com.w4ereT1ckRtB1tch.moviefan.data.preferences.PreferenceProvider
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable

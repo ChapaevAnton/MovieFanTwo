@@ -55,16 +55,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     //функция отображения SnackBar с заданной позицией и цветом
-    fun showSnackBar(text: Int) {
-
-        Snackbar.make(binding.frameSnackBar, text, Snackbar.LENGTH_LONG).also {
+    fun showSnackBar(text: Int): Snackbar {
+        return Snackbar.make(binding.frameSnackBar, text, Snackbar.LENGTH_LONG).also {
             val view = it.view
             val paramsView: CoordinatorLayout.LayoutParams =
                 view.layoutParams as CoordinatorLayout.LayoutParams
             paramsView.gravity = Gravity.BOTTOM
             view.layoutParams = paramsView
         }.setBackgroundTint(ContextCompat.getColor(binding.frameSnackBar.context, R.color.ivi_blue))
-            .show()
     }
 
     //диалоговое окно выходы из приложения

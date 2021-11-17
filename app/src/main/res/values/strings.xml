@@ -38,6 +38,7 @@
         Год выпуска: %3$s
         Рейтинг: %4$s</string>
     <string name="not_announced">не анонсирован</string>
+    <string name="permission_denied_external_storage">Загрузка изображения не разрешена</string>
 
     <!--    load state adapter-->
     <string name="error_load_state_message">Ошибка загрузки</string>

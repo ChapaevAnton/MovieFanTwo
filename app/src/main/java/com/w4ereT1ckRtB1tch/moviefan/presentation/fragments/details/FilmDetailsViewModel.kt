@@ -1,15 +1,19 @@
 package com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.details
 
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.util.Log
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.domain.model.Film
+import com.w4ereT1ckRtB1tch.moviefan.utils.SingleLiveEvent
 import javax.inject.Inject
 
 @SuppressLint("StaticFieldLeak")
@@ -18,6 +22,7 @@ class FilmDetailsViewModel @Inject constructor(private val context: Context) :
 
     private val film: MutableLiveData<Film> = MutableLiveData()
     private val isVisible: MutableLiveData<Boolean> = MutableLiveData()
+    private val permission: SingleLiveEvent<Unit> = SingleLiveEvent()
 
     fun getFilm(): LiveData<Film> = film
 
@@ -26,6 +31,8 @@ class FilmDetailsViewModel @Inject constructor(private val context: Context) :
     }
 
     fun isVisible(): LiveData<Boolean> = isVisible
+
+    fun getPermission(): LiveData<Unit> = permission
 
     fun onClickedDetails() {
         if (isVisible.value == null) isVisible.value = false
@@ -57,5 +64,24 @@ class FilmDetailsViewModel @Inject constructor(private val context: Context) :
             }
             context.startActivity(intent)
         }
+    }
+
+    fun onClickedDownloads() {
+        checkPermission()
+    }
+
+    private fun checkPermission() {
+        if (isPermissionGranted()) {
+            permission.value = Unit
+        } else {
+
+        }
+    }
+
+    private fun isPermissionGranted(): Boolean {
+        return ActivityCompat.checkSelfPermission(
+            context,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        ) != PackageManager.PERMISSION_GRANTED
     }
 }

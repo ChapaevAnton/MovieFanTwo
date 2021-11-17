@@ -72,6 +72,23 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/downloads_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="180dp"
+            app:backgroundTint="@color/ivi_red"
+            android:onClick="@{()->viewModel.onClickedDownloads()}"
+            android:visibility="invisible"
+            app:fabSize="mini"
+            app:layout_anchor="@id/include"
+            app:layout_anchorGravity="bottom|end"
+            app:rippleColor="@color/ivi_blue"
+            app:srcCompat="@drawable/ic_round_save_alt_24"
+            app:tint="@color/white"
+            app:visibleState="@{isVisible}" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/share_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

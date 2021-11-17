@@ -1,5 +1,6 @@
 package com.w4ereT1ckRtB1tch.moviefan.presentation.fragments.details
 
+import android.Manifest
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,11 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.w4ereT1ckRtB1tch.moviefan.R
 import com.w4ereT1ckRtB1tch.moviefan.databinding.FragmentFilmDetailsBinding
 import com.w4ereT1ckRtB1tch.moviefan.di.viewmodel.ViewModelFactory
+import com.w4ereT1ckRtB1tch.moviefan.presentation.MainActivity
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -23,6 +27,7 @@ class FilmDetailsFragment : DaggerFragment(R.layout.fragment_film_details) {
     private var _binding: FragmentFilmDetailsBinding? = null
     private val binding get() = _binding!!
     private val args: FilmDetailsFragmentArgs by navArgs()
+    private var permissionResult: ActivityResultLauncher<String>? = null
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -30,6 +35,15 @@ class FilmDetailsFragment : DaggerFragment(R.layout.fragment_film_details) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        permissionResult =
+            registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+                if (granted) {
+                    Log.d("TAG", "Permission granted...!")
+                } else {
+                    Log.d("TAG", "Permission denied...!")
+                    (requireActivity() as MainActivity).showSnackBar(R.string.permission_denied_external_storage)
+                }
+            }
         viewModel.setFilm(args.film)
         fabRotateClock =
             AnimationUtils.loadAnimation(requireContext(), R.anim.fab_rotate_clock_animation)
@@ -63,6 +77,13 @@ class FilmDetailsFragment : DaggerFragment(R.layout.fragment_film_details) {
                     detailsFab.startAnimation(fabRotateClock)
                 isVisible = visible
             }
+        }
+
+        viewModel.getPermission().observe(viewLifecycleOwner) {
+            permissionResult?.launch(
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                null
+            )
         }
     }
 
